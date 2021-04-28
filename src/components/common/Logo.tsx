@@ -81,7 +81,7 @@ const Logo = ({ fill = THEME_COLOR, logoSelection }: Props) => {
     svgProps.viewBox = '0 0 640 340';
   }
   return (
-    <Box area-label="ロゴ" fontWeight="bold">
+    <Box area-label="ロゴ" fontWeight="bold" w="200px">
       <LinkChakra href={'/'}>
         <svg {...svgProps}>
           <g fill={fill}>

@@ -1,10 +1,11 @@
 import {
+  SITE_DESC,
   SITE_FULL_URL,
   VERCEL_GITHUB_REPOSITORY_TOP,
   VERCEL_LAST_COMMIT,
   VERCEL_LAST_COMMIT_MESSAGE,
 } from '@/lib/constants';
-import { Button, Box, Container, Flex, Stack, useColorMode, Badge } from '@chakra-ui/react';
+import { Button, Box, Container, Flex, Stack, useColorMode, Badge, Center } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import Logo from '@/components/common/Logo';
 
@@ -21,24 +22,18 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
       <Container maxW={`${maxW}px`}>
         <Flex
           flexDirection={{ base: 'column', md: 'row' }}
-          justifyContent="space-between"
-          alignItems="center"
+          justifyContent={{ base: 'center', lg: 'space-between' }}
+          alignItems={{ base: 'center', lg: 'flex-end' }}
           px={{ base: 3, lg: 0 }}
         >
-          <Box pr={6}>
-            <Box mb={4}>
+          <Box textAlign={{ base: 'center', lg: 'left' }} pr={6} mb={{ base: 6, lg: 0 }}>
+            <Flex mb={4} justifyContent={{ base: 'center', lg: 'flex-start' }}>
               <Logo logoSelection="nomaikura" fill="white" />
-            </Box>
-            <Box mb={4}>
-              Powered by{' '}
-              <LinkChakra isExternal href="https://aely.one">
-                Aelyone
-              </LinkChakra>
-            </Box>
+            </Flex>
 
-            <Box mb={4}>made with</Box>
+            <Box mb={4}>{SITE_DESC}</Box>
 
-            <Flex flexWrap="wrap" spacing={4} mb={6}>
+            <Flex flexWrap="wrap" spacing={4}>
               <Button
                 colorScheme="blue"
                 leftIcon={
@@ -65,7 +60,7 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
               </Button>
             </Flex>
           </Box>
-          <Box textAlign="right">
+          <Box textAlign={{ base: 'center', lg: 'right' }}>
             <Box mb={3}>
               Released under MIT License.{` `}
               <br />

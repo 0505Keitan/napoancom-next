@@ -29,7 +29,7 @@ const Index = ({ posts, environment }: IndexProps) => {
                 <Divider />
               </VStack>
               {posts && posts.length > 0 && <PostList mode="archive" posts={posts} />}
-              <Button mt={6} w="full" as={LinkChakra} href="/postpage/1/">
+              <Button mt={12} h={20} fontSize="xl" w="full" as={LinkChakra} href="/postpage/1/">
                 記事一覧へ
               </Button>
             </Box>
