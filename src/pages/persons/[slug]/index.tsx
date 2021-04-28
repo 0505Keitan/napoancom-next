@@ -25,6 +25,7 @@ const personIndex = ({ person, preview, posts }: IndexProps) => {
         </>
       ) : (
         <Layout
+          disableAside
           preview={preview}
           meta={{
             title: `${person.displayName}の紹介`,

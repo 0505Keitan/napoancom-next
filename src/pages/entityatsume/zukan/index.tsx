@@ -30,6 +30,7 @@ export default function EntityIndex({ entities, preview }: EntityIndexProps) {
         </Layout>
       ) : (
         <Layout
+          disableAside
           preview={preview}
           meta={{ title: 'エンティティの一覧', desc: 'エンティティの一覧' }}
         >

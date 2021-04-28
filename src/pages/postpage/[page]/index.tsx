@@ -32,6 +32,7 @@ const PostPage = ({ posts, totalCount, currentPage, environment, revalEnv }: Ind
         </Layout>
       ) : (
         <Layout
+          disableAside
           preview={environment}
           meta={{ title: `記事一覧 ${currentPage}ページ目 | ${SITE_NAME}`, desc: SITE_DESC }}
         >

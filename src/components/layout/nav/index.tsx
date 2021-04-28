@@ -114,13 +114,6 @@ export default class Nav extends Component<NavProps, { prevScrollpos: number; vi
                 >
                   Twitter
                 </Button>
-                <Button
-                  leftIcon={<FaiconDiv icon={['fas', 'book']} />}
-                  as={LinkChakra}
-                  href="/eula/"
-                >
-                  利用規約
-                </Button>
               </HStack>
 
               <Box pl={4} pr={3}>

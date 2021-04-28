@@ -21,7 +21,7 @@ const Index = ({ posts, environment }: IndexProps) => {
           <ErrorPage title="ページのデータを取得できませんでした" statusCode={404} />
         </Layout>
       ) : (
-        <Layout preview={environment} meta={{ title: SITE_NAME, desc: SITE_DESC }}>
+        <Layout disableAside preview={environment} meta={{ title: SITE_NAME, desc: SITE_DESC }}>
           {posts && (
             <Box mt={6} mb={10}>
               <VStack textStyle="h1" spacing={4} mb={8}>

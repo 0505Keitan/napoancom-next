@@ -27,6 +27,7 @@ interface LayoutProps {
   revalEnv?: number;
   hideAdsense?: boolean;
   post?: Post;
+  disableAside?: boolean;
 }
 
 export default function Layout({
@@ -36,13 +37,16 @@ export default function Layout({
   revalEnv,
   hideAdsense,
   post,
+  disableAside,
 }: LayoutProps) {
   const { colorMode } = useColorMode();
 
   return (
     <>
+      {/* OGPの生成 */}
       <Meta title={meta.title} desc={meta.desc} heroImageUrl={meta.ogpUrl} />
       <Box
+        // Adsenseの制御はsx propで
         sx={
           hideAdsense
             ? {
@@ -82,18 +86,42 @@ export default function Layout({
             px={{ base: 3, md: 0 }}
             flexDirection="row-reverse"
           >
-            <Box
-              as="main"
-              mx="auto"
-              pt={8}
-              overflowX="hidden"
-              maxW={`${MAIN_WIDTH}px`}
-              minW={{ base: '100%', md: `${MAIN_WIDTH}px` }}
-              pl={{ base: 0, lg: `${LAYOUT_PADDING}px` }}
-            >
-              {children}
-            </Box>
-            <Aside post={post} hideAdsense={hideAdsense ?? false} w={ASIDE_WITDH} />
+            {/* disableAsideがtrueならこのmainが横幅いっぱいになります */}
+            {disableAside ? (
+              <Box
+                as="main"
+                mx="auto"
+                pt={8}
+                overflowX="hidden"
+                maxW={{
+                  base: `${MAIN_WIDTH}px`,
+                  md: `container.md`,
+                  lg: `container.xl`,
+                }}
+                minW={{ base: '100%', md: `${MAIN_WIDTH}px` }}
+                pl={0}
+              >
+                {children}
+              </Box>
+            ) : (
+              <Box
+                as="main"
+                mx="auto"
+                pt={8}
+                overflowX="hidden"
+                maxW={{
+                  base: `${MAIN_WIDTH}px`,
+                  md: `${MAIN_WIDTH}px`,
+                }}
+                minW={{ base: '100%', md: `${MAIN_WIDTH}px` }}
+                pl={{ base: 0, lg: `${LAYOUT_PADDING}px` }}
+              >
+                {children}
+              </Box>
+            )}
+            {!disableAside && (
+              <Aside post={post} hideAdsense={hideAdsense ?? false} w={ASIDE_WITDH} />
+            )}
           </Flex>
           <LayoutFooter maxW={LAYOUT_MAXW} revalidate={revalEnv} />
         </Box>
