@@ -31,7 +31,7 @@ const SideContent = ({ post, hideAdsense }: SideContentProps) => {
               tweetText={`${post.title}\n${SITE_FULL_URL}/${post.slug}`}
             />
           </Box>
-          <Box py={2}>
+          <Box py={2} display={{ base: 'none', lg: 'flex' }}>
             <LikeDislike likeCount={post.like ?? 0} dislikeCount={post.dislike ?? 0} />
           </Box>
           <Box py={8} className={tocStyles['toc']}>

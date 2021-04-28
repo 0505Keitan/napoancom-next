@@ -46,11 +46,14 @@ const PostHeading = ({ post }: Props) => {
       <VStack>
         {post.person && <PersonList persons={[post.person]} />}
         <Spacer />
-        <FukidashiShare
-          tweetCount={post.tweetCount ?? 0}
-          tweetText={`${post.title}\n${SITE_FULL_URL}/${post.slug}`}
-        />
-        <LikeDislike likeCount={post.like ?? 0} dislikeCount={post.dislike ?? 0} />
+        {/* ドロワーメニューと被るので消す */}
+        <Box display={{ base: 'flex', lg: 'none' }}>
+          <FukidashiShare
+            tweetCount={post.tweetCount ?? 0}
+            tweetText={`${post.title}\n${SITE_FULL_URL}/${post.slug}`}
+          />
+          <LikeDislike likeCount={post.like ?? 0} dislikeCount={post.dislike ?? 0} />
+        </Box>
       </VStack>
     </Box>
   );

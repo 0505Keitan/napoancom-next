@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
 import { Box, Button, ColorMode, Container, HStack, Spacer } from '@chakra-ui/react';
-import { ReactNode } from 'react';
 import DrawerLeft from './drawer-left';
-import SiteLogo from '@/components/common/SiteLogo';
-import PostList from '../../partials/post';
 import { Post } from '@/models/contentful/Post';
 import LinkChakra from '@/components/common/link-chakra';
 import FaiconDiv from '@/components/common/faicon-div';
 import { CREATOR_ID } from '@/lib/constants';
 import { NAV_HEIGHT } from '@/lib/chakra/theme';
 import ColorSwitch from '../color-switch';
+import Logo from '@/components/common/Logo';
 const SignIn = dynamic(() => import('./drawer-left/signin'), { ssr: false });
 
 interface NavProps {
@@ -99,7 +97,9 @@ export default class Nav extends Component<NavProps, { prevScrollpos: number; vi
               <Box mr={4} w={{ base: 'auto', xl: 0 }} display={{ base: 'flex', lg: 'none' }}>
                 <DrawerLeft post={this.props.post} hideAdsense={this.props.hideAdsense ?? false} />
               </Box>
-              <SiteLogo display={{ base: 'none', md: 'inline-block' }} />
+              <Box pr={4} display={{ base: 'none', md: 'inline-block' }}>
+                <Logo logoSelection="nomaikura" />
+              </Box>
 
               <ColorSwitch />
 

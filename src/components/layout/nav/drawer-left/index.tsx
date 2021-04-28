@@ -13,8 +13,8 @@ import {
 import FaiconDiv from '@/components/common/faicon-div';
 import SideContent from '../../side-content';
 import { Post } from '@/models/contentful/Post';
-import SiteLogo from '@/components/common/SiteLogo';
 import { ASIDE_WITDH } from '@/lib/chakra/theme';
+import Logo from '@/components/common/Logo';
 
 interface Props {
   post?: Post;
@@ -47,7 +47,7 @@ export default function DrawerLeft({ post, hideAdsense }: Props) {
           <DrawerContent>
             <DrawerCloseButton />
             <DrawerBody minW="320px" px={3} pt={8} pb={6}>
-              <SiteLogo />
+              <Logo logoSelection="nomaikura" />
               <SideContent hideAdsense={hideAdsense ?? false} post={post} />
             </DrawerBody>
           </DrawerContent>

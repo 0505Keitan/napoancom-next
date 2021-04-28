@@ -1,11 +1,12 @@
-import { CREATOR_ID, VERCEL_LAST_COMMIT, VERCEL_LAST_COMMIT_MESSAGE } from '@/lib/constants';
+import {
+  SITE_FULL_URL,
+  VERCEL_GITHUB_REPOSITORY_TOP,
+  VERCEL_LAST_COMMIT,
+  VERCEL_LAST_COMMIT_MESSAGE,
+} from '@/lib/constants';
 import { Button, Box, Container, Flex, Stack, useColorMode, Badge } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import Logo from '@/components/common/Logo';
-
-const pkg = require('../../../../package.json');
-const repoUrl = pkg.repository.url;
-const repoV = pkg.version;
 
 interface FooterProps {
   revalidate?: number;
@@ -25,10 +26,16 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
           px={{ base: 3, lg: 0 }}
         >
           <Box pr={6}>
-            <Box mb={4}>Powered by</Box>
             <Box mb={4}>
-              <Logo fill="white" />
+              <Logo logoSelection="nomaikura" fill="white" />
             </Box>
+            <Box mb={4}>
+              Powered by{' '}
+              <LinkChakra isExternal href="https://aely.one">
+                Aelyone
+              </LinkChakra>
+            </Box>
+
             <Box mb={4}>made with</Box>
 
             <Flex flexWrap="wrap" spacing={4} mb={6}>
@@ -59,13 +66,12 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
             </Flex>
           </Box>
           <Box textAlign="right">
-            <Box>
-              Articles/images: &copy; 2021{` `}
-              <LinkChakra href={`https://twitter.com/aelyone`}>Aelyone</LinkChakra>
-            </Box>
             <Box mb={3}>
-              Code of web app: {` `}
-              <LinkChakra href={repoUrl}>MIT License</LinkChakra>
+              Released under MIT License.{` `}
+              <br />
+              <LinkChakra href={VERCEL_GITHUB_REPOSITORY_TOP + '/blob/main/LICENSE'}>
+                (License text is on GitHub)
+              </LinkChakra>
             </Box>
             <Stack direction="column">
               <Box>
@@ -82,7 +88,7 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
               )}
               <Box>
                 <Badge maxW="20rem" whiteSpace="nowrap" textTransform="none" isTruncated>
-                  v{repoV} / Last commit:{' '}
+                  Last commit:{' '}
                   <LinkChakra href={VERCEL_LAST_COMMIT}>{VERCEL_LAST_COMMIT_MESSAGE}</LinkChakra>
                 </Badge>
               </Box>
