@@ -13,11 +13,11 @@ const MultiPosts = ({ posts, mode }: MultiPostProps) => {
     return (
       <section>
         <Center flexDirection="column">
-          <Container maxW="container.md">
-            <CompactPost post={posts[0]} />
-          </Container>
+          <Box w="full">
+            <CompactPost mode="top" post={posts[0]} />
+          </Box>
           <Divider my={8} borderColor="gray.400" />
-          <SimpleGrid maxW="100vw" spacing={4} columns={{ base: 1, lg: 2 }}>
+          <SimpleGrid maxW="100vw" spacing={4} columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}>
             {morePosts.map((post: PostForList) => (
               <CompactPost mode={mode} key={post.slug} post={post} />
             ))}
