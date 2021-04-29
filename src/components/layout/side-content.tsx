@@ -32,7 +32,11 @@ const SideContent = ({ post, hideAdsense }: SideContentProps) => {
             />
           </Box>
           <Box w="full" py={2} display={{ base: 'none', lg: 'flex' }}>
-            <LikeDislike likeCount={post.like ?? 0} dislikeCount={post.dislike ?? 0} />
+            <LikeDislike
+              slug={post.slug}
+              likeCount={post.like ?? 0}
+              dislikeCount={post.dislike ?? 0}
+            />
           </Box>
           <Box py={8} className={tocStyles['toc']}>
             <ReactMarkdownHeading markdown={post.body} hyperlink />

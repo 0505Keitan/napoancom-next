@@ -1,14 +1,15 @@
 import { Box, Flex, Button } from '@chakra-ui/react';
 import FaiconDiv from './faicon-div';
 import { useRef, useState } from 'react';
+import firebase from '@/lib/firebase/index';
 
-interface TocProps {
+interface Props {
   likeCount?: number;
   dislikeCount?: number;
-  slug?: string;
+  slug: string;
 }
 
-const LikeDislike = ({ likeCount, dislikeCount, slug }: TocProps) => {
+const LikeDislike = ({ likeCount, dislikeCount, slug }: Props) => {
   const alertRef = useRef(null);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
@@ -27,14 +28,21 @@ const LikeDislike = ({ likeCount, dislikeCount, slug }: TocProps) => {
   }
 
   const Like = async () => {
-    if (!liked) {
-      await fetch(process.env.HTTPS_URL + '/api/editBlogPosts/like?slug=' + slug)
-        .then((res) => {
-          if (res.status == 200) {
-            setLikeValue((prevValue) => prevValue + 1);
-            console.info(`Added like: ${JSON.stringify(res)}`);
-            setLiked(true);
-          }
+    if (!liked && !disliked) {
+      await firebase
+        .firestore()
+        .collection('blogPosts')
+        .doc(slug)
+        .set(
+          {
+            like: firebase.firestore.FieldValue.increment(1),
+          },
+          { merge: true },
+        )
+        .then(() => {
+          setLikeValue((prevValue) => prevValue + 1);
+          console.info(`Added like`);
+          setLiked(true);
         })
         .catch((e) => {
           console.error(e);
@@ -43,14 +51,21 @@ const LikeDislike = ({ likeCount, dislikeCount, slug }: TocProps) => {
   };
 
   const Dislike = async () => {
-    if (!disliked) {
-      await fetch(process.env.HTTPS_URL + '/api/editBlogPosts/dislike?slug=' + slug)
-        .then((res) => {
-          if (res.status == 200) {
-            setDislikeValue((prevValue) => prevValue + 1);
-            console.info(`Added dislike: ${JSON.stringify(res)}`);
-            setDisliked(true);
-          }
+    if (!liked && !disliked) {
+      await firebase
+        .firestore()
+        .collection('blogPosts')
+        .doc(slug)
+        .set(
+          {
+            dislike: firebase.firestore.FieldValue.increment(1),
+          },
+          { merge: true },
+        )
+        .then(() => {
+          setDislikeValue((prevValue) => prevValue + 1);
+          console.info(`Added dislike`);
+          setDisliked(true);
         })
         .catch((e) => {
           console.error(e);

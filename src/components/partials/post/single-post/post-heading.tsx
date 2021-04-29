@@ -49,7 +49,11 @@ const PostHeading = ({ post }: Props) => {
               tweetText={`${post.title}\n${SITE_FULL_URL}/${post.slug}`}
             />
           </Box>
-          <LikeDislike likeCount={post.like ?? 0} dislikeCount={post.dislike ?? 0} />
+          <LikeDislike
+            slug={post.slug}
+            likeCount={post.like ?? 0}
+            dislikeCount={post.dislike ?? 0}
+          />
         </Box>
       </VStack>
     </Box>
