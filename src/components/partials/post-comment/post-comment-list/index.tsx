@@ -137,7 +137,7 @@ export default function PostCommentList({ postComments, post }: Props) {
             </Box>
           ) : (
             <div className="my-6">
-              <LinkChakra href="/signin">サインイン</LinkChakra>
+              <LinkChakra href="/users/me">サインイン</LinkChakra>
               してコメントしてみよう!
             </div>
           )}
