@@ -1,4 +1,4 @@
-import { THEME_COLOR } from '@/lib/chakra/theme';
+import { THEME_COLOR } from '@/theme/index';
 import { Box } from '@chakra-ui/react';
 import LinkChakra from './link-chakra';
 

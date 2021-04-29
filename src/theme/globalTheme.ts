@@ -4,25 +4,26 @@ import { mode } from '@chakra-ui/theme-tools';
 export const globalLayout = {
   navHeight: 56,
   asideWitdh: 300,
-  mainWidth: 650,
+  // mainWidth: 650,
+  mainWidth: 900,
   layoutPadding: 30,
   maxW: 0,
 };
 
 globalLayout.maxW = globalLayout.asideWitdh + globalLayout.mainWidth + globalLayout.layoutPadding;
 
-const customBreakPoints = createBreakpoints({
+export const customBreakPoints = createBreakpoints({
   sm: '30em',
   //md: "48em",
-  md: '40.625em', // 650px
-  lg: `${globalLayout.maxW}px`,
+  md: `${globalLayout.mainWidth / 16}em`,
+  lg: `${globalLayout.maxW / 16}em`,
   xl: '80em',
   '2xl': '96em',
 });
 
 // Do not name this 'theme' since this must be 'extended' with 'extendTheme'
 const globalTheme = {
-  breakPoints: customBreakPoints,
+  breakpoints: customBreakPoints,
   textStyles: {
     h1: {
       fontSize: ['28px', '36px'],
@@ -137,7 +138,7 @@ const globalTheme = {
           )(props),
         },
         'img,video': {
-          maxWidth: '100%',
+          objectFit: 'cover',
           height: 'auto',
           margin: '0.2rem 0',
         },

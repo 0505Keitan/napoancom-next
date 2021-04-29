@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
-import { Box, Button, ColorMode, Container, HStack, Spacer } from '@chakra-ui/react';
+import { Box, Button, ColorMode, HStack, Spacer } from '@chakra-ui/react';
 import DrawerLeft from './drawer-left';
 import { Post } from '@/models/contentful/Post';
 import LinkChakra from '@/components/common/link-chakra';
 import FaiconDiv from '@/components/common/faicon-div';
 import { CREATOR_ID } from '@/lib/constants';
-import { NAV_HEIGHT } from '@/lib/chakra/theme';
+import { NAV_HEIGHT } from '@/theme/index';
 import ColorSwitch from '../color-switch';
 import Logo from '@/components/common/Logo';
-const SignIn = dynamic(() => import('./drawer-left/signin'), { ssr: false });
+const SignIn = dynamic(() => import('./signin'), { ssr: false });
 
 interface NavProps {
   preview: boolean;
   post?: Post;
   colorMode: ColorMode;
-  maxW: number;
   hideAdsense?: boolean;
 }
 
@@ -88,39 +87,38 @@ export default class Nav extends Component<NavProps, { prevScrollpos: number; vi
           h={`${NAV_HEIGHT}px`}
           as="nav"
           py={2}
+          px={3}
           shadow="lg"
           position="fixed"
           className={this.state.visible ? 'translateY' : 'translateY hidden'}
         >
-          <Container maxW={`${this.props.maxW}px`} px={0}>
-            <HStack>
-              <Box mr={4} w={{ base: 'auto', xl: 0 }} display={{ base: 'flex', lg: 'none' }}>
-                <DrawerLeft post={this.props.post} hideAdsense={this.props.hideAdsense ?? false} />
-              </Box>
-              <Box pr={4} display={{ base: 'none', md: 'inline-block' }}>
-                <Logo logoSelection="nomaikura" />
-              </Box>
+          <HStack>
+            <Box mr={4} w={{ base: 'auto', xl: 0 }} display={{ base: 'flex', lg: 'none' }}>
+              <DrawerLeft post={this.props.post} hideAdsense={this.props.hideAdsense ?? false} />
+            </Box>
+            <Box pr={4} display={{ base: 'none', md: 'inline-block' }}>
+              <Logo logoSelection="nomaikura" />
+            </Box>
 
-              <ColorSwitch />
+            <ColorSwitch />
 
-              <Spacer />
+            <Spacer />
 
-              <HStack display={{ base: 'none', md: 'inline-block' }}>
-                <Button
-                  isExternal
-                  leftIcon={<FaiconDiv icon={['fab', 'twitter']} />}
-                  as={LinkChakra}
-                  href={`https://twitter.com/${CREATOR_ID}`}
-                >
-                  Twitter
-                </Button>
-              </HStack>
-
-              <Box pl={4} pr={3}>
-                <SignIn />
-              </Box>
+            <HStack display={{ base: 'none', md: 'inline-block' }}>
+              <Button
+                isExternal
+                leftIcon={<FaiconDiv icon={['fab', 'twitter']} />}
+                as={LinkChakra}
+                href={`https://twitter.com/${CREATOR_ID}`}
+              >
+                Twitter
+              </Button>
             </HStack>
-          </Container>
+
+            <Box pl={4}>
+              <SignIn />
+            </Box>
+          </HStack>
         </Box>
       </Box>
     );

@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { Post } from '@/models/contentful/Post';
-import { NAV_HEIGHT } from '@/lib/chakra/theme';
+import { NAV_HEIGHT } from '@/theme/index';
 import SideContent from '../side-content';
 
 interface LeftStickyProps {
@@ -18,13 +18,13 @@ const Aside = ({ w, post, hideAdsense }: LeftStickyProps) => {
       position="sticky"
       as="aside"
       sx={{ '.noScrollBar::-webkit-scrollbar': { display: 'none' } }}
-      display={{ base: 'none', lg: 'flex' }}
+      display={{ base: 'none', md: 'none', lg: 'flex' }}
       w={`${w}px`}
       h="100vh"
       zIndex={5}
-      pt={8}
+      pl={3}
     >
-      <Box w="full" h="full" overflowY="scroll" className="noScrollBar">
+      <Box w="full" h="full" overflowY="scroll" className="noScrollBar" pt={6} pb={8}>
         <SideContent post={post} hideAdsense={hideAdsense ?? false} />
       </Box>
     </Box>

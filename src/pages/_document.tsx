@@ -2,7 +2,7 @@ import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/do
 import React from 'react';
 import { ColorModeScript } from '@chakra-ui/react';
 import { GA_TRACKING_ID } from '@/lib/gtag';
-import colorMode from '@/lib/chakra/color-mode';
+import colorMode from '../theme/color-mode';
 
 interface DocumentProps {
   preview: boolean;

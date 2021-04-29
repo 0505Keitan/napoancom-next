@@ -23,7 +23,8 @@
       "@/lib/*": ["lib/*"],
       "@/hooks/*": ["hooks/*"],
       "@/models/*": ["models/*"],
-      "@/styles/*": ["styles/*"]
+      "@/styles/*": ["styles/*"],
+      "@/theme/*": ["theme/*"]
     }
   },
   "exclude": ["./node_modules"],

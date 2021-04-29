@@ -13,7 +13,6 @@ import {
 import FaiconDiv from '@/components/common/faicon-div';
 import SideContent from '../../side-content';
 import { Post } from '@/models/contentful/Post';
-import { ASIDE_WITDH } from '@/lib/chakra/theme';
 import Logo from '@/components/common/Logo';
 
 interface Props {
