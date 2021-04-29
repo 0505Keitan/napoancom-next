@@ -65,7 +65,7 @@ interface GSProps {
 }
 
 const TOTAL_LIMIT = parseInt(process.env.TOTAL_PAGINATION ?? '600');
-const PER_PAGE = parseInt(process.env.PAGINATION ?? '10');
+const PER_PAGE = parseInt(process.env.PAGINATION ?? '12');
 
 export async function getStaticProps({ preview = false, params }: GSProps) {
   const skipAmount = (params.page - 1) * PER_PAGE;
