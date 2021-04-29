@@ -27,7 +27,7 @@ export function CompactPost({ post, mode }: Props) {
             rounded="lg"
             bg="linear-gradient(#2687e8, #2655ff)"
             mb={2}
-            h={32}
+            h="110px"
             overflow="hidden"
             w={{ base: 'full', md: mode == 'top' ? '50%' : 'auto' }}
             mr={mode == 'top' ? 8 : 0}
@@ -43,7 +43,7 @@ export function CompactPost({ post, mode }: Props) {
               fontSize={mode == 'top' ? '2xl' : 'lg'}
               fontWeight="bold"
               mb={2}
-              h={mode == 'drawer' ? '90px' : '100px'}
+              h={'90px'}
               overflow="hidden"
               w="full"
               isTruncated

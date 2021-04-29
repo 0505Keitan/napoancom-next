@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import { ReactNode } from 'react';
 import { Flex, Box, Button, useColorMode, Center } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
@@ -5,16 +6,11 @@ import Meta from './meta';
 
 import { Post } from '@/models/contentful/Post';
 
-import {
-  ASIDE_WITDH,
-  LAYOUT_MAXW,
-  LAYOUT_PADDING,
-  MAIN_WIDTH,
-  NAV_HEIGHT,
-} from '@/lib/chakra/theme';
-import Nav from './nav';
-import Aside from './aside';
-import LayoutFooter from './layout-footer';
+import { ASIDE_WITDH, LAYOUT_MAXW, LAYOUT_PADDING, MAIN_WIDTH, NAV_HEIGHT } from '@/theme/index';
+import Image from 'next/image';
+const Nav = dynamic(() => import('./nav'));
+const Aside = dynamic(() => import('./aside'));
+const LayoutFooter = dynamic(() => import('./layout-footer'));
 
 interface LayoutProps {
   preview: boolean;
@@ -66,26 +62,20 @@ export default function Layout({
       >
         <Nav
           post={post}
-          maxW={LAYOUT_MAXW}
           colorMode={colorMode}
           preview={preview}
           hideAdsense={hideAdsense ?? false}
         />
 
         <Box pt={`${NAV_HEIGHT}px`}>
-          <Flex
-            mx="auto"
-            maxWidth={{
-              base: '100vw',
-              lg: `${LAYOUT_MAXW}px`,
-            }}
-            minW={{
-              base: '100vw',
-              lg: `${LAYOUT_MAXW}px`,
-            }}
-            px={{ base: 3, md: 0 }}
-            flexDirection="row-reverse"
-          >
+          {post && post.heroImage && (
+            <Center w="full" bg="gray.900">
+              <Box h="360px" w="650px" position="relative">
+                <Image objectFit="cover" layout="fill" src={post.heroImage.url} />
+              </Box>
+            </Center>
+          )}
+          <Flex mx="auto" w="100vw" px={{ base: 3, md: 0 }} flexDirection="row-reverse">
             {/* disableAsideがtrueならこのmainが横幅いっぱいになります */}
             {disableAside ? (
               <Box
@@ -109,10 +99,7 @@ export default function Layout({
                 mx="auto"
                 pt={8}
                 overflowX="hidden"
-                maxW={{
-                  base: `${MAIN_WIDTH}px`,
-                  md: `${MAIN_WIDTH}px`,
-                }}
+                maxW={{ base: '100vw', md: `${MAIN_WIDTH}px` }}
                 minW={{ base: '100%', md: `${MAIN_WIDTH}px` }}
                 pl={{ base: 0, lg: `${LAYOUT_PADDING}px` }}
               >

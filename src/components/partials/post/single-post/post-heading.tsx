@@ -15,11 +15,6 @@ interface Props {
 const PostHeading = ({ post }: Props) => {
   return (
     <Box>
-      {post.heroImage && (
-        <Box mb={6}>
-          <Image src={post.heroImage.url} width={650} height={365} layout="responsive" />
-        </Box>
-      )}
       <Flex mb={2}>
         <Badge area-label="公開日時" colorScheme="blue" fontSize="1.1rem">
           公開: {dayjs(post.publishDate ?? post.sys.firstPublishedAt).format('YYYY/MM/DD')}
@@ -28,7 +23,7 @@ const PostHeading = ({ post }: Props) => {
           最終更新: {dayjs(post.sys.publishedAt).format('YYYY/MM/DD')}
         </Badge>
       </Flex>
-      <Box textStyle="h1" mb={4}>
+      <Box fontSize={{ base: '32px', md: '40px' }} lineHeight="1.2em" fontWeight="bold" mb={4}>
         <LinkChakra href={`/${post.slug}`}>
           <h1>{post.title}</h1>
         </LinkChakra>
