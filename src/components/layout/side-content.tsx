@@ -32,13 +32,25 @@ const SideContent = ({ post, hideAdsense }: SideContentProps) => {
             />
           </Box>
           <Box w="full" py={2} display={{ base: 'none', lg: 'flex' }}>
-            <LikeDislike likeCount={post.like ?? 0} dislikeCount={post.dislike ?? 0} />
+            <LikeDislike
+              slug={post.slug}
+              likeCount={post.like ?? 0}
+              dislikeCount={post.dislike ?? 0}
+            />
           </Box>
           <Box py={8} className={tocStyles['toc']}>
             <ReactMarkdownHeading markdown={post.body} hyperlink />
           </Box>
         </>
       )}
+
+      <Button
+        leftIcon={<FaiconDiv icon={['fas', 'comment-alt']} />}
+        as={LinkChakra}
+        href="/contact/"
+      >
+        お問い合わせ
+      </Button>
 
       <Button leftIcon={<FaiconDiv icon={['fas', 'book']} />} as={LinkChakra} href="/eula/">
         利用規約

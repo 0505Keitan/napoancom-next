@@ -1,7 +1,7 @@
 //import dynamic from 'next/dynamic';
 import Layout from '@/components/layout';
 import { useAuthentication } from '../../hooks/authentication';
-import firebase from 'firebase/app';
+import firebase from '@/lib/firebase/index';
 import { Box, Heading, ButtonGroup, Stack } from '@chakra-ui/react';
 import {
   InputControl,
