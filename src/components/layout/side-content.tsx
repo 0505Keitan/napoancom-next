@@ -40,6 +40,14 @@ const SideContent = ({ post, hideAdsense }: SideContentProps) => {
         </>
       )}
 
+      <Button
+        leftIcon={<FaiconDiv icon={['fas', 'comment-alt']} />}
+        as={LinkChakra}
+        href="/contact/"
+      >
+        お問い合わせ
+      </Button>
+
       <Button leftIcon={<FaiconDiv icon={['fas', 'book']} />} as={LinkChakra} href="/eula/">
         利用規約
       </Button>
