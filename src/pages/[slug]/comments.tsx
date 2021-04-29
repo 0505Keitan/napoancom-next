@@ -87,11 +87,14 @@ export async function getStaticProps({ params, preview }: GSProps) {
     posts = await postsRes.json();
   }
   let postComments = [];
-  const commentsRes = await fetch(process.env.API_URL + `/postComments?slug=${params.slug}`, {
-    headers: {
-      authorization: process.env.FUNCTION_AUTH ?? '',
+  const commentsRes = await fetch(
+    process.env.API_URL + `/postComments-getCommentsBySlug?slug=${params.slug}`,
+    {
+      headers: {
+        authorization: process.env.FUNCTION_AUTH ?? '',
+      },
     },
-  });
+  );
   if (commentsRes.ok) {
     postComments = await commentsRes.json();
   }
