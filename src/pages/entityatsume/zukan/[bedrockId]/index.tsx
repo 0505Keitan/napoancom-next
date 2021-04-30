@@ -1,21 +1,23 @@
 import ErrorPage from 'next/error';
-import { Entity } from '@/models/nest/Entity';
+import { Entity } from '@/models/entityatsume/Entity';
 import Layout from '@/components/layout';
-import { Box, Center, Heading } from '@chakra-ui/react';
+import { Badge, Box, Center, Heading } from '@chakra-ui/react';
 
 import Head from 'next/head';
 
 import EntityList from '@/components/partials/entity';
 import { useRouter } from 'next/router';
-import { getAllEntities, getEntity } from '@/lib/nest/entities';
+import getAll from '@/lib/gacha/getAll';
+import getByBedrockId from '@/lib/gacha/getByBedrockId';
 
 interface EntityPageProps {
   firstEntity: Entity;
   preview: boolean;
   revalEnv: number;
+  message: string;
 }
 
-export default function EntityPage({ preview, firstEntity, revalEnv }: EntityPageProps) {
+export default function EntityPage({ preview, firstEntity, revalEnv, message }: EntityPageProps) {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -56,6 +58,7 @@ export default function EntityPage({ preview, firstEntity, revalEnv }: EntityPag
               />
             </Head>
             <Box py={20}>
+              {message && <Badge>{message}</Badge>}
               {preview && <Box>デバッグ: プレビューON</Box>}
 
               {firstEntity && (
@@ -80,11 +83,11 @@ interface GSProps {
 }
 
 export async function getStaticProps({ params, preview }: GSProps) {
-  const entity = await getEntity(params.bedrockId);
-
+  const result = await getByBedrockId({ bedrockId: params.bedrockId, useStaging: false });
+  console.log(result);
   const revalEnv = parseInt(process.env.REVALIDATE ?? '1800');
 
-  if (!entity) {
+  if (!result.entity) {
     return {
       notFound: true,
     };
@@ -92,7 +95,8 @@ export async function getStaticProps({ params, preview }: GSProps) {
   return {
     props: {
       preview: preview ?? false,
-      firstEntity: entity ?? null,
+      firstEntity: result.entity ?? null,
+      message: result.message ?? null,
       revalEnv: revalEnv,
     },
     revalidate: revalEnv,
@@ -100,10 +104,14 @@ export async function getStaticProps({ params, preview }: GSProps) {
 }
 
 export async function getStaticPaths() {
-  const allEntities = await getAllEntities({ useStaging: false });
-  let paths =
-    allEntities?.map((entity: Entity) => `/entityatsume/zukan/${entity.bedrockId}/`) ?? [];
-
+  const allEntitiesData = await getAll(false);
+  let paths: string[] = [];
+  if (allEntitiesData.entities) {
+    paths =
+      allEntitiesData.entities.map(
+        (entity: Entity) => `/entityatsume/zukan/${entity.bedrockId}/`,
+      ) ?? [];
+  }
   return {
     paths: paths,
     fallback: true,

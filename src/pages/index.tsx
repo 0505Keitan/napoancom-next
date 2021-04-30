@@ -22,6 +22,17 @@ const Index = ({ posts, environment }: IndexProps) => {
         </Layout>
       ) : (
         <Layout disableAside preview={environment} meta={{ title: SITE_NAME, desc: SITE_DESC }}>
+          <Button
+            colorScheme="purple"
+            my={6}
+            h={20}
+            fontSize="xl"
+            w="full"
+            as={LinkChakra}
+            href="/entityatsume"
+          >
+            特別企画: GWエンティティガチャ開催中！！！！
+          </Button>
           {posts && (
             <Box mt={6} mb={10}>
               <VStack textStyle="h1" spacing={4} mb={8}>

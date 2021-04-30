@@ -1,17 +1,18 @@
 import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
-import { Entity } from '@/models/nest/Entity';
-import { VStack, Divider } from '@chakra-ui/react';
+import { Entity } from '@/models/entityatsume/Entity';
+import { VStack, Divider, Badge } from '@chakra-ui/react';
 import Layout from '@/components/layout';
 import EntityList from '@/components/partials/entity/';
-import { getAllEntities } from '@/lib/nest/entities';
+import getAll from '@/lib/gacha/getAll';
 
 interface EntityIndexProps {
   entities: Entity[];
   preview: boolean;
+  message: string;
 }
 
-export default function EntityIndex({ entities, preview }: EntityIndexProps) {
+export default function EntityIndex({ entities, preview, message }: EntityIndexProps) {
   const router = useRouter();
 
   if (!router.isFallback && !entities) {
@@ -36,6 +37,7 @@ export default function EntityIndex({ entities, preview }: EntityIndexProps) {
         >
           <VStack textStyle="h1" spacing={4} mb={8}>
             <h1>エンティティの一覧</h1>
+            {message && <Badge>{message}</Badge>}
             <Divider />
           </VStack>
           {entities && entities.length > 0 && <EntityList entities={entities} />}
@@ -51,12 +53,13 @@ interface GSProps {
 }
 
 export async function getStaticProps({ preview }: GSProps) {
-  const allEntities = await getAllEntities({ useStaging: false });
+  const allEntitiesData = await getAll(false);
 
   return {
     props: {
       preview: preview ?? false,
-      entities: allEntities ?? null,
+      entities: allEntitiesData.entities ?? null,
+      message: allEntitiesData.message ?? null,
     },
     revalidate: 300,
   };
