@@ -1,6 +1,5 @@
 import { Box, Center, Flex, useColorMode } from '@chakra-ui/react';
-import LinkChakra from '@/components/common/link-chakra';
-import { Entity } from '@/models/nest/Entity';
+import { Entity } from '@/models/entityatsume/Entity';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import duemaDescStyle from '@/styles/duema-desc-styles.module.css';
