@@ -1,44 +1,14 @@
-import { useEffect, useState } from 'react';
-import firebaseApi from '@/lib/firebase';
 import Layout from '@/components/layout';
 import { useAuthentication } from '../../hooks/authentication';
 
-import { Box, Stack, Button, Badge, Heading } from '@chakra-ui/react';
+import { Box, Stack, HStack, Button, Badge, Heading } from '@chakra-ui/react';
 
-import getRandom from '@/lib/gacha/getRandom';
 import LinkChakra from '@/components/common/link-chakra';
 import { GeTableResult } from '@/models/firebase/entities/entity';
-import { UserDoc } from '@/models/firebase/users/userDoc';
 import GachaDialog from '@/components/entityatsume/gacha-dialog';
 
 export default function EntityAtsumeTop({ ge, table, message }: GeTableResult) {
   const { user } = useAuthentication();
-
-  const defaultJewel = parseInt(process.env.ENTITYATSUME_DEFAULT_JEWEL ?? '5640');
-  const oneGachaJewel = parseInt(process.env.ENTITYATSUME_ONE_GACHA_JEWEL ?? '100');
-  const [userJewel, setUserJewel] = useState(defaultJewel);
-
-  useEffect(() => {
-    if (user) {
-      const userDoc = firebaseApi.firestore().collection('users').doc(user.uid);
-      userDoc.get().then((doc) => {
-        if (doc.exists) {
-          const data = doc.data() as UserDoc;
-          setUserJewel(data.jewel);
-        } else {
-          userDoc
-            .set({
-              jewel: defaultJewel,
-            })
-            .then(() => {
-              console.info(`Set default jewel: ${defaultJewel}`);
-            });
-        }
-      });
-    } else {
-      setUserJewel(defaultJewel);
-    }
-  }, [user]);
 
   return (
     <Layout
@@ -49,14 +19,18 @@ export default function EntityAtsumeTop({ ge, table, message }: GeTableResult) {
       {user ? (
         <Box mb={8}>
           <GachaDialog />
-          <Stack>
-            <Button colorScheme="blue" as={LinkChakra} href="/entityatsume/myentities">
+          <HStack spacing={4} my={6}>
+            <Button
+              colorScheme="blue"
+              as={LinkChakra}
+              href={`/entityatsume/myentities?user=${user.uid}`}
+            >
               自分のエンティティ
             </Button>
             <Button colorScheme="blue" as={LinkChakra} href="/entityatsume/zukan">
               排出エンティティ一覧
             </Button>
-          </Stack>
+          </HStack>
           <Stack>
             <Heading as="h2">確率表</Heading>
             {message && <Badge>APIより: {message}</Badge>}

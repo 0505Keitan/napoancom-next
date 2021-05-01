@@ -5,7 +5,7 @@ import { Badge, Box, Center, Heading } from '@chakra-ui/react';
 
 import Head from 'next/head';
 
-import EntityList from '@/components/partials/entity';
+import EntityList from '@/components/entityatsume/entity';
 import { useRouter } from 'next/router';
 
 interface EntityPageProps {
@@ -83,7 +83,7 @@ interface GSProps {
 export async function getStaticProps({ params, preview }: GSProps) {
   const bedrockId = params.bedrockId;
   let resultRes = await fetch(
-    process.env.API_URL + 'entityatsume-getByBedrockId?bedrockId=' + bedrockId,
+    process.env.API_URL + '/entityatsume-getByBedrockId?bedrockId=' + bedrockId,
     {
       method: 'GET',
       headers: {

@@ -1,7 +1,8 @@
-import { SingleEntityComponent } from './single-entity';
 import { Entity } from '@/models/firebase/entities/entity';
-import { Center, SimpleGrid } from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
+import EntityCompact from './entity-compact';
+import EntityFull from './entity-full';
 
 interface MultiEntityProps {
   entities: Entity[];
@@ -9,10 +10,10 @@ interface MultiEntityProps {
 }
 const Multientities = ({ entities }: MultiEntityProps) => {
   return (
-    <SimpleGrid spacing={4} minChildWidth="300px" columns={{ base: 2, lg: 3 }}>
+    <SimpleGrid spacing={4} minChildWidth="200px" columns={{ base: 2, lg: 3 }}>
       {entities.map((entity: Entity) => (
         <LinkChakra key={entity.bedrockId} href={`/entityatsume/zukan/${entity.bedrockId}`}>
-          <SingleEntityComponent entity={entity} />
+          <EntityCompact entity={entity} />
         </LinkChakra>
       ))}
     </SimpleGrid>
@@ -27,7 +28,7 @@ interface EntityListProps {
 
 export const EntityList = ({ entities, mode }: EntityListProps) => {
   if (mode == 'single') {
-    return <SingleEntityComponent entity={entities[0]} />;
+    return <EntityFull entity={entities[0]} />;
   } else {
     return <Multientities mode={mode} entities={entities} />;
   }

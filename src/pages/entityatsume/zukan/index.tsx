@@ -3,7 +3,7 @@ import ErrorPage from 'next/error';
 import { Entity } from '@/models/firebase/entities/entity';
 import { VStack, Divider, Badge } from '@chakra-ui/react';
 import Layout from '@/components/layout';
-import EntityList from '@/components/partials/entity/';
+import EntityList from '@/components/entityatsume/entity';
 
 interface EntityIndexProps {
   entities: Entity[];

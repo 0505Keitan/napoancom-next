@@ -20,7 +20,7 @@ import {
 } from '@chakra-ui/react';
 
 import getRandom from '@/lib/gacha/getRandom';
-import { SingleEntityComponent } from '@/components/partials/entity/single-entity';
+import { SingleEntityComponent } from '@/components/entityatsume/entity/single-entity';
 import { UserDoc } from '@/models/firebase/users/userDoc';
 
 const GachaDialog = () => {
