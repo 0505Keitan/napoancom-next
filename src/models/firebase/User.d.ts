@@ -5,3 +5,7 @@ export interface User {
   email: string;
   photoURL: string;
 }
+
+export interface UserError {
+  message: string;
+}

@@ -53,9 +53,9 @@ export default function UsersMe({ ge, table, message }: GeTableResult) {
       meta={{ title: 'エンティティあつめ', desc: 'マイページ' }}
       hideAdsense={true}
     >
-      <Box mb={8}>
-        <Stack spacing={6}>
-          <>
+      {user ? (
+        <Box mb={8}>
+          <Stack spacing={6}>
             {randomEntity && (
               <>
                 <Modal isOpen={isOpen} onClose={onClose}>
@@ -65,31 +65,30 @@ export default function UsersMe({ ge, table, message }: GeTableResult) {
                     <ModalCloseButton />
                     <ModalBody>
                       <SingleEntityComponent entity={randomEntity} />
-                      {user && (
-                        <>
-                          {randomEntity && randomEntity?.pictureUrl && (
-                            <Button
-                              isLoading={updatingProfile}
-                              onClick={() => {
-                                setTimeout(() => {
-                                  setUpdatingProfile(true);
-                                  firebaseApi
-                                    .auth()
-                                    .currentUser?.updateProfile({
-                                      photoURL: randomEntity?.pictureUrl,
-                                    })
-                                    .then(() => {
-                                      setUpdatingProfile(false);
-                                      router.reload();
-                                    });
-                                }, 1000);
-                              }}
-                            >
-                              プロフィール画像に設定
-                            </Button>
-                          )}
-                        </>
-                      )}
+
+                      <>
+                        {randomEntity && randomEntity?.pictureUrl && (
+                          <Button
+                            isLoading={updatingProfile}
+                            onClick={() => {
+                              setTimeout(() => {
+                                setUpdatingProfile(true);
+                                firebaseApi
+                                  .auth()
+                                  .currentUser?.updateProfile({
+                                    photoURL: randomEntity?.pictureUrl,
+                                  })
+                                  .then(() => {
+                                    setUpdatingProfile(false);
+                                    router.reload();
+                                  });
+                              }, 1000);
+                            }}
+                          >
+                            プロフィール画像に設定
+                          </Button>
+                        )}
+                      </>
                     </ModalBody>
 
                     <ModalFooter>
@@ -149,51 +148,54 @@ export default function UsersMe({ ge, table, message }: GeTableResult) {
               )}
               {fetching && <Badge>APIに問い合わせ中...</Badge>}
             </Center>
-          </>
-        </Stack>
-        <Stack>
-          <Heading as="h2">確率表</Heading>
-          {ge && (
-            <>
-              {ge.map((t, n) => (
-                <Box p={4} key={n} mb={4} bg="gray.100">
-                  <Heading as="h3">レアリティ{t.rarelity}</Heading>
-                  <Badge fontSize="xl">出やすさ: {t.prob}</Badge>
-                  <Box>{t.ids.join(', ')}</Box>
-                </Box>
-              ))}
-            </>
-          )}
-          {table && (
-            <Box bg="gray.200" p={6} textAlign="left">
-              <table>
-                <tr>
-                  <th>ID</th> <th>出やすさ</th>
-                </tr>
-                {table.map((t, n) => (
-                  <tr key={n}>
-                    <th>
-                      <Badge mr={4}>{t[0]}</Badge>
-                    </th>{' '}
-                    <td>{t[1]}</td>
-                  </tr>
+          </Stack>
+          <Stack>
+            <Heading as="h2">確率表</Heading>
+            {ge && (
+              <>
+                {ge.map((t, n) => (
+                  <Box p={4} key={n} mb={4} bg="gray.100">
+                    <Heading as="h3">レアリティ{t.rarelity}</Heading>
+                    <Badge fontSize="xl">出やすさ: {t.prob}</Badge>
+                    <Box>{t.ids.join(', ')}</Box>
+                  </Box>
                 ))}
-              </table>
+              </>
+            )}
+            {table && (
+              <Box bg="gray.200" p={6} textAlign="left">
+                <table>
+                  <tr>
+                    <th>ID</th> <th>出やすさ</th>
+                  </tr>
+                  {table.map((t, n) => (
+                    <tr key={n}>
+                      <th>
+                        <Badge mr={4}>{t[0]}</Badge>
+                      </th>{' '}
+                      <td>{t[1]}</td>
+                    </tr>
+                  ))}
+                </table>
+              </Box>
+            )}
+          </Stack>
+
+          {process.env.NODE_ENV == 'development' && (
+            <Box bg="gray.200" p={4}>
+              DEBUG
+              <br />
+              fetching : {JSON.stringify(fetching)}
+              <br />
+              randomEntity : {JSON.stringify(randomEntity)}
+              <br />
+              error : {JSON.stringify(error)}
             </Box>
           )}
-        </Stack>
-        {process.env.NODE_ENV == 'development' && (
-          <Box bg="gray.200" p={4}>
-            DEBUG
-            <br />
-            fetching : {JSON.stringify(fetching)}
-            <br />
-            randomEntity : {JSON.stringify(randomEntity)}
-            <br />
-            error : {JSON.stringify(error)}
-          </Box>
-        )}
-      </Box>
+        </Box>
+      ) : (
+        <Box>サインイン処理中...</Box>
+      )}
     </Layout>
   );
 }

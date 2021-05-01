@@ -1,21 +1,36 @@
 import firebase from 'firebase/app';
 import { useEffect } from 'react';
 import { atom, useRecoilState } from 'recoil';
-import { User } from '@/models/firebase/User';
+import { User, UserError } from '@/models/firebase/User';
 import { SITE_FULL_URL } from '@/lib/constants';
-
+const userErrorState = atom<UserError>({
+  key: 'userError',
+  default: null!,
+});
 const userState = atom<User>({
   key: 'user',
   default: null!,
 });
 
 export function useAuthentication() {
+  const [userError, setUserError] = useRecoilState(userErrorState);
   const [user, setUser] = useRecoilState(userState);
 
   useEffect(() => {
     if (user !== null) {
       return;
     }
+
+    firebase
+      .auth()
+      .signInAnonymously()
+      .then((res) => {
+        console.info(`Successfully login completed: ${res}`);
+      })
+      .catch((e) => {
+        console.error(e);
+        setUserError((prev) => ({ ...prev, message: e }));
+      });
 
     /* const provider = new firebase.auth.TwitterAuthProvider();
     firebase
@@ -32,7 +47,7 @@ export function useAuthentication() {
           isAnonymous: firebaseUser.isAnonymous,
           name: firebaseUser.displayName ?? '未設定',
           email: firebaseUser.email ?? '',
-          photoURL: firebaseUser.photoURL ?? `${SITE_FULL_URL}/photoURL/1.png`,
+          photoURL: firebaseUser.photoURL ?? `${SITE_FULL_URL}/favicon.png`,
         };
         setUser(loginUser);
       } else {
@@ -41,5 +56,5 @@ export function useAuthentication() {
     });
   }, []);
 
-  return { user };
+  return { user, userError };
 }
