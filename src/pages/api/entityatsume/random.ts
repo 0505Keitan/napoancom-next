@@ -1,6 +1,5 @@
 // これをクライアント側でやるとCORSエラーになる
 
-import { GachaResult } from '@/models/entityatsume/Entity';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function random(req: NextApiRequest, res: NextApiResponse) {
@@ -11,6 +10,8 @@ export default async function random(req: NextApiRequest, res: NextApiResponse) 
       return process.env.API_URL + '/entityatsume-';
     }
   };
+
+  res.setHeader('Cache-Control', `public, s-maxage=0, stale-while-revalidate=0`);
 
   const useStaging = req.query.useStaging as string | undefined;
 

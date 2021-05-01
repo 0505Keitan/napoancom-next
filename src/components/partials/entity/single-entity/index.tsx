@@ -1,5 +1,5 @@
 import { Box, Center, Flex, useColorMode } from '@chakra-ui/react';
-import { Entity } from '@/models/entityatsume/Entity';
+import { Entity } from '@/models/firebase/entities/entity';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import duemaDescStyle from '@/styles/duema-desc-styles.module.css';

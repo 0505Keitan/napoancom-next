@@ -1,5 +1,5 @@
 import { SingleEntityComponent } from './single-entity';
-import { Entity } from '@/models/entityatsume/Entity';
+import { Entity } from '@/models/firebase/entities/entity';
 import { Center, SimpleGrid } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 

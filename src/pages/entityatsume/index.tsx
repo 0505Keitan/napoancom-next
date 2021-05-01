@@ -28,20 +28,20 @@ import Image from 'next/image';
 import getRandom from '@/lib/gacha/getRandom';
 import LinkChakra from '@/components/common/link-chakra';
 import { SingleEntityComponent } from '@/components/partials/entity/single-entity';
-import { GetStaticPropsContext } from 'next';
-import { GeTableResult } from '@/models/entityatsume/Entity';
-import { faGratipay } from '@fortawesome/free-brands-svg-icons';
+import { GeTableResult } from '@/models/firebase/entities/entity';
 
 export default function UsersMe({ ge, table, message }: GeTableResult) {
   const { user } = useAuthentication();
   const router = useRouter();
+  const [result, setResult] = useState({
+    randomEntity: undefined,
+    error: undefined,
+  });
   const [fetching, setFetching] = useState(false);
   const [updatingProfile, setUpdatingProfile] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const useStaging = router.query.useStaging == 'yes' ?? false;
-
-  let { randomEntity, mutateEntity, error } = getRandom(useStaging);
+  let { randomEntity, mutateEntity, error } = getRandom(0);
 
   useEffect(() => {
     setFetching(false);

@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
-import { Entity } from '@/models/entityatsume/Entity';
+import { Entity } from '@/models/firebase/entities/entity';
 import { VStack, Divider, Badge } from '@chakra-ui/react';
 import Layout from '@/components/layout';
 import EntityList from '@/components/partials/entity/';
-import getAll from '@/lib/gacha/getAll';
 
 interface EntityIndexProps {
   entities: Entity[];
@@ -53,7 +52,14 @@ interface GSProps {
 }
 
 export async function getStaticProps({ preview }: GSProps) {
-  const allEntitiesData = await getAll(false);
+  const allEntitiesRes = await fetch(process.env.API_URL + '/entityatsume-getAll', {
+    method: 'GET',
+    headers: {
+      Authorization: `${process.env.FUNCTION_AUTH}`,
+    },
+  });
+
+  const allEntitiesData = await allEntitiesRes.json();
 
   return {
     props: {

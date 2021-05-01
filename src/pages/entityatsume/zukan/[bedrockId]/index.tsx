@@ -1,5 +1,5 @@
 import ErrorPage from 'next/error';
-import { Entity } from '@/models/entityatsume/Entity';
+import { Entity, EntityResult } from '@/models/firebase/entities/entity';
 import Layout from '@/components/layout';
 import { Badge, Box, Center, Heading } from '@chakra-ui/react';
 
@@ -7,8 +7,6 @@ import Head from 'next/head';
 
 import EntityList from '@/components/partials/entity';
 import { useRouter } from 'next/router';
-import getAll from '@/lib/gacha/getAll';
-import getByBedrockId from '@/lib/gacha/getByBedrockId';
 
 interface EntityPageProps {
   firstEntity: Entity;
@@ -83,8 +81,18 @@ interface GSProps {
 }
 
 export async function getStaticProps({ params, preview }: GSProps) {
-  const result = await getByBedrockId({ bedrockId: params.bedrockId, useStaging: false });
-  console.log(result);
+  const bedrockId = params.bedrockId;
+  let resultRes = await fetch(
+    process.env.API_URL + 'entityatsume-getByBedrockId?bedrockId=' + bedrockId,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `${process.env.FUNCTION_AUTH}`,
+      },
+    },
+  );
+  const result = await resultRes.json();
+
   const revalEnv = parseInt(process.env.REVALIDATE ?? '1800');
 
   if (!result.entity) {
@@ -104,7 +112,14 @@ export async function getStaticProps({ params, preview }: GSProps) {
 }
 
 export async function getStaticPaths() {
-  const allEntitiesData = await getAll(false);
+  const allEntitiesRes = await fetch(process.env.API_URL + '/entityatsume-getAll', {
+    method: 'GET',
+    headers: {
+      Authorization: `${process.env.FUNCTION_AUTH}`,
+    },
+  });
+
+  const allEntitiesData = await allEntitiesRes.json();
   let paths: string[] = [];
   if (allEntitiesData.entities) {
     paths =
