@@ -1,7 +1,8 @@
 import ErrorPage from 'next/error';
-import { Entity, EntityResult } from '@/models/firebase/entities/entity';
+import { Entity } from '@/models/firebase/entities/entity';
 import Layout from '@/components/layout';
-import { Badge, Box, Center, Heading } from '@chakra-ui/react';
+import { Box, Button, Center, Heading } from '@chakra-ui/react';
+import LinkChakra from '@/components/common/link-chakra';
 
 import Head from 'next/head';
 
@@ -34,7 +35,7 @@ export default function EntityPage({ preview, firstEntity, revalEnv, message }: 
               meta={{ title: '404 Not found', desc: '' }}
               hideAdsense={true}
             >
-              <ErrorPage title="記事が見つかりませんでした" statusCode={404} />
+              <ErrorPage title="エンティティが見つかりませんでした" statusCode={404} />
             </Layout>
           </>
         ) : (
@@ -55,9 +56,10 @@ export default function EntityPage({ preview, firstEntity, revalEnv, message }: 
                 }/`}
               />
             </Head>
-            <Box py={20}>
-              {message && <Badge>{message}</Badge>}
-              {preview && <Box>デバッグ: プレビューON</Box>}
+            <Box py={8}>
+              <Button colorScheme="purple" as={LinkChakra} href="/entityatsume/">
+                &lt;- ガチャに戻る
+              </Button>
 
               {firstEntity && (
                 <>

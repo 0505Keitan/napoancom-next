@@ -30,7 +30,6 @@ export default function AdsenseBox({ slot, width, height, layout }: AdsenseProps
             if (window.adsbygoogle && process.env.NODE_ENV !== 'development') {
               window.adsbygoogle.push({});
             }
-            console.info(`Ad pushed in component`);
           } catch (err) {
             console.error(err);
           }

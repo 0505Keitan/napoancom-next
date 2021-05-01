@@ -2,14 +2,29 @@ import { Box, Flex, Button } from '@chakra-ui/react';
 import FaiconDiv from './faicon-div';
 import { useRef, useState } from 'react';
 import firebase from '@/lib/firebase/index';
+import { User } from '@/models/auth/user';
 
 interface Props {
   likeCount?: number;
   dislikeCount?: number;
   slug: string;
+  uid?: User['uid'];
 }
 
-const LikeDislike = ({ likeCount, dislikeCount, slug }: Props) => {
+const addJewel = async (uid: User['uid']) => {
+  firebase
+    .firestore()
+    .collection('users')
+    .doc(uid)
+    .set(
+      {
+        jewel: firebase.firestore.FieldValue.increment(100),
+      },
+      { merge: true },
+    );
+};
+
+const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
   const alertRef = useRef(null);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
@@ -40,8 +55,13 @@ const LikeDislike = ({ likeCount, dislikeCount, slug }: Props) => {
           { merge: true },
         )
         .then(() => {
+          if (uid) {
+            addJewel(uid).catch((e) => {
+              console.error(e);
+            });
+          }
+
           setLikeValue((prevValue) => prevValue + 1);
-          console.info(`Added like`);
           setLiked(true);
         })
         .catch((e) => {
@@ -63,8 +83,14 @@ const LikeDislike = ({ likeCount, dislikeCount, slug }: Props) => {
           { merge: true },
         )
         .then(() => {
+          if (uid) {
+            addJewel(uid).catch((e) => {
+              console.error(e);
+            });
+          }
+
           setDislikeValue((prevValue) => prevValue + 1);
-          console.info(`Added dislike`);
+
           setDisliked(true);
         })
         .catch((e) => {

@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import { Entity } from '@/models/firebase/entities/entity';
-import { VStack, Divider, Badge } from '@chakra-ui/react';
+import { VStack, Divider, Badge, Button } from '@chakra-ui/react';
 import Layout from '@/components/layout';
 import EntityList from '@/components/entityatsume/entity';
-
+import LinkChakra from '@/components/common/link-chakra';
 interface EntityIndexProps {
   entities: Entity[];
   preview: boolean;
@@ -34,6 +34,9 @@ export default function EntityIndex({ entities, preview, message }: EntityIndexP
           preview={preview}
           meta={{ title: 'エンティティの一覧', desc: 'エンティティの一覧' }}
         >
+          <Button colorScheme="purple" as={LinkChakra} href="/entityatsume/">
+            &lt;- ガチャに戻る
+          </Button>
           <VStack textStyle="h1" spacing={4} mb={8}>
             <h1>エンティティの一覧</h1>
             {message && <Badge>{message}</Badge>}

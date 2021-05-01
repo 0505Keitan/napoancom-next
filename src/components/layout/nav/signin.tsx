@@ -67,7 +67,7 @@ const SignIn = () => {
                 <MenuItem
                   as={Button}
                   colorScheme="twitter"
-                  leftIcon={<FaiconDiv icon={['fab', 'twitter']} />}
+                  leftIcon={<FaiconDiv icon={['fab', 'user']} />}
                   onClick={gotomypage}
                 >
                   ログイン

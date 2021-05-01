@@ -13,15 +13,14 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/react';
 
 import getRandom from '@/lib/gacha/getRandom';
-import { SingleEntityComponent } from '@/components/entityatsume/entity/single-entity';
 import { UserDoc } from '@/models/firebase/users/userDoc';
+import EntityFull from './entity/entity-full';
 
 const GachaDialog = () => {
   const { user } = useAuthentication();
@@ -47,13 +46,9 @@ const GachaDialog = () => {
           const data = doc.data() as UserDoc;
           setUserJewel(data.jewel);
         } else {
-          userDoc
-            .set({
-              jewel: defaultJewel,
-            })
-            .then(() => {
-              console.info(`Set default jewel: ${defaultJewel}`);
-            });
+          userDoc.set({
+            jewel: defaultJewel,
+          });
         }
       });
     } else {
@@ -65,8 +60,9 @@ const GachaDialog = () => {
     setFetching(false);
   }, [randomEntity]);
   return (
-    <Stack spacing={6}>
+    <Stack spacing={6} mx="auto">
       <Stack fontSize="xl" mb={8} spacing={4}>
+        <Badge>ジュエルは記事にグッド・バッドいずれかを付ければ増えます。</Badge>
         <Box>現在のジュエル: {userJewel}</Box>
         <Box>ガチャ1回: {oneGachaJewel}</Box>
         {userJewel < oneGachaJewel && <Badge colorScheme="red">ジュエルが足りません！</Badge>}
@@ -79,8 +75,6 @@ const GachaDialog = () => {
               <ModalHeader>ガチャ結果</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <SingleEntityComponent entity={randomEntity} />
-
                 <>
                   {randomEntity && randomEntity?.pictureUrl && (
                     <Button
@@ -97,37 +91,21 @@ const GachaDialog = () => {
                               setUpdatingProfile(false);
                               router.reload();
                             });
-                        }, 1000);
+                        }, 300);
                       }}
                     >
                       プロフィール画像に設定
                     </Button>
                   )}
                 </>
+                <EntityFull entity={randomEntity} />
               </ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme="blue" onClick={onClose}>
-                  閉じる
-                </Button>
-              </ModalFooter>
             </ModalContent>
           </Modal>
         </>
       )}
 
       <Center flexDirection="column">
-        {process.env.NODE_ENV == 'development' && (
-          <Box bg="gray.200" p={4}>
-            DEBUG
-            <br />
-            fetching : {JSON.stringify(fetching)}
-            <br />
-            randomEntity : {JSON.stringify(randomEntity)}
-            <br />
-            error : {JSON.stringify(error)}
-          </Box>
-        )}
         {error ? (
           <Badge colorScheme="red">{error} : リロードしてください。</Badge>
         ) : (

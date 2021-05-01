@@ -1,7 +1,7 @@
 import Layout from '@/components/layout';
 import { useAuthentication } from '../../hooks/authentication';
 
-import { Box, Stack, HStack, Button, Badge, Heading } from '@chakra-ui/react';
+import { Box, Stack, Button, Badge, Heading } from '@chakra-ui/react';
 
 import LinkChakra from '@/components/common/link-chakra';
 import { GeTableResult } from '@/models/firebase/entities/entity';
@@ -15,22 +15,23 @@ export default function EntityAtsumeTop({ ge, table, message }: GeTableResult) {
       preview={false}
       meta={{ title: 'エンティティあつめ', desc: 'マイページ' }}
       hideAdsense={true}
+      disableAside
     >
       {user ? (
-        <Box mb={8}>
+        <Box mb={8} maxW="container.md" mx="auto">
           <GachaDialog />
-          <HStack spacing={4} my={6}>
+          <Stack spacing={4} my={6}>
             <Button
-              colorScheme="blue"
+              colorScheme="pink"
               as={LinkChakra}
               href={`/entityatsume/myentities?user=${user.uid}`}
             >
-              自分のエンティティ
+              自分のエンティティを見る
             </Button>
             <Button colorScheme="blue" as={LinkChakra} href="/entityatsume/zukan">
               排出エンティティ一覧
             </Button>
-          </HStack>
+          </Stack>
           <Stack>
             <Heading as="h2">確率表</Heading>
             {message && <Badge>APIより: {message}</Badge>}

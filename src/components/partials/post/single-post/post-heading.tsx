@@ -9,10 +9,12 @@ import Image from 'next/image';
 import FukidashiShare from '@/components/common/fukidashi-share';
 import LikeDislike from '@/components/common/like-dislike';
 import { SITE_FULL_URL } from '@/lib/constants';
+import { useAuthentication } from '@/hooks/authentication';
 interface Props {
   post: Post;
 }
 const PostHeading = ({ post }: Props) => {
+  const { user } = useAuthentication();
   return (
     <Box>
       <Flex mb={2}>
@@ -53,6 +55,7 @@ const PostHeading = ({ post }: Props) => {
             slug={post.slug}
             likeCount={post.like ?? 0}
             dislikeCount={post.dislike ?? 0}
+            uid={user ? user.uid : undefined}
           />
         </Box>
       </VStack>

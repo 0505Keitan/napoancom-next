@@ -1,3 +1,4 @@
+import { useAuthentication } from '@/hooks/authentication';
 import { SITE_FULL_URL } from '@/lib/constants';
 import { Post } from '@/models/contentful/Post';
 import tocStyles from '@/styles/markdown-toc-styles.module.css';
@@ -16,6 +17,7 @@ interface SideContentProps {
 }
 
 const SideContent = ({ post, hideAdsense }: SideContentProps) => {
+  const { user } = useAuthentication();
   return (
     <VStack alignItems="start">
       {hideAdsense != true && (
@@ -36,6 +38,7 @@ const SideContent = ({ post, hideAdsense }: SideContentProps) => {
               slug={post.slug}
               likeCount={post.like ?? 0}
               dislikeCount={post.dislike ?? 0}
+              uid={user ? user.uid : undefined}
             />
           </Box>
           <Box py={8} className={tocStyles['toc']}>
