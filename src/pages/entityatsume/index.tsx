@@ -165,7 +165,7 @@ export default function UsersMe({ ge, table, message }: GeTableResult) {
 
                         setFetching(true);
                         mutateEntity({ entity: randomEntity }, true).then((res) => {
-                          if (res?.entity) {
+                          if (res) {
                             setUserJewel((prev) => prev - oneGachaJewel);
                             onOpen();
                             setFetching(false);

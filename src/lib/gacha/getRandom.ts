@@ -1,12 +1,10 @@
 import { Entity, GachaResult } from '@/models/firebase/entities/entity';
 import firebaseApi from '@/lib/firebase';
 import useSWR from 'swr';
-import dayjs from 'dayjs';
-const now = dayjs().toISOString();
+const now = new Date().toUTCString();
 
 import { UserEntity } from '@/models/firebase/users/entities/userentity';
 import { User } from '@/models/auth/user';
-import { UserDoc } from '@/models/firebase/users/userDoc';
 
 const userCollection = firebaseApi.firestore().collection('users');
 
@@ -16,19 +14,13 @@ const addEntityToUser = async (uid: User['uid'], entity: Entity) => {
     bedrockId: entity.bedrockId,
     lastUpdate: now,
   };
-  try {
-    const target = userDoc.collection('entities').doc(now);
-    return await target.get().then((doc) => {
-      if (!doc.exists) {
-        target.set(userEntityFields);
-        console.debug(`Added entity to user`);
-      }
-      return true;
-    });
-  } catch (e) {
-    console.error(e);
-    return false;
-  }
+  const target = userDoc.collection('entities').doc();
+  await target
+    .set(userEntityFields)
+    .then(() => {
+      console.debug(`Added entity to user`);
+    })
+    .catch((e) => console.error(e));
 };
 const updateJewel = async (uid: User['uid'], jewel: number) => {
   const userDoc = userCollection.doc(uid);
