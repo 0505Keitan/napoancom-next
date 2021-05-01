@@ -19,29 +19,52 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  SkeletonText,
   Heading,
 } from '@chakra-ui/react';
-
-import Image from 'next/image';
 
 import getRandom from '@/lib/gacha/getRandom';
 import LinkChakra from '@/components/common/link-chakra';
 import { SingleEntityComponent } from '@/components/partials/entity/single-entity';
 import { GeTableResult } from '@/models/firebase/entities/entity';
+import { UserDoc } from '@/models/firebase/users/userDoc';
 
 export default function UsersMe({ ge, table, message }: GeTableResult) {
   const { user } = useAuthentication();
   const router = useRouter();
-  const [result, setResult] = useState({
-    randomEntity: undefined,
-    error: undefined,
-  });
+
   const [fetching, setFetching] = useState(false);
   const [updatingProfile, setUpdatingProfile] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const defaultJewel = parseInt(process.env.ENTITYATSUME_DEFAULT_JEWEL ?? '5640');
+  const oneGachaJewel = parseInt(process.env.ENTITYATSUME_ONE_GACHA_JEWEL ?? '100');
+  const [userJewel, setUserJewel] = useState(defaultJewel);
+  let { randomEntity, mutateEntity, error } = getRandom(
+    user ? user.uid : null,
+    oneGachaJewel,
+    userJewel,
+  );
 
-  let { randomEntity, mutateEntity, error } = getRandom(0);
+  useEffect(() => {
+    if (user) {
+      const userDoc = firebaseApi.firestore().collection('users').doc(user.uid);
+      userDoc.get().then((doc) => {
+        if (doc.exists) {
+          const data = doc.data() as UserDoc;
+          setUserJewel(data.jewel);
+        } else {
+          userDoc
+            .set({
+              jewel: defaultJewel,
+            })
+            .then(() => {
+              console.info(`Set default jewel: ${defaultJewel}`);
+            });
+        }
+      });
+    } else {
+      setUserJewel(defaultJewel);
+    }
+  }, [user]);
 
   useEffect(() => {
     setFetching(false);
@@ -56,6 +79,11 @@ export default function UsersMe({ ge, table, message }: GeTableResult) {
       {user ? (
         <Box mb={8}>
           <Stack spacing={6}>
+            <Stack fontSize="xl" mb={8} spacing={4}>
+              <Box>現在のジュエル: {userJewel}</Box>
+              <Box>ガチャ1回: {oneGachaJewel}</Box>
+              {userJewel < oneGachaJewel && <Badge colorScheme="red">ジュエルが足りません！</Badge>}
+            </Stack>
             {randomEntity && (
               <>
                 <Modal isOpen={isOpen} onClose={onClose}>
@@ -98,23 +126,29 @@ export default function UsersMe({ ge, table, message }: GeTableResult) {
                     </ModalFooter>
                   </ModalContent>
                 </Modal>
-                {randomEntity && randomEntity.pictureUrl ? (
-                  <Image width={128} height={128} src={randomEntity.pictureUrl ?? ''} />
-                ) : (
-                  <img
-                    src={`/api/ogpgen/?text=${randomEntity.name}の画像の設定忘れてるよごめんね!`}
-                  />
-                )}
               </>
             )}
 
             <Center flexDirection="column">
+              {process.env.NODE_ENV == 'development' && (
+                <Box bg="gray.200" p={4}>
+                  DEBUG
+                  <br />
+                  fetching : {JSON.stringify(fetching)}
+                  <br />
+                  randomEntity : {JSON.stringify(randomEntity)}
+                  <br />
+                  error : {JSON.stringify(error)}
+                </Box>
+              )}
               {error ? (
                 <Badge colorScheme="red">{error} : リロードしてください。</Badge>
               ) : (
                 <ButtonGroup>
                   <Stack>
                     <Button
+                      disabled={userJewel < oneGachaJewel}
+                      isActive={userJewel >= oneGachaJewel}
                       w="full"
                       colorScheme="orange"
                       fontSize="1.4rem"
@@ -130,8 +164,9 @@ export default function UsersMe({ ge, table, message }: GeTableResult) {
                         }
 
                         setFetching(true);
-                        mutateEntity().then((res: any) => {
-                          if (res) {
+                        mutateEntity({ entity: randomEntity }, true).then((res) => {
+                          if (res?.entity) {
+                            setUserJewel((prev) => prev - oneGachaJewel);
                             onOpen();
                             setFetching(false);
                           }
@@ -140,6 +175,7 @@ export default function UsersMe({ ge, table, message }: GeTableResult) {
                     >
                       エンティティガチャを回す
                     </Button>
+
                     <Button colorScheme="blue" as={LinkChakra} href="/entityatsume/zukan">
                       排出エンティティ一蘭
                     </Button>
@@ -147,6 +183,7 @@ export default function UsersMe({ ge, table, message }: GeTableResult) {
                 </ButtonGroup>
               )}
               {fetching && <Badge>APIに問い合わせ中...</Badge>}
+              {message && <Badge>APIよりお知らせ: {message}</Badge>}
             </Center>
           </Stack>
           <Stack>
@@ -180,18 +217,6 @@ export default function UsersMe({ ge, table, message }: GeTableResult) {
               </Box>
             )}
           </Stack>
-
-          {process.env.NODE_ENV == 'development' && (
-            <Box bg="gray.200" p={4}>
-              DEBUG
-              <br />
-              fetching : {JSON.stringify(fetching)}
-              <br />
-              randomEntity : {JSON.stringify(randomEntity)}
-              <br />
-              error : {JSON.stringify(error)}
-            </Box>
-          )}
         </Box>
       ) : (
         <Box>サインイン処理中...</Box>

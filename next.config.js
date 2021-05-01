@@ -47,6 +47,8 @@ module.exports = withBundleAnalyzer({
     NAPOANCOM_NEST_LIMIT: process.env.NAPOANCOM_NEST_LIMIT,
     FUNCTION_AUTH: process.env.FUNCTION_AUTH,
     AD_DELAY: process.env.AD_DELAY,
+    ENTITYATSUME_DEFAULT_JEWEL: process.env.ENTITYATSUME_DEFAULT_JEWEL,
+    ENTITYATSUME_ONE_GACHA_JEWEL: process.env.ENTITYATSUME_ONE_GACHA_JEWEL,
   },
   images: {
     domains: ['localhost', 'static.wikia.nocookie.net', 'pbs.twimg.com', 'images.ctfassets.net'],

@@ -1,3 +1,3 @@
 export interface UserDoc {
-  jewel?: number;
+  jewel: number;
 }

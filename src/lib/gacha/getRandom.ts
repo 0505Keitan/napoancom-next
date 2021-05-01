@@ -1,63 +1,89 @@
 import { Entity, GachaResult } from '@/models/firebase/entities/entity';
 import firebaseApi from '@/lib/firebase';
 import useSWR from 'swr';
-import { useAuthentication } from '@/hooks/authentication';
 import dayjs from 'dayjs';
 const now = dayjs().toISOString();
-const { user, userData } = useAuthentication();
-const userDoc = firebaseApi.firestore().collection('users').doc(user.uid);
+
 import { UserEntity } from '@/models/firebase/users/entities/userentity';
-const addEntityToUser = async (entity: Entity) => {
+import { User } from '@/models/auth/user';
+import { UserDoc } from '@/models/firebase/users/userDoc';
+
+const userCollection = firebaseApi.firestore().collection('users');
+
+const addEntityToUser = async (uid: User['uid'], entity: Entity) => {
+  const userDoc = userCollection.doc(uid);
   const userEntityFields: UserEntity = {
     bedrockId: entity.bedrockId,
     lastUpdate: now,
   };
   try {
-    await userDoc
-      .collection('entities')
-      .doc(now)
-      .set(userEntityFields)
-      .then(() => {
+    const target = userDoc.collection('entities').doc(now);
+    return await target.get().then((doc) => {
+      if (!doc.exists) {
+        target.set(userEntityFields);
         console.debug(`Added entity to user`);
-        return true;
-      });
+      }
+      return true;
+    });
   } catch (e) {
     console.error(e);
     return false;
   }
 };
-const updateJewel = async (jewel: number) => {
-  if (userData.jewel) {
-    if (userData.jewel > jewel) {
-      await userDoc.set(
-        {
-          jewel: firebaseApi.firestore.FieldValue.increment(-jewel),
-        },
-        { merge: true },
-      );
+const updateJewel = async (uid: User['uid'], jewel: number) => {
+  const userDoc = userCollection.doc(uid);
+
+  return await userDoc
+    .set(
+      {
+        jewel: firebaseApi.firestore.FieldValue.increment(-jewel),
+      },
+      { merge: true },
+    )
+    .then(() => {
+      console.debug(`Decreaded ${jewel} jewel`);
       return true;
-    } else {
+    })
+    .catch((e) => {
+      console.error(`Error decreasing jewel: ${e}`);
       return false;
-    }
-  } else {
-    return false;
-  }
+    });
 };
-const fetcher = () => {
+const fetcher = (uid: User['uid'] | null, jewel: number, userJewel: number) => {
   // ここでAPIをセルフ参照
   return fetch(`${process.env.HTTPS_URL}/api/entityatsume/random`, {
     method: 'GET',
   }).then((res) => {
-    return res.json() as GachaResult;
+    if (res.ok) {
+      return res
+        .json()
+        .then((data) => {
+          console.debug('Fetch suceed: ', data);
+          if (uid && data.entity) {
+            // ジュエルを減算
+            updateJewel(uid, jewel).then((success) => {
+              if (success && data.entity) {
+                addEntityToUser(uid, data.entity);
+              }
+            });
+          }
+          return data as GachaResult;
+        })
+        .catch((e) => console.error(e));
+    } else {
+      const result: GachaResult = {
+        message: res.statusText,
+      };
+      return result;
+    }
   });
 };
 
 // これはクライアントで呼ぶ
-const getRandom = (jewel: number) => {
+const getRandom = (uid: User['uid'] | null, jewel: number, userJewel: number) => {
   const { data, mutate, error } = useSWR(
-    // カウントを増やしてSWR重複防止
-    'random',
-    fetcher,
+    uid ? 'random' : null,
+    () => fetcher(uid ?? null, jewel, userJewel),
     {
       refreshInterval: 0,
       revalidateOnFocus: false,
@@ -90,16 +116,6 @@ const getRandom = (jewel: number) => {
         error: data.message,
       };
     } else {
-      updateJewel(jewel).then((enough) => {
-        if (enough && data.entity) addEntityToUser(data.entity);
-        return {
-          randomEntity: undefined,
-          prob: undefined,
-          mutateEntity: mutate,
-          error: 'ジュエルが足りません',
-        };
-      });
-
       return {
         randomEntity: data.entity,
         prob: data.prob ?? 0,
