@@ -2,7 +2,6 @@ import { Box, Center, Flex, useColorMode } from '@chakra-ui/react';
 import { Entity } from '@/models/firebase/entities/entity';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
-import duemaDescStyle from '@/styles/duema-desc-styles.module.css';
 
 interface Props {
   entity: Entity;
@@ -174,11 +173,7 @@ export function SingleEntityComponent({ entity }: Props) {
             </Flex>
           </Box>
           <Box mt="14px" pr="10px">
-            <ReactMarkdown
-              className={
-                colorMode == 'light' ? duemaDescStyle['duema'] : duemaDescStyle['duemadark']
-              }
-            >
+            <ReactMarkdown>
               {entity.description ? entity.description.replace(/\\n/g, '\n') : ''}
             </ReactMarkdown>
           </Box>

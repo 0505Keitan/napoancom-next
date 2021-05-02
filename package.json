@@ -1,6 +1,6 @@
 {
   "name": "projectnapoancom-client-next-2021",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "aelyone",
   "scripts": {
     "dev": "next",
@@ -38,7 +38,6 @@
     "react-gtm-module": "^2.0.11",
     "react-lazyload": "^3.2.0",
     "react-markdown": "^5.0.3",
-    "react-markdown-heading": "^1.1.2",
     "recoil": "^0.1.2",
     "remark-gfm": "^1.0.0",
     "rss": "^1.2.2",

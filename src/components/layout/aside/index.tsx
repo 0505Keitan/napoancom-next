@@ -26,12 +26,12 @@ const Aside = ({ w, post, hideAdsense }: LeftStickyProps) => {
       pl={3}
     >
       <Box w="full" h="full" overflowY="scroll" className="noScrollBar" pt={3} pb={8}>
-        {post && <HeadingList headings={post.headings} />}
         {hideAdsense != true && (
           <>
             <AdsenseBox width={300} height={250} layout="fixed" slot={'8321176059'} />
           </>
         )}
+        {post && <HeadingList headings={post.headings} />}
       </Box>
     </Box>
   );
