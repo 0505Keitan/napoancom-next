@@ -110,21 +110,6 @@ const generateGraphSchema = (post: Post): GraphSchema => {
         ],
       },
       {
-        '@type': 'Person',
-        '@id': `${process.env.HTTPS_URL}/persons/${post.person?.slug}#author`,
-        url: `${process.env.HTTPS_URL}/persons/${post.person?.slug}`,
-        name: post.person?.displayName,
-        image: {
-          '@type': 'ImageObject',
-          '@id': `${post.person?.picture.url}/#authorImage`,
-          url: post.person?.picture.url ?? '',
-          width: '96',
-          height: '96',
-          caption: post.person?.displayName,
-        },
-        sameAs: [post.person?.displayName ?? ''],
-      },
-      {
         '@type': 'WebPage',
         '@id': `${process.env.HTTPS_URL}/${post.slug}/#webpage`,
         url: `${process.env.HTTPS_URL}/${post.slug}/`,
@@ -164,10 +149,6 @@ const generateGraphSchema = (post: Post): GraphSchema => {
         },
         datePublished: post.sys.firstPublishedAt,
         dateModified: post.sys.publishedAt,
-        articleSection:
-          post.platformsCollection != undefined
-            ? post.platformsCollection.items[0].displayName
-            : '',
         mainEntityOfPage: {
           '@id': `${process.env.HTTPS_URL}/${post.slug}/#webpage`,
         },
