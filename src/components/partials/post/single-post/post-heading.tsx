@@ -3,9 +3,8 @@ import { Badge, Box, Flex, Spacer, VStack } from '@chakra-ui/react';
 import { Post } from '@/models/contentful/Post';
 
 import PlatformList from '../common/platform-list';
-import PersonList from '../common/person-list';
 import LinkChakra from '@/components/common/link-chakra';
-import Image from 'next/image';
+
 import FukidashiShare from '@/components/common/fukidashi-share';
 import LikeDislike from '@/components/common/like-dislike';
 import { SITE_FULL_URL } from '@/lib/constants';
@@ -41,10 +40,9 @@ const PostHeading = ({ post }: Props) => {
         <Badge colorScheme="red">編集担当へ: 並び替え用の公開日を設定し忘れています!</Badge>
       )}
       <VStack>
-        {post.person && <PersonList persons={[post.person]} />}
         <Spacer />
-        {/* ドロワーメニューと被るので消す */}
-        <Box w="full" display={{ base: 'block', lg: 'none' }}>
+
+        <Box w="full">
           <Box mb={4}>
             <FukidashiShare
               tweetCount={post.tweetCount ?? 0}
