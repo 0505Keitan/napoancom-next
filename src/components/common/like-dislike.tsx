@@ -3,7 +3,7 @@ import FaiconDiv from './faicon-div';
 import { useRef, useState } from 'react';
 import firebase from '@/lib/firebase/index';
 import { User } from '@/models/auth/user';
-
+import { useToast } from '@chakra-ui/react';
 interface Props {
   likeCount?: number;
   dislikeCount?: number;
@@ -42,6 +42,8 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
     noRatio = true;
   }
 
+  const toast = useToast();
+
   const Like = async () => {
     if (!liked && !disliked) {
       await firebase
@@ -63,6 +65,14 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
 
           setLikeValue((prevValue) => prevValue + 1);
           setLiked(true);
+
+          toast({
+            title: '記事を高評価しました',
+            description: 'エンティティガチャ用のジュエルを100個贈呈します。\n(低評価でも同様です)',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          });
         })
         .catch((e) => {
           console.error(e);
@@ -92,6 +102,14 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
           setDislikeValue((prevValue) => prevValue + 1);
 
           setDisliked(true);
+
+          toast({
+            title: '記事を低評価しました',
+            description: 'エンティティガチャ用のジュエルを100個贈呈します。\n(高評価でも同様です)',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          });
         })
         .catch((e) => {
           console.error(e);
