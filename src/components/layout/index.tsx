@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { ReactNode, useState } from 'react';
-import { Flex, Box, Button, useColorMode, Center } from '@chakra-ui/react';
+import { Flex, Box, Button } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import Meta from './meta';
 
@@ -35,8 +35,6 @@ export default function Layout({
   post,
   disableAside,
 }: LayoutProps) {
-  const { colorMode } = useColorMode();
-
   // サムネ読み込み用
   const [loadedThumb, setLoadedThumb] = useState(false);
 
@@ -68,12 +66,7 @@ export default function Layout({
         }
         w="100vw"
       >
-        <Nav
-          post={post}
-          colorMode={colorMode}
-          preview={preview}
-          hideAdsense={hideAdsense ?? false}
-        />
+        <Nav post={post} />
 
         <Box pt={`${NAV_HEIGHT}px`}>
           {post && post.heroImage && (
