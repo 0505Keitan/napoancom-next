@@ -6,6 +6,7 @@ import PostBody from './post-body';
 import FaiconDiv from '@/components/common/faicon-div';
 import PostHeading from './post-heading';
 import AdsenseBox from '@/components/common/adsense-box';
+import PersonList from '../common/person-list';
 
 interface Props {
   post: Post;
@@ -23,24 +24,8 @@ export function SinglePostComponent({ post }: Props) {
           <PostBody source={post.body} />
         </Box>
         <Divider my={3} />
-        <Box>
-          {post.person && (
-            <Button
-              h="60px"
-              w="full"
-              aria-label="フォロー"
-              target="_blank"
-              as={LinkChakra}
-              href={`https://twitter.com/${post.person?.twitterId ?? 'sasigume'}`}
-              colorScheme="twitter"
-              leftIcon={<FaiconDiv icon={['fab', 'twitter']} />}
-            >
-              記事がお役にたったら...
-              <br />
-              フォローをお願いします
-            </Button>
-          )}
-        </Box>
+        <Box>{post.person && <PersonList persons={[post.person]} />}</Box>
+
         <Box mt={6}>
           <Button
             w="full"

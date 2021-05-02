@@ -62,7 +62,7 @@ const PersonList = ({ persons }: ListProps) => {
   return (
     <Stack mb={4} spacing={2} w="full">
       <Heading as="h2" textStyle="h2">
-        著者
+        この記事の著者
       </Heading>
       {persons && persons.map((c: Person) => <OnePerson person={c} key={c.slug} />)}
     </Stack>
