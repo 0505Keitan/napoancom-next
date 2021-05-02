@@ -31,7 +31,11 @@ const Index = ({ posts, environment }: IndexProps) => {
             as={LinkChakra}
             href="/entityatsume"
           >
-            特別企画: GWエンティティガチャ開催中！！！！
+            特別企画: GW
+            <br />
+            エンティティガチャ
+            <br />
+            開催中！！！！
           </Button>
           {posts && (
             <Box mt={6} mb={10}>
