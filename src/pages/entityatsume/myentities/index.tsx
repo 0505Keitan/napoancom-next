@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import { Entity } from '@/models/firebase/entities/entity';
 import { VStack, Divider, Badge, Button, Box } from '@chakra-ui/react';
-import Layout from '@/components/layout';
+import LayoutForEntityAtsume from '@/components/entityatsume/layout';
 import EntityList from '@/components/entityatsume/entity';
 import { GetServerSidePropsContext } from 'next';
 import { UserResult } from '@/models/firebase/users/userDoc';
@@ -18,27 +18,22 @@ export default function MyEntities({ entities, message }: EntityIndexProps) {
 
   if (!router.isFallback && !entities) {
     return (
-      <Layout preview={false} meta={{ title: '404 Not found', desc: '' }} hideAdsense={true}>
+      <LayoutForEntityAtsume meta={{ title: '404 Not found', desc: '' }}>
         <ErrorPage title="ページが見つかりませんでした" statusCode={404} />
-      </Layout>
+      </LayoutForEntityAtsume>
     );
   }
 
   return (
     <>
       {!entities ? (
-        <Layout preview={false} meta={{ title: '404 Not found', desc: '' }} hideAdsense={true}>
+        <LayoutForEntityAtsume meta={{ title: '404 Not found', desc: '' }}>
           <ErrorPage title="教科が見つかりませんでした" statusCode={404} />
-        </Layout>
+        </LayoutForEntityAtsume>
       ) : (
-        <Layout
-          disableAside
-          preview={false}
+        <LayoutForEntityAtsume
           meta={{ title: '自分のエンティティ一覧', desc: 'エンティティの一覧' }}
         >
-          <Button colorScheme="purple" as={LinkChakra} href="/entityatsume/">
-            &lt;- ガチャに戻る
-          </Button>
           <VStack textStyle="h1" spacing={4} mb={8}>
             <h1>自分のエンティティ一覧</h1>
             {message && <Badge>APIより: {message}</Badge>}
@@ -53,7 +48,7 @@ export default function MyEntities({ entities, message }: EntityIndexProps) {
               まだガチャを引いていないか、データが消えました。(5/1以前のガチャは反映されません)
             </Box>
           )}
-        </Layout>
+        </LayoutForEntityAtsume>
       )}
     </>
   );

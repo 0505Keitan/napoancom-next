@@ -1,49 +1,42 @@
 import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import { Entity } from '@/models/firebase/entities/entity';
-import { VStack, Divider, Badge, Button } from '@chakra-ui/react';
-import Layout from '@/components/layout';
+import { VStack, Divider, Badge } from '@chakra-ui/react';
+import LayoutForEntityAtsume from '@/components/entityatsume/layout';
 import EntityList from '@/components/entityatsume/entity';
-import LinkChakra from '@/components/common/link-chakra';
+
 interface EntityIndexProps {
   entities: Entity[];
-  preview: boolean;
+
   message: string;
 }
 
-export default function EntityIndex({ entities, preview, message }: EntityIndexProps) {
+export default function EntityIndex({ entities, message }: EntityIndexProps) {
   const router = useRouter();
 
   if (!router.isFallback && !entities) {
     return (
-      <Layout preview={preview} meta={{ title: '404 Not found', desc: '' }} hideAdsense={true}>
+      <LayoutForEntityAtsume meta={{ title: '404 Not found', desc: '' }}>
         <ErrorPage title="ページが見つかりませんでした" statusCode={404} />
-      </Layout>
+      </LayoutForEntityAtsume>
     );
   }
 
   return (
     <>
       {!entities ? (
-        <Layout preview={preview} meta={{ title: '404 Not found', desc: '' }} hideAdsense={true}>
+        <LayoutForEntityAtsume meta={{ title: '404 Not found', desc: '' }}>
           <ErrorPage title="教科が見つかりませんでした" statusCode={404} />
-        </Layout>
+        </LayoutForEntityAtsume>
       ) : (
-        <Layout
-          disableAside
-          preview={preview}
-          meta={{ title: 'エンティティの一覧', desc: 'エンティティの一覧' }}
-        >
-          <Button colorScheme="purple" as={LinkChakra} href="/entityatsume/">
-            &lt;- ガチャに戻る
-          </Button>
+        <LayoutForEntityAtsume meta={{ title: 'エンティティの一覧', desc: 'エンティティの一覧' }}>
           <VStack textStyle="h1" spacing={4} mb={8}>
             <h1>エンティティの一覧</h1>
             {message && <Badge>{message}</Badge>}
             <Divider />
           </VStack>
           {entities && entities.length > 0 && <EntityList entities={entities} />}
-        </Layout>
+        </LayoutForEntityAtsume>
       )}
     </>
   );
@@ -54,7 +47,7 @@ interface GSProps {
   preview: boolean;
 }
 
-export async function getStaticProps({ preview }: GSProps) {
+export async function getStaticProps() {
   const allEntitiesRes = await fetch(process.env.API_URL + '/entityatsume-getAll', {
     method: 'GET',
     headers: {
@@ -66,7 +59,6 @@ export async function getStaticProps({ preview }: GSProps) {
 
   return {
     props: {
-      preview: preview ?? false,
       entities: allEntitiesData.entities ?? null,
       message: allEntitiesData.message ?? null,
     },

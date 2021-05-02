@@ -1,9 +1,12 @@
 import Head from 'next/head';
 import { SITE_NAME } from '@/lib/constants';
+import BlogPostSchema from './json-ld/blogPost-schema';
+import { Post } from '@/models/contentful/Post';
 interface Props {
   desc: string;
   title: string;
   heroImageUrl?: string;
+  post?: Post;
 }
 
 function trimText(text: string) {
@@ -14,11 +17,14 @@ function trimText(text: string) {
   return body.substring(0, 140) + '...';
 }
 
-export default function Meta({ desc, title, heroImageUrl }: Props) {
+export default function Meta({ desc, title, heroImageUrl, post }: Props) {
   const ogpUrl =
     heroImageUrl ??
     process.env.HTTPS_URL + '/api/ogpgen/?text=' + encodeURIComponent(trimText(title));
 
+  // レビューがないならJSONを生成しない
+  let validReview = false;
+  if (post) validReview = post?.like + post?.dislike > 0;
   return (
     <Head>
       <meta charSet="utf-8" />
@@ -39,6 +45,8 @@ export default function Meta({ desc, title, heroImageUrl }: Props) {
       <meta name="twitter:image" key="twitterImage" content={ogpUrl} />
 
       <title>{title == SITE_NAME ? SITE_NAME : title + ' | ' + SITE_NAME}</title>
+
+      {validReview && post && <BlogPostSchema post={post} />}
     </Head>
   );
 }

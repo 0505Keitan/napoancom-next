@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { Flex, Box, Button, useColorMode, Center } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import Meta from './meta';
@@ -37,10 +37,18 @@ export default function Layout({
 }: LayoutProps) {
   const { colorMode } = useColorMode();
 
+  // サムネ読み込み用
+  const [loadedThumb, setLoadedThumb] = useState(false);
+
   return (
     <>
       {/* OGPの生成 */}
-      <Meta title={meta.title} desc={meta.desc} heroImageUrl={meta.ogpUrl} />
+      <Meta
+        post={post ?? undefined}
+        title={meta.title}
+        desc={meta.desc}
+        heroImageUrl={meta.ogpUrl}
+      />
       <Box
         // Adsenseの制御はsx propで
         sx={
@@ -69,11 +77,24 @@ export default function Layout({
 
         <Box pt={`${NAV_HEIGHT}px`}>
           {post && post.heroImage && (
-            <Center w="full" bg="gray.900">
-              <Box h="360px" w="650px" position="relative">
-                <Image objectFit="cover" layout="fill" src={post.heroImage.url} />
+            <Box bg="gray.900" w="full">
+              <Box
+                position="relative"
+                bg="gray.900"
+                h="300px"
+                w="full"
+                transitionDuration=".5s"
+                opacity={loadedThumb ? '100%' : '0%'}
+              >
+                {/* この画像は0.5秒のtransitionで表示される */}
+                <Image
+                  onLoad={() => setLoadedThumb(true)}
+                  objectFit="contain"
+                  layout="fill"
+                  src={post.heroImage.url}
+                />
               </Box>
-            </Center>
+            </Box>
           )}
           <Flex mx="auto" w="100vw" px={{ base: 3, md: 0 }} flexDirection="row-reverse">
             {/* disableAsideがtrueならこのmainが横幅いっぱいになります */}

@@ -1,8 +1,7 @@
 import ErrorPage from 'next/error';
 import { Entity } from '@/models/firebase/entities/entity';
-import Layout from '@/components/layout';
-import { Box, Button, Center, Heading } from '@chakra-ui/react';
-import LinkChakra from '@/components/common/link-chakra';
+import LayoutForEntityAtsume from '@/components/entityatsume/layout';
+import { Box, Center, Heading } from '@chakra-ui/react';
 
 import Head from 'next/head';
 
@@ -21,32 +20,23 @@ export default function EntityPage({ preview, firstEntity, revalEnv, message }: 
 
   if (router.isFallback) {
     return (
-      <Layout preview={preview} meta={{ title: 'Loading', desc: '' }} hideAdsense={true}>
-        ロード中
-      </Layout>
+      <LayoutForEntityAtsume meta={{ title: 'Loading', desc: '' }}>ロード中</LayoutForEntityAtsume>
     );
   } else {
     return (
       <>
         {!firstEntity ? (
           <>
-            <Layout
-              preview={preview}
-              meta={{ title: '404 Not found', desc: '' }}
-              hideAdsense={true}
-            >
+            <LayoutForEntityAtsume meta={{ title: '404 Not found', desc: '' }}>
               <ErrorPage title="エンティティが見つかりませんでした" statusCode={404} />
-            </Layout>
+            </LayoutForEntityAtsume>
           </>
         ) : (
-          <Layout
-            hideAdsense={true}
+          <LayoutForEntityAtsume
             meta={{
               title: firstEntity.name,
               desc: firstEntity.description ? firstEntity.description : '',
             }}
-            revalEnv={revalEnv}
-            preview={preview}
           >
             <Head>
               <link
@@ -57,10 +47,6 @@ export default function EntityPage({ preview, firstEntity, revalEnv, message }: 
               />
             </Head>
             <Box py={8}>
-              <Button colorScheme="purple" as={LinkChakra} href="/entityatsume/">
-                &lt;- ガチャに戻る
-              </Button>
-
               {firstEntity && (
                 <>
                   <Center mb={6}>
@@ -70,7 +56,7 @@ export default function EntityPage({ preview, firstEntity, revalEnv, message }: 
                 </>
               )}
             </Box>
-          </Layout>
+          </LayoutForEntityAtsume>
         )}
       </>
     );
