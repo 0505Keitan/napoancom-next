@@ -20,9 +20,6 @@ export function useAuthentication() {
     firebase
       .auth()
       .signInAnonymously()
-      .then((res) => {
-        console.info('Successfully login completed: ', res);
-      })
       .catch((e) => {
         console.error(e);
       });

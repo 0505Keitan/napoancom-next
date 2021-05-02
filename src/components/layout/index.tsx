@@ -43,7 +43,12 @@ export default function Layout({
   return (
     <>
       {/* OGPの生成 */}
-      <Meta title={meta.title} desc={meta.desc} heroImageUrl={meta.ogpUrl} />
+      <Meta
+        post={post ?? undefined}
+        title={meta.title}
+        desc={meta.desc}
+        heroImageUrl={meta.ogpUrl}
+      />
       <Box
         // Adsenseの制御はsx propで
         sx={

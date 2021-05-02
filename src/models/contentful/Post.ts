@@ -51,6 +51,13 @@ person {
 description
 `;
 
+export interface JsonLdStep {
+  '@type': 'HowToStep';
+  name: string;
+  url: string;
+  text: string;
+}
+
 export interface Post extends PostForRss {
   heroImage?: {
     url: string;
@@ -60,8 +67,9 @@ export interface Post extends PostForRss {
   };
   body: string;
   hideAdsense?: boolean;
-  like?: number;
-  dislike?: number;
+  headings?: JsonLdStep[];
+  like: number;
+  dislike: number;
   tweetCount?: number;
 }
 export const POST_GRAPHQL_FIELDS =
