@@ -50,12 +50,10 @@ person {
 }
 description
 `;
-
-export interface JsonLdStep {
-  '@type': 'HowToStep';
+export interface PostHeadingData {
   name: string;
-  url: string;
   text: string;
+  level: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
 export interface Post extends PostForRss {
@@ -67,7 +65,7 @@ export interface Post extends PostForRss {
   };
   body: string;
   hideAdsense?: boolean;
-  headings?: JsonLdStep[];
+  headings: PostHeadingData[];
   like: number;
   dislike: number;
   tweetCount?: number;

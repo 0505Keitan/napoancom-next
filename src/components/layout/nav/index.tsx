@@ -93,8 +93,8 @@ export default class Nav extends Component<NavProps, { prevScrollpos: number; vi
           className={this.state.visible ? 'translateY' : 'translateY hidden'}
         >
           <HStack>
-            <Box mr={4} w={{ base: 'auto', xl: 0 }} display={{ base: 'flex', lg: 'none' }}>
-              <DrawerLeft post={this.props.post} hideAdsense={this.props.hideAdsense ?? false} />
+            <Box mr={4}>
+              <DrawerLeft post={this.props.post} />
             </Box>
             <Box pr={4} display={{ base: 'none', md: 'inline-block' }}>
               <Logo logoSelection="nomaikura" />

@@ -115,20 +115,20 @@ export default function Layout({
                 {children}
               </Box>
             ) : (
-              <Box
-                as="main"
-                mx="auto"
-                pt={8}
-                overflowX="hidden"
-                maxW={{ base: '100vw', md: `${MAIN_WIDTH}px` }}
-                minW={{ base: '100%', md: `${MAIN_WIDTH}px` }}
-                pl={{ base: 0, lg: `${LAYOUT_PADDING}px` }}
-              >
-                {children}
-              </Box>
-            )}
-            {!disableAside && (
-              <Aside post={post} hideAdsense={hideAdsense ?? false} w={ASIDE_WITDH} />
+              <>
+                <Box
+                  as="main"
+                  mx="auto"
+                  pt={8}
+                  overflowX="hidden"
+                  maxW={{ base: '100vw', md: `${MAIN_WIDTH}px` }}
+                  minW={{ base: '100%', md: `${MAIN_WIDTH}px` }}
+                  pl={{ base: 0, lg: `${LAYOUT_PADDING}px` }}
+                >
+                  {children}
+                </Box>
+                <Aside post={post} hideAdsense={hideAdsense ?? false} w={ASIDE_WITDH} />
+              </>
             )}
           </Flex>
           <LayoutFooter maxW={LAYOUT_MAXW} revalidate={revalEnv} />

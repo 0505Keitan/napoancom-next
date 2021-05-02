@@ -1,7 +1,8 @@
 import { Box } from '@chakra-ui/react';
 import { Post } from '@/models/contentful/Post';
 import { NAV_HEIGHT } from '@/theme/index';
-import SideContent from '../side-content';
+import AdsenseBox from '@/components/common/adsense-box';
+import HeadingList from '@/components/common/heading-list';
 
 interface LeftStickyProps {
   w: number;
@@ -24,8 +25,13 @@ const Aside = ({ w, post, hideAdsense }: LeftStickyProps) => {
       zIndex={5}
       pl={3}
     >
-      <Box w="full" h="full" overflowY="scroll" className="noScrollBar" pt={6} pb={8}>
-        <SideContent post={post} hideAdsense={hideAdsense ?? false} />
+      <Box w="full" h="full" overflowY="scroll" className="noScrollBar" pt={3} pb={8}>
+        {post && <HeadingList headings={post.headings} />}
+        {hideAdsense != true && (
+          <>
+            <AdsenseBox width={300} height={250} layout="fixed" slot={'8321176059'} />
+          </>
+        )}
       </Box>
     </Box>
   );
