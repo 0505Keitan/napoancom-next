@@ -18,7 +18,7 @@ interface JsonLdStep {
 interface PostSchema {}
 
 // https://dev.to/aviaryan/rendering-json-ld-data-in-nextjs-and-reactjs-29op
-const makePostSchema = (post: Post): PostSchema => {
+const generateReviewSchema = (post: Post): PostSchema => {
   let sum = post.like + post.dislike;
   let ratio: number;
   // 擬似的に五段階評価っぽくする
@@ -75,6 +75,13 @@ const makePostSchema = (post: Post): PostSchema => {
     bestRating: '5',
     worstRating: '0',
     ratingCount: sum ?? 1,
+  };
+};
+
+const generateGraphSchema = (post: Post) => {
+  const defaultOgp = process.env.HTTPS_URL + '/api/ogpgen?text=' + encodeURIComponent(post.title);
+  return {
+    '@context': 'http://schema.org',
     '@graph': [
       {
         '@type': 'WebSite',
@@ -235,10 +242,19 @@ export default function Meta({ desc, title, heroImageUrl, post }: Props) {
 
         <title>{title == SITE_NAME ? SITE_NAME : title + ' | ' + SITE_NAME}</title>
         {validReview && post && (
+          // これはレビューがある場合だけ
           <script
-            key={`blogPostJSON-${post.slug}`}
+            key={`reviewJSON-${post.slug}`}
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(makePostSchema(post)) }}
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(generateReviewSchema(post)) }}
+          />
+        )}
+        {post && (
+          // これは全記事で生成
+          <script
+            key={`graphJSON-${post.slug}`}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(generateGraphSchema(post)) }}
           />
         )}
       </Head>
