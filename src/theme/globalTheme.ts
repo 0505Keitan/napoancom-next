@@ -4,8 +4,7 @@ import { mode } from '@chakra-ui/theme-tools';
 export const globalLayout = {
   navHeight: 56,
   asideWitdh: 300,
-  // mainWidth: 650,
-  mainWidth: 900,
+  mainWidth: 650,
   layoutPadding: 30,
   maxW: 0,
 };
@@ -126,9 +125,10 @@ const globalTheme = {
         'a:hover': {
           color: 'purple',
         },
-        b: {
-          // 昔の記事のインラインスタイルは、全部白にする。読みづらいから！！！
-          color: mode('black', 'white!important')(props),
+        'b, span, em, i': {
+          // 昔の記事のインラインスタイルは、全部黒白にする。読みづらいから！！！
+          color: mode('black!important', 'white!important')(props),
+          background: mode('', 'transparent!important')(props),
         },
         strong: {
           fontWeight: 'bold',

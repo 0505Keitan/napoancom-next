@@ -16,7 +16,8 @@ export function CompactPost({ post, mode }: Props) {
       <Flex
         bg={colorMode == 'light' ? 'white' : 'gray.900'}
         rounded="xl"
-        shadow="lg"
+        borderWidth={3}
+        border="gray.600"
         p={3}
         alignItems="center"
         area-label={post.title}

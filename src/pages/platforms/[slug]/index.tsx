@@ -25,7 +25,6 @@ const platformIndex = ({ platform, posts, preview }: IndexProps) => {
         </>
       ) : (
         <Layout
-          disableAside
           preview={preview}
           meta={{
             title: `${platform.displayName}の記事一覧 最新${posts.length}件`,
