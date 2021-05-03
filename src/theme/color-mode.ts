@@ -7,7 +7,7 @@ interface Props {
 
 const config: Props = {
   initialColorMode: 'light',
-  useSystemColorMode: false,
+  useSystemColorMode: true,
 };
 
 const colorMode = extendTheme({ config });

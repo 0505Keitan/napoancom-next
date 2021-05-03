@@ -1,4 +1,4 @@
-import { Box, Flex, Button } from '@chakra-ui/react';
+import { Box, Flex, Button, useColorMode } from '@chakra-ui/react';
 import FaiconDiv from './faicon-div';
 import { useRef, useState } from 'react';
 import firebase from '@/lib/firebase/index';
@@ -31,6 +31,8 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
   const [disliked, setDisliked] = useState(false);
 
   const pressed = liked || disliked;
+
+  const { colorMode } = useColorMode();
 
   // カウントは最初の値で、バリューが表示用の変化する値
 
@@ -146,8 +148,16 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
             aria-label="高評価する"
             as="a"
             onClick={Like}
-            color={liked ? 'blue' : 'gray.500'}
-            colorScheme="whiteAlpha"
+            color={
+              liked
+                ? colorMode == 'light'
+                  ? 'blue'
+                  : 'cyan' // ダークで押した
+                : colorMode == 'light'
+                ? 'gray.500'
+                : 'gray.100' //ダークで押してない
+            }
+            colorScheme={colorMode == 'light' ? 'whiteAlpha' : ''}
           >
             <FaiconDiv w={'22px'} icon={['fas', 'thumbs-up']} />
           </Button>
@@ -163,8 +173,16 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
             aria-label="低評価する"
             as="a"
             onClick={Dislike}
-            color={disliked ? 'red' : 'gray.500'}
-            colorScheme="whiteAlpha"
+            color={
+              disliked
+                ? colorMode == 'light'
+                  ? 'red'
+                  : 'brown' // ダークで押した
+                : colorMode == 'light'
+                ? 'gray.500'
+                : 'gray.100' //ダークで押してない
+            }
+            colorScheme={colorMode == 'light' ? 'whiteAlpha' : ''}
           >
             <FaiconDiv w={'22px'} icon={['fas', 'thumbs-down']} />
           </Button>

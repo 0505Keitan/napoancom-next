@@ -1,16 +1,12 @@
-import dynamic from 'next/dynamic';
-import { ReactNode, useState } from 'react';
-import { Flex, Box, Button } from '@chakra-ui/react';
+import { ReactNode } from 'react';
+import { Box, Button } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import Meta from './meta';
-
 import { Post } from '@/models/contentful/Post';
-
 import { ASIDE_WITDH, LAYOUT_MAXW, LAYOUT_PADDING, MAIN_WIDTH, NAV_HEIGHT } from '@/theme/index';
-import Image from 'next/image';
-const Nav = dynamic(() => import('./nav'));
-const Aside = dynamic(() => import('./aside'));
-const LayoutFooter = dynamic(() => import('./layout-footer'));
+import Nav from './nav';
+import LayoutFooter from './layout-footer';
+import { Game } from '@/models/contentful/Game';
 
 interface LayoutProps {
   preview: boolean;
@@ -23,7 +19,7 @@ interface LayoutProps {
   revalEnv?: number;
   hideAdsense?: boolean;
   post?: Post;
-  disableAside?: boolean;
+  games?: Game[];
 }
 
 export default function Layout({
@@ -33,11 +29,8 @@ export default function Layout({
   revalEnv,
   hideAdsense,
   post,
-  disableAside,
+  games,
 }: LayoutProps) {
-  // サムネ読み込み用
-  const [loadedThumb, setLoadedThumb] = useState(false);
-
   return (
     <>
       {/* OGPの生成 */}
@@ -66,65 +59,25 @@ export default function Layout({
         }
         w="100vw"
       >
-        <Nav post={post} />
+        <Nav games={games} post={post} hideAdsense={hideAdsense ?? false} />
 
         <Box pt={`${NAV_HEIGHT}px`}>
-          {post && post.heroImage && (
-            <Box bg="gray.900" w="full">
-              <Box
-                position="relative"
-                bg="gray.900"
-                h="300px"
-                w="full"
-                transitionDuration=".5s"
-                opacity={loadedThumb ? '100%' : '0%'}
-              >
-                {/* この画像は0.5秒のtransitionで表示される */}
-                <Image
-                  onLoad={() => setLoadedThumb(true)}
-                  objectFit="contain"
-                  layout="fill"
-                  src={post.heroImage.url}
-                />
-              </Box>
+          <Box
+            ml="auto"
+            w={{ base: '100vw', lg: `calc(100vw - ${ASIDE_WITDH + LAYOUT_PADDING}px)` }}
+          >
+            <Box
+              as="main"
+              mx="auto"
+              pt={8}
+              overflowX="hidden"
+              w={{ base: 'full', lg: `${MAIN_WIDTH}px` }}
+              px={{ base: 3, lg: 0 }}
+            >
+              {children}
             </Box>
-          )}
-          <Flex mx="auto" w="100vw" px={{ base: 3, md: 0 }} flexDirection="row-reverse">
-            {/* disableAsideがtrueならこのmainが横幅いっぱいになります */}
-            {disableAside ? (
-              <Box
-                as="main"
-                mx="auto"
-                pt={8}
-                overflowX="hidden"
-                maxW={{
-                  base: `${MAIN_WIDTH}px`,
-                  md: `container.md`,
-                  lg: `container.xl`,
-                }}
-                minW={{ base: '100%', md: `${MAIN_WIDTH}px` }}
-                pl={0}
-              >
-                {children}
-              </Box>
-            ) : (
-              <>
-                <Box
-                  as="main"
-                  mx="auto"
-                  pt={8}
-                  overflowX="hidden"
-                  maxW={{ base: '100vw', md: `${MAIN_WIDTH}px` }}
-                  minW={{ base: '100%', md: `${MAIN_WIDTH}px` }}
-                  pl={{ base: 0, lg: `${LAYOUT_PADDING}px` }}
-                >
-                  {children}
-                </Box>
-                <Aside post={post} hideAdsense={hideAdsense ?? false} w={ASIDE_WITDH} />
-              </>
-            )}
-          </Flex>
-          <LayoutFooter maxW={LAYOUT_MAXW} revalidate={revalEnv} />
+            <LayoutFooter maxW={MAIN_WIDTH} revalidate={revalEnv} />
+          </Box>
         </Box>
 
         {preview && (

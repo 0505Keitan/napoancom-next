@@ -4,18 +4,47 @@ import { Post } from '@/models/contentful/Post';
 
 import PlatformList from '../common/platform-list';
 import LinkChakra from '@/components/common/link-chakra';
-
+import Image from 'next/image';
 import FukidashiShare from '@/components/common/fukidashi-share';
 import LikeDislike from '@/components/common/like-dislike';
 import { SITE_FULL_URL } from '@/lib/constants';
 import { useAuthentication } from '@/hooks/authentication';
+import { useState } from 'react';
+import GameList from '../common/game-list';
 interface Props {
   post: Post;
 }
 const PostHeading = ({ post }: Props) => {
   const { user } = useAuthentication();
+  const [loadedThumb, setLoadedThumb] = useState(false);
   return (
     <Box>
+      {post.heroImage != undefined && (
+        <Box w="full" mb={6}>
+          <Box
+            position="relative"
+            mx="auto"
+            transitionDuration=".5s"
+            opacity={loadedThumb ? '100%' : '0%'}
+          >
+            {/* この画像は0.5秒のtransitionで表示される */}
+            <Image
+              height="365px"
+              width="650px"
+              onLoad={() => setLoadedThumb(true)}
+              objectFit="contain"
+              src={post.heroImage.url}
+            />
+          </Box>
+        </Box>
+      )}
+
+      {post.game && post.game.slug != undefined && (
+        <Box mb={4}>
+          <GameList games={[post.game]} mode="wrap" />
+        </Box>
+      )}
+
       <Flex mb={2}>
         <Badge area-label="公開日時" colorScheme="blue" fontSize="1.1rem">
           公開: {dayjs(post.publishDate ?? post.sys.firstPublishedAt).format('YYYY/MM/DD')}
@@ -42,7 +71,7 @@ const PostHeading = ({ post }: Props) => {
       <VStack>
         <Spacer />
 
-        <Box w="full">
+        <Box w="full" display={{ base: 'block', lg: 'none' }}>
           <Box mb={4}>
             <FukidashiShare
               tweetCount={post.tweetCount ?? 0}

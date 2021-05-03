@@ -20,7 +20,7 @@ const FukidashiShare = ({ tweetCount, tweetText }: TocProps) => {
       background: colorMode == 'light' ? '#fff' : '#000',
       padding: '7px 14px 7px',
       borderRadius: '10px',
-      boxShadow: '0px 1px 5px 3px rgba(0,0,0,0.1)',
+      border: 'solid 2px #ddd',
     },
     '.fukidashiBox::before': {
       content: "''",
@@ -31,7 +31,7 @@ const FukidashiShare = ({ tweetCount, tweetText }: TocProps) => {
       width: '0px',
       height: '0px',
       borderWidth: '5px',
-      borderColor: `transparent ${colorMode == 'light' ? '#fff' : '#000'} transparent transparent`,
+      borderColor: `transparent ${colorMode == 'light' ? '#ddd' : '#000'} transparent transparent`,
     },
   };
 
@@ -47,7 +47,7 @@ const FukidashiShare = ({ tweetCount, tweetText }: TocProps) => {
           target="_blank"
           as={LinkChakra}
           href={tweetUrl}
-          colorScheme="twitter"
+          colorScheme={colorMode == 'light' ? 'twitter' : 'teal'}
         >
           <FaiconDiv icon={['fab', 'twitter']} />
         </Button>
@@ -59,7 +59,7 @@ const FukidashiShare = ({ tweetCount, tweetText }: TocProps) => {
         bg={colorMode == 'dark' ? 'black' : 'white'}
         fontSize="lg"
       >
-        {tweetCount ?? 0}
+        {tweetCount ?? 0} Tweets
       </Box>
     </Flex>
   );

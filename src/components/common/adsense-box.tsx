@@ -49,8 +49,7 @@ export default function AdsenseBox({ slot, width, height, layout }: AdsenseProps
       minWidth={`${width ?? 320}px`}
       maxWidth={`${MAIN_WIDTH}px`}
       mx="auto"
-      py={4}
-      my={4}
+      py={8}
     >
       <Badge mt={2} mb={3}>
         スポンサーリンク

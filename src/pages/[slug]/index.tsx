@@ -31,9 +31,7 @@ export default function PostPage({
   if (router.isFallback) {
     return (
       <Layout preview={preview} meta={{ title: 'ロード中', desc: '' }} hideAdsense={true}>
-        <Center py={8}>
-          記事を探しています... (初回アクセスの場合はまさに今ページを生成しています！ )
-        </Center>
+        <Center py={8}>記事を探しています... (通常版も確認中...)</Center>
       </Layout>
     );
   } else {

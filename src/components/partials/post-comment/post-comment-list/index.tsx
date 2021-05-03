@@ -73,7 +73,6 @@ export default function PostCommentList({ postComments, post }: Props) {
         <Box mb={6}>
           {user ? (
             <Box>
-              <Warning />
               <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent py={6}>
@@ -114,6 +113,9 @@ export default function PostCommentList({ postComments, post }: Props) {
                   {({ handleSubmit, values }) => (
                     <Stack as="form" onSubmit={handleSubmit as any} spacing={6}>
                       <TextareaControl name="body" placeholder="コメントを入力" label="コメント" />
+                      <Box mb={2}>
+                        <Warning />
+                      </Box>
                       <CheckboxSingleControl name="agreed">
                         利用規約に同意しました
                       </CheckboxSingleControl>

@@ -69,11 +69,6 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
               </LinkChakra>
             </Box>
             <Stack direction="column">
-              <Box>
-                <Badge colorScheme="green" textTransform="none">
-                  <a href="/privacy-policy/">プライバシーポリシー</a>
-                </Badge>
-              </Box>
               {revalidate && (
                 <Box>
                   <Badge colorScheme="purple" textTransform="none">

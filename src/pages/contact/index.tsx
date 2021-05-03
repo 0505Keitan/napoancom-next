@@ -15,6 +15,7 @@ import * as Yup from 'yup';
 import * as gtag from '@/lib/gtag';
 
 import { useState } from 'react';
+import Warning from '@/components/common/warning';
 
 export default function UsersMe() {
   const { user } = useAuthentication();
@@ -87,7 +88,9 @@ export default function UsersMe() {
                       mb={4}
                       name="content"
                     />
-
+                    <Box mb={2}>
+                      <Warning />
+                    </Box>
                     <CheckboxSingleControl mt={2} name="agreed">
                       利用規約に同意しました
                     </CheckboxSingleControl>

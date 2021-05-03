@@ -1,10 +1,10 @@
 {
   "name": "projectnapoancom-client-next-2021",
-  "version": "0.1.4",
+  "version": "0.1.7",
   "author": "aelyone",
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build": "ANALYZE=true next build",
     "start": "next start",
     "prettier:quick": "pretty-quick --staged",
     "type-check": "tsc",
@@ -30,7 +30,6 @@
     "formik-chakra-ui": "^1.4.6",
     "framer-motion": "^3.7.0",
     "graphql": "^15.5.0",
-    "highlight.js": "^10.7.2",
     "next": "latest",
     "nextjs-progressbar": "^0.0.8",
     "react": "^17.0.1",

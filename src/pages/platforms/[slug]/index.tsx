@@ -25,7 +25,6 @@ const platformIndex = ({ platform, posts, preview }: IndexProps) => {
         </>
       ) : (
         <Layout
-          disableAside
           preview={preview}
           meta={{
             title: `${platform.displayName}の記事一覧 最新${posts.length}件`,
@@ -103,14 +102,11 @@ export async function getStaticProps({ params, preview = false }: GSProps) {
 
 export async function getStaticPaths() {
   let allPlatforms = [];
-  const allPlatformsRes = await fetch(
-    `${process.env.API_URL}/contentful-getAllPlatformsWithSlug?preview=false&limit=${TOTAL_LIMIT}`,
-    {
-      headers: {
-        authorization: process.env.FUNCTION_AUTH ?? '',
-      },
+  const allPlatformsRes = await fetch(`${process.env.API_URL}/contentful-getAllPlatformsWithSlug`, {
+    headers: {
+      authorization: process.env.FUNCTION_AUTH ?? '',
     },
-  );
+  });
   if (allPlatformsRes.ok) {
     allPlatforms = await allPlatformsRes.json();
   } else {

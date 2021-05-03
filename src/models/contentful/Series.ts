@@ -1,4 +1,4 @@
-import { Post, POSTFORLIST_GRAPHQL_FIELDS } from './Post';
+import { Post } from './Post';
 
 export interface Series {
   slug: string;
@@ -6,11 +6,3 @@ export interface Series {
     items: Post[];
   };
 }
-
-export const SERIES_GRAPHQL_FIELDS = `
-slug
-postsCollection {
-  items{
-    ${POSTFORLIST_GRAPHQL_FIELDS}
-  }
-}`;

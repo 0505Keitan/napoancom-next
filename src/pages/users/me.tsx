@@ -50,7 +50,9 @@ export default function UsersMe() {
             プロフィール設定
           </Heading>
           <Box mb={8}>
-            <Warning />
+            <Box mb={3}>
+              <Warning />
+            </Box>
             <Formik
               initialValues={{
                 displayName: '',
@@ -96,6 +98,9 @@ export default function UsersMe() {
                     エンティティあつめ
                   </Button>
                   <Divider my={4} />
+                  <Box mb={2}>
+                    <Warning />
+                  </Box>
                   <CheckboxSingleControl mt={2} name="agreed">
                     利用規約に同意しました
                   </CheckboxSingleControl>
@@ -116,10 +121,9 @@ export default function UsersMe() {
             </Heading>
           </Box>
           <Heading as="h2" fontStyle="h2" mb={4}>
-            Twitterでログイン
+            ログイン
           </Heading>
           <Box mb={8}>
-            <Warning />
             <Formik
               initialValues={{
                 agreed: false,
@@ -140,6 +144,9 @@ export default function UsersMe() {
             >
               {({ handleSubmit, values }) => (
                 <Stack as="form" onSubmit={handleSubmit as any} spacing={6}>
+                  <Box mb={2}>
+                    <Warning />
+                  </Box>
                   <CheckboxSingleControl mt={2} name="agreed">
                     利用規約に同意しました
                   </CheckboxSingleControl>

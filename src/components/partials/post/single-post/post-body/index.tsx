@@ -1,4 +1,4 @@
-import { Box, StyleProps } from '@chakra-ui/react';
+import { Box, Code, StyleProps } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
 import React from 'react';
 import LinkChakra from '../../../../common/link-chakra';
@@ -8,8 +8,6 @@ const gfm = require('remark-gfm');
 
 // oldStyleModuleCss is temporaly fix while replacing terrible classes in old articles
 import oldStyleModuleCss from './style-for-old-articles.module.css';
-import dynamic from 'next/dynamic';
-const Highlighter = dynamic(() => import('@/components/common/highlighter'));
 
 interface RenderProps {
   source: string;
@@ -62,8 +60,8 @@ const PostBody = (props: RenderProps) => {
           {props.level == 6 && <h6 id={headingId(props)}>{props.children}</h6>}
         </Box>
       ),
-      code: ({ language, value }: CodeProps) => {
-        return <Highlighter language={language} code={value} />;
+      code: ({ value }: CodeProps) => {
+        return <Code>{value}</Code>;
       },
       html: (props: any) => (
         <>

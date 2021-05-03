@@ -1,23 +1,23 @@
 import ErrorPage from 'next/error';
 import Layout from '@/components/layout';
-import { Person } from '@/models/contentful/Person';
+import { Game } from '@/models/contentful/Game';
 import { Box } from '@chakra-ui/react';
-import PersonList from '@/components/partials/post/common/person-list';
+import GameList from '@/components/partials/post/common/game-list';
 import { PostForList } from '@/models/contentful/Post';
 import PostList from '@/components/partials/post';
 
 interface IndexProps {
-  person: Person;
+  game: Game;
   preview: boolean;
   posts: PostForList[];
 }
 
 const TOTAL_LIMIT = 11;
 
-const personIndex = ({ person, preview, posts }: IndexProps) => {
+const gameIndex = ({ game, preview, posts }: IndexProps) => {
   return (
     <>
-      {!person ? (
+      {!game ? (
         <>
           <Layout preview={preview} meta={{ title: '404 Not found', desc: '' }} hideAdsense={true}>
             <ErrorPage title="ページが見つかりませんでした" statusCode={404} />
@@ -27,23 +27,22 @@ const personIndex = ({ person, preview, posts }: IndexProps) => {
         <Layout
           preview={preview}
           meta={{
-            title: `${person.displayName}の紹介`,
-            desc: person.description ?? '説明文がありません。',
+            title: `${game.displayName}の記事一覧`,
+            desc: game.description ?? '説明文がありません。',
           }}
           hideAdsense={true}
         >
           <Box mb={16}>
             <Box textStyle="h1" mb={8}>
-              <h1>{person.displayName}の紹介</h1>
+              <h1>{game.displayName}の記事一覧</h1>
             </Box>
-            <PersonList persons={[person]} />
-            <Box my={4}>{person.description ?? '説明文がありません。'}</Box>
+            <Box my={4}>{game.description ?? '説明文がありません。'}</Box>
           </Box>
           <Box textStyle="h2" mb={8}>
             <h2>
               {posts[0]
-                ? `${person.displayName}の記事一覧 最新${posts.length}件`
-                : `${person.displayName}の記事はありません`}
+                ? `${game.displayName}の記事一覧 最新${posts.length}件`
+                : `${game.displayName}の記事はありません`}
             </h2>
           </Box>
           {posts && posts.length > 0 && <PostList mode="archive" posts={posts} />}
@@ -53,7 +52,7 @@ const personIndex = ({ person, preview, posts }: IndexProps) => {
   );
 };
 
-export default personIndex;
+export default gameIndex;
 
 interface GSProps {
   params: any;
@@ -62,25 +61,23 @@ interface GSProps {
 
 export async function getStaticProps({ params, preview = false }: GSProps) {
   const slug = params.slug ?? '';
-  let personData = undefined;
+  let gameData = undefined;
   let posts = [];
 
-  const personDataRes = await fetch(
-    `${process.env.API_URL}/contentful-getPerson?slug=${slug}&preview=${
-      preview ? 'true' : 'false'
-    }`,
+  const gameDataRes = await fetch(
+    `${process.env.API_URL}/contentful-getGame?slug=${slug}&preview=${preview ? 'true' : 'false'}`,
     {
       headers: {
         authorization: process.env.FUNCTION_AUTH ?? '',
       },
     },
   );
-  if (personDataRes.ok) {
-    personData = await personDataRes.json();
+  if (gameDataRes.ok) {
+    gameData = await gameDataRes.json();
   }
-  if (personData) {
+  if (gameData) {
     const postsRes = await fetch(
-      `${process.env.API_URL}/contentful-getAllPostsForPerson?slug=${personData.slug}&preview=${
+      `${process.env.API_URL}/contentful-getAllPostsForGame?slug=${gameData.slug}&preview=${
         preview ? 'true' : 'false'
       }&limit=${TOTAL_LIMIT}`,
       {
@@ -95,7 +92,7 @@ export async function getStaticProps({ params, preview = false }: GSProps) {
   }
   return {
     props: {
-      person: personData ?? null,
+      game: gameData ?? null,
       posts: posts ?? null,
       preview: preview,
     },
@@ -104,21 +101,17 @@ export async function getStaticProps({ params, preview = false }: GSProps) {
 }
 
 export async function getStaticPaths() {
-  let allPersons = [];
-  const allPersonsRes = await fetch(`${process.env.API_URL}/contentful-getAllPersonsWithSlug`, {
+  let allGames = [];
+  const allGamesRes = await fetch(`${process.env.API_URL}/contentful-getAllGamesWithSlug`, {
     headers: {
       authorization: process.env.FUNCTION_AUTH ?? '',
     },
   });
-  if (allPersonsRes.ok) {
-    allPersons = await allPersonsRes.json();
-  } else {
-    return {
-      notFound: true,
-    };
+  if (allGamesRes.ok) {
+    allGames = await allGamesRes.json();
   }
   return {
-    paths: allPersons?.map((person: Person) => `/persons/${person.slug}`) || [],
+    paths: allGames?.map((game: Game) => `/games/${game.slug}`) || [],
     fallback: true,
   };
 }

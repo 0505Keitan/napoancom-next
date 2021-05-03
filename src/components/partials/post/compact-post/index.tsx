@@ -3,6 +3,7 @@ import { Badge, Box, Center, Flex, useColorMode } from '@chakra-ui/react';
 import { PostForList } from '@/models/contentful/Post';
 
 import LinkChakra from '@/components/common/link-chakra';
+import GameList from '../common/game-list';
 
 interface Props {
   post: PostForList;
@@ -16,21 +17,26 @@ export function CompactPost({ post, mode }: Props) {
       <Flex
         bg={colorMode == 'light' ? 'white' : 'gray.900'}
         rounded="xl"
-        shadow="lg"
+        borderWidth={3}
+        border="gray.600"
         p={3}
-        alignItems="center"
         area-label={post.title}
       >
         {/* トップなら画像とタイトルを並べる */}
-        <Flex flexGrow={1} flexDirection={{ base: 'column', md: mode == 'top' ? 'row' : 'column' }}>
+        <Flex
+          w="full"
+          alignItems={mode == 'top' ? 'center' : ''}
+          flexGrow={1}
+          flexDirection={{ base: 'column', md: mode == 'top' ? 'row' : 'column' }}
+        >
           <Center
             rounded="lg"
             bg="linear-gradient(#2687e8, #2655ff)"
-            mb={2}
+            mb={mode == 'top' ? 0 : 2}
             h="110px"
             overflow="hidden"
             w={{ base: 'full', md: mode == 'top' ? '50%' : 'auto' }}
-            mr={mode == 'top' ? 8 : 0}
+            mr={{ base: 0, md: mode == 'top' ? 8 : 0 }}
           >
             {post.heroImage ? (
               <img src={post.heroImage.url} width="full" height="auto" />
@@ -40,7 +46,7 @@ export function CompactPost({ post, mode }: Props) {
           </Center>
           <Box position="relative" w="full">
             <Box
-              fontSize={mode == 'top' ? '2xl' : 'lg'}
+              fontSize={mode == 'top' ? 'xl' : 'lg'}
               fontWeight="bold"
               mb={2}
               h={'90px'}
@@ -61,7 +67,9 @@ export function CompactPost({ post, mode }: Props) {
               </Badge>
             </Box>
             {!post.publishDate && (
-              <Badge colorScheme="red">編集担当へ: 並び替え用の公開日を設定し忘れています!</Badge>
+              <Badge whiteSpace="normal" colorScheme="red">
+                編集担当へ: 並び替え用の公開日を設定し忘れています!
+              </Badge>
             )}
           </Box>
         </Flex>
