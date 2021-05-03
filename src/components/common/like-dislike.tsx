@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import firebase from '@/lib/firebase/index';
 import { User } from '@/models/auth/user';
 import { useToast } from '@chakra-ui/react';
+import * as gtag from '@/lib/gtag';
 interface Props {
   likeCount?: number;
   dislikeCount?: number;
@@ -73,6 +74,14 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
             duration: 3000,
             isClosable: true,
           });
+
+          if (typeof window !== 'undefined') {
+            gtag.event({
+              action: 'like',
+              category: 'blogPost',
+              label: '記事を高評価',
+            });
+          }
         })
         .catch((e) => {
           console.error(e);
@@ -110,6 +119,14 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
             duration: 3000,
             isClosable: true,
           });
+
+          if (typeof window !== 'undefined') {
+            gtag.event({
+              action: 'dislike',
+              category: 'blogPost',
+              label: '記事を低評価',
+            });
+          }
         })
         .catch((e) => {
           console.error(e);

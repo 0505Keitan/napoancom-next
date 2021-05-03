@@ -23,6 +23,8 @@ import { Post } from '@/models/contentful/Post';
 import Logo from '@/components/common/Logo';
 import HeadingList from '@/components/common/heading-list';
 
+import * as gtag from '@/lib/gtag';
+
 interface Props {
   post?: Post;
 }
@@ -41,7 +43,16 @@ export default function DrawerLeft({ post }: Props) {
         ref={btnRef}
         colorScheme="blue"
         leftIcon={<FaiconDiv icon={['fas', 'bars']} />}
-        onClick={onOpen}
+        onClick={() => {
+          onOpen();
+          if (typeof window !== 'undefined') {
+            gtag.event({
+              action: 'openDrawer',
+              category: 'GUI',
+              label: 'ドロワーメニューを開く',
+            });
+          }
+        }}
       />
       <Drawer
         isOpen={isOpen}
