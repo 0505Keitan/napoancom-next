@@ -1,68 +1,95 @@
 import { SinglePostComponent } from '@/components/partials/post/single-post';
 import { Post, PostForList, PostOnlySlug } from '@/models/contentful/Post';
 import Layout from '@/components/layout';
-import { Box, Center, Divider } from '@chakra-ui/react';
+import ErrorPage from 'next/error';
+import { Box, Button, Center, Divider, Heading } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import PostList from '@/components/partials/post';
+import LinkChakra from '@/components/common/link-chakra';
 
 interface PostPageProps {
   firstPost: Post;
   morePosts: PostForList[];
   preview: boolean;
-
+  slug: string;
   revalEnv: number;
+  foundNormalVer: boolean;
 }
 
-export default function PostPage({ firstPost, morePosts, preview, revalEnv }: PostPageProps) {
+export default function PostPage({
+  foundNormalVer,
+  slug,
+  firstPost,
+  morePosts,
+  preview,
+  revalEnv,
+}: PostPageProps) {
   const router = useRouter();
 
   if (router.isFallback) {
     return (
       <Layout preview={preview} meta={{ title: 'ロード中', desc: '' }} hideAdsense={true}>
         <Center py={8}>
-          記事を探しています... (初回アクセスの場合はまさに今ページを生成しています！
-          <br />
-          ...404の場合が多いけどね。)
+          記事を探しています... (初回アクセスの場合はまさに今ページを生成しています！ )
         </Center>
       </Layout>
     );
   } else {
-    return (
-      <>
-        <Layout
-          meta={{
-            title: firstPost.title,
-            desc: firstPost.description ? firstPost.description : '',
-            ogpUrl: firstPost.heroImage && firstPost.heroImage.url,
-          }}
-          revalEnv={revalEnv}
-          preview={preview}
-          hideAdsense={firstPost.hideAdsense ?? false}
-          post={firstPost}
-        >
-          <Head>
-            <link
-              rel="canonical"
-              href={`${process.env.HTTPS_URL ?? ''}/${firstPost.slug ?? ''}/`}
-            />
-          </Head>
-          <Box>
-            {preview && <Box>デバッグ: プレビューON</Box>}
+    if (firstPost) {
+      return (
+        <>
+          <Layout
+            meta={{
+              title: firstPost.title,
+              desc: firstPost.description ? firstPost.description : '',
+              ogpUrl: firstPost.heroImage && firstPost.heroImage.url,
+            }}
+            revalEnv={revalEnv}
+            preview={preview}
+            hideAdsense={firstPost.hideAdsense ?? false}
+            post={firstPost}
+          >
+            <Head>
+              <link
+                rel="canonical"
+                href={`${process.env.HTTPS_URL ?? ''}/${firstPost.slug ?? ''}/`}
+              />
+            </Head>
+            <Box>
+              {preview && <Box>デバッグ: プレビューON</Box>}
 
-            {firstPost && <SinglePostComponent post={firstPost} />}
+              {firstPost && <SinglePostComponent post={firstPost} />}
 
-            <Divider my={8} borderColor="gray.400" />
-            {morePosts && morePosts.length > 0 && (
-              <Box my={10}>
-                <PostList mode="more" posts={morePosts} enableAd={!firstPost.hideAdsense ?? true} />
-              </Box>
-            )}
-          </Box>
-        </Layout>
-      </>
-    );
+              <Divider my={8} borderColor="gray.400" />
+              {morePosts && morePosts.length > 0 && (
+                <Box my={10}>
+                  <PostList
+                    mode="more"
+                    posts={morePosts}
+                    enableAd={!firstPost.hideAdsense ?? true}
+                  />
+                </Box>
+              )}
+            </Box>
+          </Layout>
+        </>
+      );
+    } else {
+      if (foundNormalVer) {
+        if (typeof window !== 'undefined') {
+          router.push('https://napoan.com/' + slug);
+        }
+        return null;
+      } else {
+        return (
+          <Layout preview={false} meta={{ title: '記事が見つかりませんでした', desc: '' }}>
+            <ErrorPage title="記事が見つかりませんでした" statusCode={404} />
+          </Layout>
+        );
+      }
+    }
   }
 }
 
@@ -101,17 +128,28 @@ export async function getStaticProps({ params, preview }: GSProps) {
 
   const revalEnv = parseInt(process.env.REVALIDATE_SINGLE ?? '3600');
 
+  let foundNormalVer = false;
   if (!posts.post) {
-    return {
-      notFound: true,
-    };
+    await fetch(`https://napoan.com/${params.slug}/`).then((res) => {
+      // 通常盤が見つかったら
+      if (res.ok) {
+        foundNormalVer = true;
+      } else {
+        return {
+          notFound: true,
+        };
+      }
+    });
   }
+
   const pageProps = {
+    slug: params.slug,
     preview: preview ?? false,
     firstPost: posts.post ?? null,
     morePosts: posts.morePosts ?? [],
     revalEnv: revalEnv,
     hideAdsense: (posts.post && posts.post.hideAdsense == true) ?? false,
+    foundNormalVer,
   };
   if (pageProps.firstPost) {
     console.info(
@@ -140,6 +178,6 @@ export async function getStaticPaths() {
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
   };
 }
