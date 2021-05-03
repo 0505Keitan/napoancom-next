@@ -5,8 +5,8 @@ import LinkChakra from '@/components/common/link-chakra';
 import Meta from './meta';
 import { Post } from '@/models/contentful/Post';
 import { ASIDE_WITDH, LAYOUT_MAXW, MAIN_WIDTH, NAV_HEIGHT } from '@/theme/index';
-const Nav = dynamic(() => import('./nav'));
-const LayoutFooter = dynamic(() => import('./layout-footer'));
+import Nav from './nav';
+import LayoutFooter from './layout-footer';
 
 interface LayoutProps {
   preview: boolean;
@@ -74,7 +74,7 @@ export default function Layout({
             >
               {children}
             </Box>
-            <LayoutFooter maxW={LAYOUT_MAXW} revalidate={revalEnv} />
+            <LayoutFooter maxW={MAIN_WIDTH} revalidate={revalEnv} />
           </Box>
         </Box>
 

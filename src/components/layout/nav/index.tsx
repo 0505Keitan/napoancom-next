@@ -5,12 +5,13 @@ import {
   Button,
   CloseButton,
   Divider,
+  Flex,
   HStack,
   Spacer,
   Stack,
   useColorMode,
 } from '@chakra-ui/react';
-import { ASIDE_WITDH, NAV_HEIGHT } from '@/theme/index';
+import { ASIDE_WITDH, LAYOUT_PADDING, NAV_HEIGHT } from '@/theme/index';
 import { Post } from '@/models/contentful/Post';
 import ColorSwitch from '../color-switch';
 import Logo from '@/components/common/Logo';
@@ -41,7 +42,8 @@ export default function Nav({ post, hideAdsense }: NavProps) {
     if (isOpen) {
       return 0;
     } else {
-      return { base: `-${ASIDE_WITDH}px`, lg: 0 };
+      // 左にずらして隠す
+      return { base: `-${ASIDE_WITDH + LAYOUT_PADDING}px`, lg: 0 };
     }
   };
   return (
@@ -53,7 +55,6 @@ export default function Nav({ post, hideAdsense }: NavProps) {
         position="fixed"
         as="aside"
         sx={{ '.noScrollBar::-webkit-scrollbar': { display: 'none' } }}
-        w={`${ASIDE_WITDH}px`}
         h="100vh"
         zIndex={6}
         px={3}
@@ -64,7 +65,14 @@ export default function Nav({ post, hideAdsense }: NavProps) {
         borderRight="gray.400"
         borderRightWidth={2}
       >
-        <Box w="full" h="full" overflowY="scroll" className="noScrollBar" pt={3} pb={8}>
+        <Flex
+          w={`${ASIDE_WITDH}px`}
+          flexDir="column"
+          h="full"
+          overflowY="scroll"
+          className="noScrollBar"
+          py={3}
+        >
           <CloseButton
             display={{ base: 'block', lg: 'none' }}
             onClick={() => {
@@ -78,62 +86,61 @@ export default function Nav({ post, hideAdsense }: NavProps) {
               }
             }}
           />
-          {hideAdsense != true ? (
-            <>
-              <AdsenseBox width={300} height={250} layout="fixed" slot={'8321176059'} />
-            </>
-          ) : (
-            <Button
-              colorScheme="purple"
-              mb={6}
-              h={20}
-              fontSize="xl"
-              w="full"
-              as={LinkChakra}
-              href="/entityatsume"
-            >
-              特別企画: GW
-              <br />
-              エンティティガチャ
-              <br />
-              開催中！！！！
-            </Button>
-          )}
+          <Stack flexGrow={1} h="auto">
+            {hideAdsense != true ? (
+              <>
+                <AdsenseBox width={300} height={250} layout="fixed" slot={'8321176059'} />
+              </>
+            ) : (
+              <Button
+                colorScheme="purple"
+                mb={6}
+                h={20}
+                fontSize="xl"
+                w="full"
+                as={LinkChakra}
+                href="/entityatsume"
+              >
+                特別企画: GW
+                <br />
+                エンティティガチャ
+                <br />
+                開催中！！！！
+              </Button>
+            )}
 
-          <Box display={{ base: 'block', lg: 'none' }}>
-            <SearchBox />
-          </Box>
+            <Box display={{ base: 'block', lg: 'none' }}>
+              <SearchBox />
+            </Box>
 
-          <Box mb={4}>
-            <SignIn />
-          </Box>
+            <Box pb={8}>
+              <SignIn />
+            </Box>
 
-          <Divider my={4} />
+            {post && (
+              <>
+                <Stack mb={4}>
+                  <Box mb={4}>
+                    <FukidashiShare
+                      tweetCount={post.tweetCount ?? 0}
+                      tweetText={`${post.title}\n${SITE_FULL_URL}/${post.slug}`}
+                    />
+                  </Box>
+                  <Box w="full" mb={2} display={{ base: 'none', lg: 'flex' }}>
+                    <LikeDislike
+                      slug={post.slug}
+                      likeCount={post.like ?? 0}
+                      dislikeCount={post.dislike ?? 0}
+                      uid={user ? user.uid : undefined}
+                    />
+                  </Box>
+                  <HeadingList headings={post.headings} />
+                </Stack>
+              </>
+            )}
+          </Stack>
 
-          {post && (
-            <>
-              <Stack mb={4}>
-                <Box mb={4}>
-                  <FukidashiShare
-                    tweetCount={post.tweetCount ?? 0}
-                    tweetText={`${post.title}\n${SITE_FULL_URL}/${post.slug}`}
-                  />
-                </Box>
-                <Box w="full" mb={2} display={{ base: 'none', lg: 'flex' }}>
-                  <LikeDislike
-                    slug={post.slug}
-                    likeCount={post.like ?? 0}
-                    dislikeCount={post.dislike ?? 0}
-                    uid={user ? user.uid : undefined}
-                  />
-                </Box>
-                <HeadingList headings={post.headings} />
-              </Stack>
-              <Divider my={4} />
-            </>
-          )}
-
-          <Stack>
+          <Stack spacing={3}>
             <Button
               leftIcon={<FaiconDiv icon={['fas', 'comment-alt']} />}
               as={LinkChakra}
@@ -145,8 +152,15 @@ export default function Nav({ post, hideAdsense }: NavProps) {
             <Button leftIcon={<FaiconDiv icon={['fas', 'book']} />} as={LinkChakra} href="/eula/">
               利用規約
             </Button>
+            <Button
+              leftIcon={<FaiconDiv icon={['fas', 'user']} />}
+              as={LinkChakra}
+              href="/privacy-policy/"
+            >
+              プライバシーポリシー
+            </Button>
           </Stack>
-        </Box>
+        </Flex>
       </Box>
 
       {/* これが上のメニュー */}
@@ -164,7 +178,11 @@ export default function Nav({ post, hideAdsense }: NavProps) {
         position="fixed"
         overflow="hidden"
       >
-        <HStack px={3} ml="auto" w={{ base: '100vw', lg: `calc(100vw - ${ASIDE_WITDH}px)` }}>
+        <HStack
+          px={3}
+          ml="auto"
+          w={{ base: '100vw', lg: `calc(100vw - ${ASIDE_WITDH + LAYOUT_PADDING}px)` }}
+        >
           <Button
             display={{ base: 'block', lg: 'none' }}
             zIndex={10}
