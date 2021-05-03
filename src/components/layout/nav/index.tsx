@@ -112,6 +112,10 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
               </Button>
             )}
 
+            <Box pb={6} display={{ base: 'block', lg: 'none' }}>
+              <Logo logoSelection="nomaikura" />
+            </Box>
+
             <Box display={{ base: 'block', lg: 'none' }}>
               <SearchBox />
             </Box>
