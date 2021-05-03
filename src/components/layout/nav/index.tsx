@@ -1,14 +1,12 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { Box, Button, HStack, Spacer, useColorMode } from '@chakra-ui/react';
+import { Box, HStack, Spacer, useColorMode } from '@chakra-ui/react';
 import DrawerLeft from './drawer-left';
 import { Post } from '@/models/contentful/Post';
-import LinkChakra from '@/components/common/link-chakra';
-import FaiconDiv from '@/components/common/faicon-div';
-import { CREATOR_ID } from '@/lib/constants';
 import { NAV_HEIGHT } from '@/theme/index';
 import ColorSwitch from '../color-switch';
 import Logo from '@/components/common/Logo';
+import SearchBox from '@/components/common/search-box';
 const SignIn = dynamic(() => import('./signin'), { ssr: false });
 
 interface NavProps {
@@ -44,15 +42,8 @@ export default function Nav({ post }: NavProps) {
 
           <Spacer />
 
-          <HStack display={{ base: 'none', md: 'inline-block' }}>
-            <Button
-              isExternal
-              leftIcon={<FaiconDiv icon={['fab', 'twitter']} />}
-              as={LinkChakra}
-              href={`https://twitter.com/${CREATOR_ID}`}
-            >
-              Twitter
-            </Button>
+          <HStack display={{ base: 'none', sm: 'inline-block' }}>
+            <SearchBox />
           </HStack>
 
           <Box pl={4}>
