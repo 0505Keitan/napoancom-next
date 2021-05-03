@@ -109,10 +109,6 @@ export async function getStaticPaths() {
   });
   if (allGamesRes.ok) {
     allGames = await allGamesRes.json();
-  } else {
-    return {
-      notFound: true,
-    };
   }
   return {
     paths: allGames?.map((game: Game) => `/games/${game.slug}`) || [],

@@ -73,9 +73,6 @@ export default function PostCommentList({ postComments, post }: Props) {
         <Box mb={6}>
           {user ? (
             <Box>
-              <Box mb={2}>
-                <Warning />
-              </Box>
               <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent py={6}>

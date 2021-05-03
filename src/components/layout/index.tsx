@@ -1,12 +1,12 @@
-import dynamic from 'next/dynamic';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { Box, Button } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import Meta from './meta';
 import { Post } from '@/models/contentful/Post';
-import { ASIDE_WITDH, LAYOUT_MAXW, MAIN_WIDTH, NAV_HEIGHT } from '@/theme/index';
+import { ASIDE_WITDH, LAYOUT_MAXW, LAYOUT_PADDING, MAIN_WIDTH, NAV_HEIGHT } from '@/theme/index';
 import Nav from './nav';
 import LayoutFooter from './layout-footer';
+import { Game } from '@/models/contentful/Game';
 
 interface LayoutProps {
   preview: boolean;
@@ -19,6 +19,7 @@ interface LayoutProps {
   revalEnv?: number;
   hideAdsense?: boolean;
   post?: Post;
+  games?: Game[];
 }
 
 export default function Layout({
@@ -28,10 +29,8 @@ export default function Layout({
   revalEnv,
   hideAdsense,
   post,
+  games,
 }: LayoutProps) {
-  // サムネ読み込み用
-  const [loadedThumb, setLoadedThumb] = useState(false);
-
   return (
     <>
       {/* OGPの生成 */}
@@ -60,10 +59,13 @@ export default function Layout({
         }
         w="100vw"
       >
-        <Nav post={post} hideAdsense={hideAdsense ?? false} />
+        <Nav games={games} post={post} hideAdsense={hideAdsense ?? false} />
 
         <Box pt={`${NAV_HEIGHT}px`}>
-          <Box ml="auto" w={{ base: '100vw', lg: `calc(100vw - ${ASIDE_WITDH}px)` }}>
+          <Box
+            ml="auto"
+            w={{ base: '100vw', lg: `calc(100vw - ${ASIDE_WITDH + LAYOUT_PADDING}px)` }}
+          >
             <Box
               as="main"
               mx="auto"

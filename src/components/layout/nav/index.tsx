@@ -25,16 +25,19 @@ import LikeDislike from '@/components/common/like-dislike';
 import { SITE_FULL_URL } from '@/lib/constants';
 import { useAuthentication } from '@/hooks/authentication';
 import LinkChakra from '@/components/common/link-chakra';
+import { Game } from '@/models/contentful/Game';
+import GameList from '@/components/partials/post/common/game-list';
 const SignIn = dynamic(() => import('./signin'), { ssr: false });
 
 interface NavProps {
   post?: Post;
   hideAdsense: boolean;
+  games?: Game[];
 }
 
 // https://dev.to/guimg/hide-menu-when-scrolling-in-reactjs-47bj
 
-export default function Nav({ post, hideAdsense }: NavProps) {
+export default function Nav({ post, hideAdsense, games }: NavProps) {
   const { user } = useAuthentication();
   const { colorMode } = useColorMode();
   const [isOpen, setIsOpen] = useState(false);
@@ -116,6 +119,8 @@ export default function Nav({ post, hideAdsense }: NavProps) {
             <Box pb={8}>
               <SignIn />
             </Box>
+
+            {games && games.length > 0 && <GameList games={games} />}
 
             {post && (
               <>
