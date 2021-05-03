@@ -1,9 +1,7 @@
 import { Person } from './Person';
 import { Platform } from './Platform';
 import { Sys } from './Sys';
-
-import { PERSON_GRAPHQL_FIELDS } from './Person';
-import { PLATFORM_GRAPHQL_FIELDS } from './Platform';
+import { Game } from './Game';
 
 export interface PostOnlySlug {
   slug: string;
@@ -14,42 +12,17 @@ interface PostInfo extends PostOnlySlug {
   title: string;
   publishDate: string;
 }
-const postInfoQuery = `
-sys {
-  id
-  firstPublishedAt
-  publishedAt
-}
-title
-slug
-publishDate
-`;
 
 export interface PostForList extends PostInfo {
   heroImage?: {
     url: string;
   };
 }
-export const POSTFORLIST_GRAPHQL_FIELDS =
-  postInfoQuery +
-  `
-heroImage {
-  url
-}
-`;
 
 export interface PostForRss extends PostInfo {
   person?: Person;
   description?: string;
 }
-export const POSTFORRSS_GRAPHQL_FIELDS =
-  postInfoQuery +
-  `
-person {
-  ${PERSON_GRAPHQL_FIELDS}
-}
-description
-`;
 export interface PostHeadingData {
   name: string;
   text: string;
@@ -63,6 +36,7 @@ export interface Post extends PostForRss {
   platformsCollection?: {
     items: Platform[];
   };
+  game?: Game;
   body: string;
   hideAdsense?: boolean;
   headings: PostHeadingData[];
@@ -70,16 +44,3 @@ export interface Post extends PostForRss {
   dislike: number;
   tweetCount?: number;
 }
-export const POST_GRAPHQL_FIELDS =
-  POSTFORRSS_GRAPHQL_FIELDS +
-  `
-heroImage {
-  url
-}
-platformsCollection(limit: 5) {
-  items {
-    ${PLATFORM_GRAPHQL_FIELDS}
-  }
-}
-body
-hideAdsense`;

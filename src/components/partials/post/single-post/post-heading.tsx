@@ -10,6 +10,7 @@ import LikeDislike from '@/components/common/like-dislike';
 import { SITE_FULL_URL } from '@/lib/constants';
 import { useAuthentication } from '@/hooks/authentication';
 import { useState } from 'react';
+import GameList from '../common/game-list';
 interface Props {
   post: Post;
 }
@@ -22,9 +23,9 @@ const PostHeading = ({ post }: Props) => {
         <Box w="full" mb={6}>
           <Box
             position="relative"
-            bg="gray.900"
-            h="300px"
-            w="full"
+            mx="auto"
+            h="365px"
+            w="650px"
             transitionDuration=".5s"
             opacity={loadedThumb ? '100%' : '0%'}
           >
@@ -52,6 +53,12 @@ const PostHeading = ({ post }: Props) => {
           <h1>{post.title}</h1>
         </LinkChakra>
       </Box>
+
+      {post.game !== undefined && (
+        <Box mb={4}>
+          <GameList mode="wrap" games={[post.game]} />
+        </Box>
+      )}
 
       {post.platformsCollection?.items && post.platformsCollection.items.length > 0 && (
         <Box mb={4}>

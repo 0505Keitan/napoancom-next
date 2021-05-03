@@ -9,19 +9,3 @@ export interface Platform {
   description?: string | null;
   icon?: Icon | null;
 }
-
-export const PLATFORM_GRAPHQL_FIELDS = `
-sys {
-  id
-  firstPublishedAt
-  publishedAt
-}
-displayName
-description
-slug
-bgColor
-icon {
-  name
-  style
-}
-`;
