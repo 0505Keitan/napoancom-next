@@ -7,13 +7,16 @@ import Layout from '@/components/layout';
 
 import PostList from '@/components/partials/post';
 import LinkChakra from '@/components/common/link-chakra';
+import { Game } from '@/models/contentful/Game';
+import GameList from '@/components/partials/post/common/game-list';
 
 interface IndexProps {
   posts: Post[];
   environment: boolean;
+  allGames: Game[];
 }
 
-const Index = ({ posts, environment }: IndexProps) => {
+const Index = ({ posts, environment, allGames }: IndexProps) => {
   return (
     <>
       {!posts ? (
@@ -21,13 +24,9 @@ const Index = ({ posts, environment }: IndexProps) => {
           <ErrorPage title="ページのデータを取得できませんでした" statusCode={404} />
         </Layout>
       ) : (
-        <Layout preview={environment} meta={{ title: SITE_NAME, desc: SITE_DESC }}>
+        <Layout games={allGames} preview={environment} meta={{ title: SITE_NAME, desc: SITE_DESC }}>
           {posts && (
-            <Box mt={6} mb={10}>
-              <VStack textStyle="h1" spacing={4} mb={8}>
-                <h2>最近更新された記事</h2>
-                <Divider />
-              </VStack>
+            <Box mb={10}>
               {posts && posts.length > 0 && <PostList mode="archive" posts={posts} />}
               <Button mt={12} h={20} fontSize="xl" w="full" as={LinkChakra} href="/postpage/1/">
                 記事一覧へ
@@ -57,13 +56,22 @@ export async function getStaticProps({ preview = false }) {
   if (allPostsForIndexRes.ok) {
     allPostsForIndex = await allPostsForIndexRes.json();
   }
-
+  let allGames: Game[] = [];
+  const allGamesRes = await fetch(`${process.env.API_URL}/contentful-getAllGamesWithSlug`, {
+    headers: {
+      authorization: process.env.FUNCTION_AUTH ?? '',
+    },
+  });
+  if (allGamesRes.ok) {
+    allGames = await allGamesRes.json();
+  }
   const revalEnv = parseInt(process.env.REVALIDATE_HOME ?? '1200');
 
   return {
     props: {
       posts: allPostsForIndex ?? null,
       preview: preview ?? null,
+      allGames: allGames,
     },
     revalidate: revalEnv,
   };

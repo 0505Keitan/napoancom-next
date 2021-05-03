@@ -22,7 +22,7 @@ const OneGame = ({ game }: Props) => {
       colorScheme={'green'}
       as={LinkChakra}
     >
-      <Box>{game.displayName}</Box>
+      <Box>{game.displayName}の記事</Box>
     </Button>
   );
 };
@@ -31,8 +31,8 @@ const GameList = ({ games, heading, mode }: ListProps) => {
   return (
     <Box>
       {heading && (
-        <Heading fontSize="1.6rem" m={2} mt={8} as="h2">
-          機種から記事を探す
+        <Heading fontSize="1.6rem" m={2} as="h2">
+          ゲームから記事を探す
         </Heading>
       )}
       <Flex flexWrap="wrap" flexDirection={mode == 'wrap' ? 'row' : 'column'}>

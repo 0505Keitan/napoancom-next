@@ -105,14 +105,11 @@ export async function getStaticProps({ params, preview = false }: GSProps) {
 
 export async function getStaticPaths() {
   let allPersons = [];
-  const allPersonsRes = await fetch(
-    `${process.env.API_URL}/contentful-getAllPersonsWithSlug?preview=false&limit=${TOTAL_LIMIT}`,
-    {
-      headers: {
-        authorization: process.env.FUNCTION_AUTH ?? '',
-      },
+  const allPersonsRes = await fetch(`${process.env.API_URL}/contentful-getAllPersonsWithSlug`, {
+    headers: {
+      authorization: process.env.FUNCTION_AUTH ?? '',
     },
-  );
+  });
   if (allPersonsRes.ok) {
     allPersons = await allPersonsRes.json();
   } else {

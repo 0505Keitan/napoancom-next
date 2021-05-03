@@ -24,19 +24,24 @@ const PostHeading = ({ post }: Props) => {
           <Box
             position="relative"
             mx="auto"
-            h="365px"
-            w="650px"
             transitionDuration=".5s"
             opacity={loadedThumb ? '100%' : '0%'}
           >
             {/* この画像は0.5秒のtransitionで表示される */}
             <Image
+              height="365px"
+              width="650px"
               onLoad={() => setLoadedThumb(true)}
               objectFit="contain"
-              layout="fill"
               src={post.heroImage.url}
             />
           </Box>
+        </Box>
+      )}
+
+      {post.game && post.game.slug != undefined && (
+        <Box mb={4}>
+          <GameList games={[post.game]} mode="wrap" />
         </Box>
       )}
 
@@ -53,12 +58,6 @@ const PostHeading = ({ post }: Props) => {
           <h1>{post.title}</h1>
         </LinkChakra>
       </Box>
-
-      {post.game !== undefined && (
-        <Box mb={4}>
-          <GameList mode="wrap" games={[post.game]} />
-        </Box>
-      )}
 
       {post.platformsCollection?.items && post.platformsCollection.items.length > 0 && (
         <Box mb={4}>

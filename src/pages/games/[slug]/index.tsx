@@ -27,16 +27,15 @@ const gameIndex = ({ game, preview, posts }: IndexProps) => {
         <Layout
           preview={preview}
           meta={{
-            title: `${game.displayName}の紹介`,
+            title: `${game.displayName}の記事一覧`,
             desc: game.description ?? '説明文がありません。',
           }}
           hideAdsense={true}
         >
           <Box mb={16}>
             <Box textStyle="h1" mb={8}>
-              <h1>{game.displayName}の紹介</h1>
+              <h1>{game.displayName}の記事一覧</h1>
             </Box>
-            <GameList games={[game]} />
             <Box my={4}>{game.description ?? '説明文がありません。'}</Box>
           </Box>
           <Box textStyle="h2" mb={8}>
@@ -103,14 +102,11 @@ export async function getStaticProps({ params, preview = false }: GSProps) {
 
 export async function getStaticPaths() {
   let allGames = [];
-  const allGamesRes = await fetch(
-    `${process.env.API_URL}/contentful-getAllGamesWithSlug?preview=false&limit=${TOTAL_LIMIT}`,
-    {
-      headers: {
-        authorization: process.env.FUNCTION_AUTH ?? '',
-      },
+  const allGamesRes = await fetch(`${process.env.API_URL}/contentful-getAllGamesWithSlug`, {
+    headers: {
+      authorization: process.env.FUNCTION_AUTH ?? '',
     },
-  );
+  });
   if (allGamesRes.ok) {
     allGames = await allGamesRes.json();
   } else {
