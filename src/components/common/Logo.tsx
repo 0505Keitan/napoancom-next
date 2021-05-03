@@ -1,5 +1,5 @@
 import { THEME_COLOR } from '@/theme/index';
-import { Box } from '@chakra-ui/react';
+import { Box, useColorMode } from '@chakra-ui/react';
 import LinkChakra from './link-chakra';
 
 type LogoMode = 'dotcom' | 'nomaikura' | 'manoikura';
@@ -67,6 +67,7 @@ const PathSelecter = ({ mode }: { mode: LogoMode }) => {
 };
 
 const Logo = ({ fill = THEME_COLOR, logoSelection }: Props) => {
+  const { colorMode } = useColorMode();
   let svgProps = {
     width: 200,
     viewBox: '0 0 565 65',
@@ -84,7 +85,7 @@ const Logo = ({ fill = THEME_COLOR, logoSelection }: Props) => {
     <Box area-label="ロゴ" fontWeight="bold" w="200px">
       <LinkChakra href={'/'}>
         <svg {...svgProps}>
-          <g fill={fill}>
+          <g fill={colorMode == 'light' ? fill : 'white'}>
             <PathSelecter mode={logoSelection} />
           </g>
         </svg>
