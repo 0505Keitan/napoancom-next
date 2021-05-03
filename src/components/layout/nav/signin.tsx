@@ -36,7 +36,7 @@ const SignIn = () => {
               )
             }
           >
-            <Box textAlign="left" pl={1} isTruncated minW={16} maxW={24} overflow="hidden">
+            <Box textAlign="left" isTruncated minW={16} maxW={24} overflow="hidden">
               {user ? user.name : 'ログイン'}
             </Box>
           </MenuButton>

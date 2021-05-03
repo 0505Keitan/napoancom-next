@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { Box, Button, CloseButton, HStack, Spacer, Stack, useColorMode } from '@chakra-ui/react';
-import { ASIDE_WITDH, LAYOUT_PADDING, NAV_HEIGHT } from '@/theme/index';
+import {
+  Box,
+  Button,
+  CloseButton,
+  Divider,
+  HStack,
+  Spacer,
+  Stack,
+  useColorMode,
+} from '@chakra-ui/react';
+import { ASIDE_WITDH, NAV_HEIGHT } from '@/theme/index';
 import { Post } from '@/models/contentful/Post';
 import ColorSwitch from '../color-switch';
 import Logo from '@/components/common/Logo';
@@ -91,27 +100,52 @@ export default function Nav({ post, hideAdsense }: NavProps) {
             </Button>
           )}
 
-          <SignIn />
+          <Box display={{ base: 'block', lg: 'none' }}>
+            <SearchBox />
+          </Box>
+
+          <Box mb={4}>
+            <SignIn />
+          </Box>
+
+          <Divider my={4} />
 
           {post && (
-            <Stack>
-              <Box py={4}>
-                <FukidashiShare
-                  tweetCount={post.tweetCount ?? 0}
-                  tweetText={`${post.title}\n${SITE_FULL_URL}/${post.slug}`}
-                />
-              </Box>
-              <Box w="full" py={2} display={{ base: 'none', lg: 'flex' }}>
-                <LikeDislike
-                  slug={post.slug}
-                  likeCount={post.like ?? 0}
-                  dislikeCount={post.dislike ?? 0}
-                  uid={user ? user.uid : undefined}
-                />
-              </Box>
-              <HeadingList headings={post.headings} />
-            </Stack>
+            <>
+              <Stack mb={4}>
+                <Box mb={4}>
+                  <FukidashiShare
+                    tweetCount={post.tweetCount ?? 0}
+                    tweetText={`${post.title}\n${SITE_FULL_URL}/${post.slug}`}
+                  />
+                </Box>
+                <Box w="full" mb={2} display={{ base: 'none', lg: 'flex' }}>
+                  <LikeDislike
+                    slug={post.slug}
+                    likeCount={post.like ?? 0}
+                    dislikeCount={post.dislike ?? 0}
+                    uid={user ? user.uid : undefined}
+                  />
+                </Box>
+                <HeadingList headings={post.headings} />
+              </Stack>
+              <Divider my={4} />
+            </>
           )}
+
+          <Stack>
+            <Button
+              leftIcon={<FaiconDiv icon={['fas', 'comment-alt']} />}
+              as={LinkChakra}
+              href="/contact/"
+            >
+              お問い合わせ
+            </Button>
+
+            <Button leftIcon={<FaiconDiv icon={['fas', 'book']} />} as={LinkChakra} href="/eula/">
+              利用規約
+            </Button>
+          </Stack>
         </Box>
       </Box>
 
