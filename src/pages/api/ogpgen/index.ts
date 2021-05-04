@@ -7,8 +7,9 @@ interface SeparatedText {
   remaining: string;
 }
 
-function createTextLine(context: any, text: string): SeparatedText {
-  const maxWidth = 500;
+function createTextLine(context: any, text: string, square: boolean): SeparatedText {
+  let maxWidth = 500;
+  if (square) maxWidth = 400;
 
   for (let i = 0; i < text.length; i++) {
     const line = text.substring(0, i + 1);
@@ -26,12 +27,12 @@ function createTextLine(context: any, text: string): SeparatedText {
   };
 }
 
-function createTextLines(context: any, text: string): string[] {
+function createTextLines(context: any, text: string, square: boolean): string[] {
   const lines: string[] = [];
   let currentText = text;
 
   while (currentText !== '') {
-    const separatedText = createTextLine(context, currentText);
+    const separatedText = createTextLine(context, currentText, square);
     lines.push(separatedText.line);
     currentText = separatedText.remaining;
   }
@@ -40,7 +41,8 @@ function createTextLines(context: any, text: string): string[] {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  let reqText = req.query.text as string;
+  let reqText = req.query.text as string | undefined;
+  let size = req.query.size as string | undefined;
 
   const NG = (target: string, pattern: any) => {
     var value = 0;
@@ -52,7 +54,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   // NGワードや長いやつはクソ小さい画像で警告する
 
-  if (reqText.length > 100 || NG(reqText, NGwords)) {
+  if ((reqText && reqText.length > 100) || (reqText && NG(reqText, NGwords))) {
     const noCanvas = createCanvas(100, 10);
     const noContext = noCanvas.getContext('2d');
     noContext.font = '6px sans-serif';
@@ -66,7 +68,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const width = 600;
-  const height = 315;
+  let height = 315;
+  if (size == 'square') height = width;
   const canvas = createCanvas(width, height);
   const context = canvas.getContext('2d');
 
@@ -74,7 +77,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     family: 'Noto Sans JP',
   });
 
-  const backgroundImage = await loadImage(path.resolve('public/ogp/ogp-canvas.png'));
+  const backgroundImage = await loadImage(
+    path.resolve(size == 'square' ? 'public/ogp/ogp-canvas-600x.png' : 'public/ogp/ogp-canvas.png'),
+  );
 
   context.drawImage(backgroundImage, 0, 0, width, height);
   context.font = '30px Noto Sans JP';
@@ -82,7 +87,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   context.textAlign = 'left';
   context.textBaseline = 'middle';
 
-  const lines = createTextLines(context, reqText);
+  const lines = createTextLines(context, reqText ?? '', size == 'square');
   lines.forEach((line, index) => {
     const y = 130 + 40 * (index - (lines.length - 1) / 2);
     context.fillText(line, 56, y); // この真ん中がX
