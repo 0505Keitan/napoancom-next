@@ -27,6 +27,8 @@ export interface PostHeadingData {
   name: string;
   text: string;
   level: 1 | 2 | 3 | 4 | 5 | 6;
+  // もし見出しの下が画像なら
+  image?: string;
 }
 
 export interface Post extends PostForRss {
@@ -43,4 +45,5 @@ export interface Post extends PostForRss {
   like: number;
   dislike: number;
   tweetCount?: number;
+  noParagraph: boolean;
 }

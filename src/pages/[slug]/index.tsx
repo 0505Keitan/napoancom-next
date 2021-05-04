@@ -2,13 +2,15 @@ import { SinglePostComponent } from '@/components/partials/post/single-post';
 import { Post, PostForList, PostOnlySlug } from '@/models/contentful/Post';
 import Layout from '@/components/layout';
 import ErrorPage from 'next/error';
-import { Box, Button, Center, Divider, Heading } from '@chakra-ui/react';
+import { Box, Center, Divider } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import PostList from '@/components/partials/post';
-import LinkChakra from '@/components/common/link-chakra';
-
+interface Result {
+  post?: Post;
+  morePosts?: Post[];
+}
 interface PostPageProps {
   firstPost: Post;
   morePosts: PostForList[];
@@ -117,7 +119,7 @@ export async function getStaticProps({ params, preview }: GSProps) {
       },
     },
   );
-  let posts = [];
+  let posts: Result = {};
   if (postsRes.ok) {
     posts = await postsRes.json();
   } else {
@@ -151,10 +153,20 @@ export async function getStaticProps({ params, preview }: GSProps) {
   };
   if (pageProps.firstPost) {
     console.info(
+      '\x1b[36m%s\x1b[0m',
       `ISR ready for: ${pageProps.firstPost.title} ${
         pageProps.hideAdsense ? '(Ad disabled)' : ''
       } / ${pageProps.firstPost.tweetCount} tweets / ${pageProps.firstPost.like} likes`,
     );
+
+    // backend/functions-2021/functions/src/contentful/common/mdToHeadings/v2.ts 参照
+    if (pageProps.firstPost.noParagraph) {
+      console.warn(
+        '\x1b[33m%s\x1b[0m',
+        `We cannot fetch paragraph text below headings in ${pageProps.firstPost.title}. You may need to check MarkDown.` +
+          `\nYou can edit the post here -> https://app.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries/${pageProps.firstPost.sys.id}\n\n`,
+      );
+    }
   }
   return { props: pageProps, revalidate: revalEnv };
 }

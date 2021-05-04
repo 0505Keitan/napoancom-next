@@ -25,7 +25,7 @@ export default function Meta({ desc, title, heroImageUrl, post }: Props) {
 
   // レビューがないならJSONを生成しない
   let validReview = false;
-  if (post) validReview = post?.like + post?.dislike > 0;
+  if (post) validReview = post?.like + post?.dislike > 0 && post.headings.length > 0;
   return (
     <>
       <Head>

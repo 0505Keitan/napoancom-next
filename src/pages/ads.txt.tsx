@@ -8,6 +8,8 @@ export const getServerSideProps = async ({ res }: GetServerSidePropsContext) => 
   res.setHeader('Content-Type', 'text/plain');
   res.end(text);
 
+  console.info('\x1b[36m%s\x1b[0m', `Ads.txt ready`);
+
   return {
     props: {},
   };

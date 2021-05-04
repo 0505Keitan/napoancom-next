@@ -10,12 +10,16 @@ const HeadingList = ({ headings }: { headings: PostHeadingData[] }) => {
         {headings.length > 0 ? (
           <>
             {headings.map((h, n) => (
-              <a key={h.name + n} href={`#${h.name.replace(` `, `-`)}`}>
+              <a
+                area-label={h.text.slice(0, 100) + '...'}
+                key={h.name + n}
+                href={`#${h.name.replace(` `, `-`)}`}
+              >
                 <Flex mb={3} transitionDuration=".3s" opacity={0.7} _hover={{ opacity: 1 }}>
                   <Box fontSize="lg" color="gray.500" pr={3}>
                     {'#'.repeat(h.level)}
                   </Box>
-                  <a>{h.name}</a>
+                  <span>{h.name}</span>
                 </Flex>
               </a>
             ))}
