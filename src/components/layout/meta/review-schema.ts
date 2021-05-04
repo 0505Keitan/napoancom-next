@@ -16,6 +16,7 @@ interface ItemReviewed {
   description: string;
   image: Image;
   supply: Supply[];
+  tool: Tool[];
   totalTime: string;
   step: Step[];
 }
@@ -31,10 +32,16 @@ interface Step {
   name: string;
   text: string;
   url: string;
+  image: string;
   '@type': 'HowToStep';
 }
 
 interface Supply {
+  '@type': string;
+  name: string;
+}
+
+interface Tool {
   '@type': string;
   name: string;
 }
@@ -63,14 +70,32 @@ const generateReviewSchema = (post: Post): ReviewSchema => {
   APIから見出しが送られてくるのでそれを解析
   */
   let steps: Step[] = [];
-  if (post.headings) {
-    steps = post.headings.map((h) => {
+  if (post.headings.length > 0) {
+    steps = post.headings.map((h, n) => {
       return {
         name: h.name,
-        text: h.text,
+        // noParagraphがtrueなら文章が生成できていないので、適当に誤魔化す
+        text: post.noParagraph
+          ? `ステップ${n}は、${h.text}。記事に詳しい手順を掲載していますので、ご確認ください。`
+          : h.text,
         // 一応アンカーリンク
-        url: `${process.env.HTTPS_URL}/${post.slug}#${h.name.replace(` `, `-`)}`,
+        url: `${process.env.HTTPS_URL}/${post.slug}#${encodeURIComponent(
+          h.name.replace(` `, `-`),
+        )}`,
+        image:
+          h.image ??
+          `${process.env.HTTPS_URL}/api/ogpgen?size=square&text=${encodeURIComponent(h.name)}`,
         '@type': 'HowToStep',
+      };
+    });
+  }
+
+  let tools: Tool[] = [];
+  if (post.platformsCollection && post.platformsCollection.items.length > 0) {
+    tools = post.platformsCollection.items.map((p) => {
+      return {
+        '@type': 'HowToTool',
+        name: p.displayName,
       };
     });
   }
@@ -90,6 +115,7 @@ const generateReviewSchema = (post: Post): ReviewSchema => {
         width: '365',
       },
       supply: supplies ?? [],
+      tool: tools ?? [],
       totalTime: totalTime(post.body),
       step: steps,
     },

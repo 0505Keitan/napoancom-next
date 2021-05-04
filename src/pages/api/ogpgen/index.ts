@@ -7,7 +7,7 @@ interface SeparatedText {
   remaining: string;
 }
 
-function createTextLine(context: any, text: string, square: boolean): SeparatedText {
+function createTextLine(context: any, text: string, square?: boolean): SeparatedText {
   let maxWidth = 500;
   if (square) maxWidth = 400;
 
