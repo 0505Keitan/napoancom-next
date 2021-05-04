@@ -79,7 +79,7 @@ export async function getStaticProps({ params, preview }: GSProps) {
       },
     },
   );
-  const result = await resultRes.json();
+  const result: { entity?: Entity; message?: string } = await resultRes.json();
 
   const revalEnv = parseInt(process.env.REVALIDATE ?? '1800');
 
@@ -87,6 +87,8 @@ export async function getStaticProps({ params, preview }: GSProps) {
     return {
       notFound: true,
     };
+  } else {
+    console.info('\x1b[36m%s\x1b[0m', `ISR ready for ${result.entity.name}`);
   }
   return {
     props: {

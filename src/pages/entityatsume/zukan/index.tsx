@@ -55,7 +55,10 @@ export async function getStaticProps() {
     },
   });
 
-  const allEntitiesData = await allEntitiesRes.json();
+  const allEntitiesData = await allEntitiesRes.json().then((res) => {
+    console.info('\x1b[36m%s\x1b[0m', `Entity list ready`);
+    return res;
+  });
 
   return {
     props: {

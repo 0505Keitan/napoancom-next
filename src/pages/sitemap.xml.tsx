@@ -45,6 +45,8 @@ export const getServerSideProps = async ({ res }: GetServerSidePropsContext) => 
   res.setHeader('Content-Type', 'text/xml');
   res.end(xml);
 
+  console.info('\x1b[36m%s\x1b[0m', `Sitemap ready, cache expires in ${revalidate}s`);
+
   return {
     props: {},
   };
