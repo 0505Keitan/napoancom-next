@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { Badge, Box, Flex, Spacer, VStack } from '@chakra-ui/react';
+import { Badge, Box, Center, Flex, Spacer, VStack } from '@chakra-ui/react';
 import { Post } from '@/models/contentful/Post';
 
 import PlatformList from '../common/platform-list';
@@ -20,7 +20,7 @@ const PostHeading = ({ post }: Props) => {
   return (
     <Box>
       {post.heroImage != undefined && (
-        <Box w="full" mb={6}>
+        <Center w="full" mb={6}>
           <Box
             position="relative"
             mx="auto"
@@ -36,7 +36,7 @@ const PostHeading = ({ post }: Props) => {
               src={post.heroImage.url}
             />
           </Box>
-        </Box>
+        </Center>
       )}
 
       {post.game && post.game.slug != undefined && (

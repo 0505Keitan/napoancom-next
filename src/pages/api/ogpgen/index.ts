@@ -9,7 +9,7 @@ interface SeparatedText {
 
 function createTextLine(context: any, text: string, square?: boolean): SeparatedText {
   let maxWidth = 500;
-  if (square) maxWidth = 400;
+  if (square) maxWidth = 450;
 
   for (let i = 0; i < text.length; i++) {
     const line = text.substring(0, i + 1);
@@ -43,6 +43,7 @@ function createTextLines(context: any, text: string, square: boolean): string[] 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   let reqText = req.query.text as string | undefined;
   let size = req.query.size as string | undefined;
+  let square = size == 'square';
 
   const NG = (target: string, pattern: any) => {
     var value = 0;
@@ -69,7 +70,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const width = 600;
   let height = 315;
-  if (size == 'square') height = width;
+  if (square) height = width;
   const canvas = createCanvas(width, height);
   const context = canvas.getContext('2d');
 
@@ -83,14 +84,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   context.drawImage(backgroundImage, 0, 0, width, height);
   context.font = '30px Noto Sans JP';
+  if (square) context.font = '48px Noto Sans JP';
+
   context.fillStyle = '#000000';
   context.textAlign = 'left';
   context.textBaseline = 'middle';
 
-  const lines = createTextLines(context, reqText ?? '', size == 'square');
+  const lines = createTextLines(context, reqText ?? '', square);
   lines.forEach((line, index) => {
-    const y = 130 + 40 * (index - (lines.length - 1) / 2);
-    context.fillText(line, 56, y); // この真ん中がX
+    let y = 130 + 40 * (index - (lines.length - 1) / 2);
+    //　スクエア型は上に揃える
+    if (square) y = 60 + 140 * (index / 2);
+    context.fillText(line, square ? 68 : 56, y); // この真ん中がX
   });
 
   const buffer = canvas.toBuffer();

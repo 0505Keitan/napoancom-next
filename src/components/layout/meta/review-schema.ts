@@ -91,13 +91,13 @@ const generateReviewSchema = (post: Post): ReviewSchema => {
   }
 
   let tools: Tool[] = [];
-  if (post.platformsCollection && post.platformsCollection.items.length > 0) {
-    tools = post.platformsCollection.items.map((p) => {
-      return {
+  if (post.game && post.game.slug) {
+    tools = [
+      {
         '@type': 'HowToTool',
-        name: p.displayName,
-      };
-    });
+        name: post.game?.displayName,
+      },
+    ];
   }
 
   return {
