@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   CloseButton,
-  Divider,
   Flex,
   HStack,
   Spacer,
@@ -22,7 +21,7 @@ import AdsenseBox from '@/components/common/adsense-box';
 import HeadingList from '@/components/common/heading-list';
 import FukidashiShare from '@/components/common/fukidashi-share';
 import LikeDislike from '@/components/common/like-dislike';
-import { SITE_FULL_URL } from '@/lib/constants';
+
 import { useAuthentication } from '@/hooks/authentication';
 import LinkChakra from '@/components/common/link-chakra';
 import { Game } from '@/models/contentful/Game';
@@ -51,6 +50,21 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
   };
   return (
     <>
+      {/* 開いた時にメニュー以外を押して閉じるため */}
+      <Box
+        position="fixed"
+        w={isOpen ? `100vw` : 0}
+        h="100vh"
+        top={0}
+        left={0}
+        opacity={isOpen ? 0.5 : 0}
+        bg="black"
+        transitionProperty="opacity"
+        transitionDuration=".3s"
+        as="button"
+        onClick={() => setIsOpen(false)}
+        zIndex={6}
+      ></Box>
       {/* これは左固定メニュー */}
       <Box
         top={0}
@@ -59,7 +73,6 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
         as="aside"
         sx={{ '.noScrollBar::-webkit-scrollbar': { display: 'none' } }}
         h="100vh"
-        zIndex={6}
         px={3}
         bg={colorMode == 'light' ? 'white' : '#1A202C'}
         shadow={{ base: 'xl', lg: 'none' }}
@@ -67,6 +80,7 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
         transitionDuration=".3s"
         borderRight="gray.400"
         borderRightWidth={2}
+        zIndex={6}
       >
         <Flex
           w={`${ASIDE_WITDH}px`}
@@ -112,7 +126,7 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
               </Button>
             )}
 
-            <Box pb={6} display={{ base: 'block', lg: 'none' }}>
+            <Box pb={6} display={{ base: 'block', md: 'none' }}>
               <Logo logoSelection="nomaikura" />
             </Box>
 
@@ -130,10 +144,7 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
               <>
                 <Stack mb={4}>
                   <Box mb={4}>
-                    <FukidashiShare
-                      tweetCount={post.tweetCount ?? 0}
-                      tweetText={`${post.title}\n${SITE_FULL_URL}/${post.slug}`}
-                    />
+                    <FukidashiShare tweetCount={post.tweetCount ?? 0} tweetText={post.title} />
                   </Box>
                   <Box w="full" mb={2} display={{ base: 'none', lg: 'flex' }}>
                     <LikeDislike

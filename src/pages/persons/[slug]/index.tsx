@@ -37,7 +37,6 @@ const personIndex = ({ person, preview, posts }: IndexProps) => {
               <h1>{person.displayName}の紹介</h1>
             </Box>
             <PersonList persons={[person]} />
-            <Box my={4}>{person.description ?? '説明文がありません。'}</Box>
           </Box>
           <Box textStyle="h2" mb={8}>
             <h2>

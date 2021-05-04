@@ -7,7 +7,6 @@ import LinkChakra from '@/components/common/link-chakra';
 import Image from 'next/image';
 import FukidashiShare from '@/components/common/fukidashi-share';
 import LikeDislike from '@/components/common/like-dislike';
-import { SITE_FULL_URL } from '@/lib/constants';
 import { useAuthentication } from '@/hooks/authentication';
 import { useState } from 'react';
 import GameList from '../common/game-list';
@@ -73,10 +72,7 @@ const PostHeading = ({ post }: Props) => {
 
         <Box w="full" display={{ base: 'block', lg: 'none' }}>
           <Box mb={4}>
-            <FukidashiShare
-              tweetCount={post.tweetCount ?? 0}
-              tweetText={`${post.title}\n${SITE_FULL_URL}/${post.slug}`}
-            />
+            <FukidashiShare tweetCount={post.tweetCount ?? 0} tweetText={post.title} />
           </Box>
           <LikeDislike
             slug={post.slug}
