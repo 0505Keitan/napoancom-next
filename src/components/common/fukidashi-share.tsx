@@ -1,3 +1,4 @@
+import { CREATOR_ID } from '@/lib/constants';
 import { Box, Flex, Button, useColorMode } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import FaiconDiv from './faicon-div';
@@ -37,7 +38,7 @@ const FukidashiShare = ({ tweetCount, tweetText }: TocProps) => {
 
   const tweetUrl = `https://twitter.com/share?url=${encodeURIComponent(
     shareUrl,
-  )}&text=${encodeURIComponent(tweetText ?? '')}`;
+  )}&text=${encodeURIComponent(tweetText ?? '')}&hashtags=ナポクラ`;
 
   return (
     <Flex sx={fukidashiStyle} alignItems="center">

@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   CloseButton,
-  Divider,
   Flex,
   HStack,
   Spacer,
@@ -22,7 +21,7 @@ import AdsenseBox from '@/components/common/adsense-box';
 import HeadingList from '@/components/common/heading-list';
 import FukidashiShare from '@/components/common/fukidashi-share';
 import LikeDislike from '@/components/common/like-dislike';
-import { SITE_FULL_URL } from '@/lib/constants';
+
 import { useAuthentication } from '@/hooks/authentication';
 import LinkChakra from '@/components/common/link-chakra';
 import { Game } from '@/models/contentful/Game';
@@ -145,10 +144,7 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
               <>
                 <Stack mb={4}>
                   <Box mb={4}>
-                    <FukidashiShare
-                      tweetCount={post.tweetCount ?? 0}
-                      tweetText={`${post.title}\n${SITE_FULL_URL}/${post.slug}`}
-                    />
+                    <FukidashiShare tweetCount={post.tweetCount ?? 0} tweetText={post.title} />
                   </Box>
                   <Box w="full" mb={2} display={{ base: 'none', lg: 'flex' }}>
                     <LikeDislike
