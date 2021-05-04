@@ -22,6 +22,7 @@ import {
   faThumbsUp,
   faThumbsDown,
   faSearch,
+  faTabletAlt,
 } from '@fortawesome/free-solid-svg-icons';
 // faDiceTwo for Nintendo Switch
 export default function addIcon() {
@@ -46,5 +47,6 @@ export default function addIcon() {
     faThumbsUp,
     faThumbsDown,
     faSearch,
+    faTabletAlt,
   );
 }
