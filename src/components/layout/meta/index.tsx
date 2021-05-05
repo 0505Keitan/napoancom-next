@@ -31,11 +31,16 @@ export default function Meta({ desc, title, heroImageUrl, post }: Props) {
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icon-180x.png" />
-        <link rel="icon" type="image/png" href="/icon.png" />
+
+        {/* アイコン */}
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" sizes="16x16" type="image/png" href="/favicon-16x16.png" />
+        <link rel="icon" sizes="32x32" type="image/png" href="/favicon-32x32.png" />
+        <link rel="shortcut icon" href="/favicons/favicon.ico" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="theme-color" content="#2687e8"></meta>
+
         <meta property="og:title" key="ogTItle" content={title} />
         <meta property="og:site_name" key="ogSiteName" content={title} />
         <meta property="og:description" key="ogDescription" content={desc} />
