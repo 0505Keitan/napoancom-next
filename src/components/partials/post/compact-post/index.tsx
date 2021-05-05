@@ -3,8 +3,8 @@ import { Badge, Box, Center, Flex, useColorMode } from '@chakra-ui/react';
 import { PostForList } from '@/models/contentful/Post';
 
 import LinkChakra from '@/components/common/link-chakra';
+import { OGP_W, OGP_H } from '@/theme/index';
 import Image from 'next/image';
-import { OGP_W, OGP_H, THEME_COLOR } from '@/theme/index';
 
 interface Props {
   post: PostForList;
@@ -45,9 +45,8 @@ export function CompactPost({ post, mode }: Props) {
                 height={`${OGP_H / 5}px`}
               />
             ) : (
-              <Image
+              <img
                 src={`${process.env.HTTPS_URL}/api/ogpgen?text=${post.title}`}
-                objectFit="cover"
                 width={`${OGP_W / 5}px`}
                 height={`${OGP_H / 5}px`}
               />
