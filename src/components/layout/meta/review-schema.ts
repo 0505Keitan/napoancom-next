@@ -1,4 +1,5 @@
 import { Post } from '@/models/contentful/Post';
+import { OGP_W, OGP_H } from '@/theme/index';
 
 interface ReviewSchema {
   '@context': string;
@@ -111,8 +112,8 @@ const generateReviewSchema = (post: Post): ReviewSchema => {
       image: {
         '@type': 'ImageObject',
         url: post.heroImage != undefined ? post.heroImage.url : defaultOgp,
-        height: '650',
-        width: '365',
+        height: `${OGP_W}`,
+        width: `${OGP_H}`,
       },
       supply: supplies ?? [],
       tool: tools ?? [],

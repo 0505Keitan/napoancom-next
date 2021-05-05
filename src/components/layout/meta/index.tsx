@@ -3,6 +3,7 @@ import { SITE_NAME } from '@/lib/constants';
 import { Post } from '@/models/contentful/Post';
 import generateReviewSchema from './review-schema';
 import generateGraphSchema from './graph-schema';
+import { THEME_COLOR } from '@/theme/index';
 interface Props {
   desc: string;
   title: string;
@@ -39,7 +40,7 @@ export default function Meta({ desc, title, heroImageUrl, post }: Props) {
         <link rel="shortcut icon" href="/favicons/favicon.ico" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="theme-color" content="#2687e8"></meta>
+        <meta name="theme-color" content={THEME_COLOR}></meta>
 
         <meta property="og:title" key="ogTItle" content={title} />
         <meta property="og:site_name" key="ogSiteName" content={title} />

@@ -3,7 +3,8 @@ import { Badge, Box, Center, Flex, useColorMode } from '@chakra-ui/react';
 import { PostForList } from '@/models/contentful/Post';
 
 import LinkChakra from '@/components/common/link-chakra';
-import GameList from '../common/game-list';
+import Image from 'next/image';
+import { OGP_W, OGP_H, THEME_COLOR } from '@/theme/index';
 
 interface Props {
   post: PostForList;
@@ -18,8 +19,8 @@ export function CompactPost({ post, mode }: Props) {
         bg={colorMode == 'light' ? 'white' : 'gray.900'}
         rounded="xl"
         borderWidth={3}
-        border="gray.600"
         p={3}
+        border="gray.600"
         area-label={post.title}
       >
         {/* トップなら画像とタイトルを並べる */}
@@ -30,18 +31,26 @@ export function CompactPost({ post, mode }: Props) {
           flexDirection={{ base: 'column', md: mode == 'top' ? 'row' : 'column' }}
         >
           <Center
-            rounded="lg"
-            bg="linear-gradient(#2687e8, #2655ff)"
             mb={mode == 'top' ? 0 : 2}
-            h="110px"
             overflow="hidden"
             w={{ base: 'full', md: mode == 'top' ? '50%' : 'auto' }}
             mr={{ base: 0, md: mode == 'top' ? 8 : 0 }}
+            position="relative"
           >
             {post.heroImage ? (
-              <img src={post.heroImage.url} width="full" height="auto" />
+              <Image
+                src={post.heroImage.url}
+                objectFit="cover"
+                width={`${OGP_W / 5}px`}
+                height={`${OGP_H / 5}px`}
+              />
             ) : (
-              <Badge>No Image</Badge>
+              <Image
+                src={`${process.env.HTTPS_URL}/api/ogpgen?text=${post.title}`}
+                objectFit="cover"
+                width={`${OGP_W / 5}px`}
+                height={`${OGP_H / 5}px`}
+              />
             )}
           </Center>
           <Box position="relative" w="full">

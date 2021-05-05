@@ -10,6 +10,7 @@ import LikeDislike from '@/components/common/like-dislike';
 import { useAuthentication } from '@/hooks/authentication';
 import { useState } from 'react';
 import GameList from '../common/game-list';
+import { OGP_W, OGP_H } from '@/theme/index';
 interface Props {
   post: Post;
 }
@@ -28,8 +29,8 @@ const PostHeading = ({ post }: Props) => {
           >
             {/* この画像は0.5秒のtransitionで表示される */}
             <Image
-              height="365px"
-              width="650px"
+              height={`${OGP_H / 2}px`}
+              width={`${OGP_W / 2}px`}
               onLoad={() => setLoadedThumb(true)}
               objectFit="contain"
               src={post.heroImage.url}
