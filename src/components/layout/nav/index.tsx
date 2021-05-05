@@ -104,28 +104,6 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
             }}
           />
           <Stack flexGrow={1} h="auto">
-            {hideAdsense != true ? (
-              <>
-                <AdsenseBox width={300} height={250} layout="fixed" slot={'8321176059'} />
-              </>
-            ) : (
-              <Button
-                colorScheme="purple"
-                mb={6}
-                h={20}
-                fontSize="xl"
-                w="full"
-                as={LinkChakra}
-                href="/entityatsume"
-              >
-                特別企画: GW
-                <br />
-                エンティティガチャ
-                <br />
-                開催中！！！！
-              </Button>
-            )}
-
             <Box pb={6} display={{ base: 'block', md: 'none' }}>
               <Logo logoSelection="nomaikura" />
             </Box>
@@ -160,7 +138,30 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
             )}
           </Stack>
 
+          {/* ここまでがflexGrowで伸びる */}
+
           <Stack spacing={3}>
+            {hideAdsense != true ? (
+              <>
+                <AdsenseBox width={300} height={250} layout="fixed" slot={'8321176059'} />
+              </>
+            ) : (
+              <Button
+                colorScheme="purple"
+                mb={6}
+                h={20}
+                fontSize="xl"
+                w="full"
+                as={LinkChakra}
+                href="/entityatsume"
+              >
+                特別企画: GW
+                <br />
+                エンティティガチャ
+                <br />
+                開催中！！！！
+              </Button>
+            )}
             <Button
               leftIcon={<FaiconDiv icon={['fas', 'comment-alt']} />}
               as={LinkChakra}
@@ -207,6 +208,7 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
             display={{ base: 'block', lg: 'none' }}
             zIndex={10}
             mr={3}
+            pr={2}
             colorScheme="blue"
             leftIcon={<FaiconDiv icon={['fas', 'bars']} />}
             onClick={() => {
