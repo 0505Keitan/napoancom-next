@@ -28,6 +28,10 @@ import { Game } from '@/models/contentful/Game';
 import GameList from '@/components/partials/post/common/game-list';
 const SignIn = dynamic(() => import('./signin'), { ssr: false });
 
+const layoutSwitch = {
+  search: 'md',
+  logo: 'lg',
+};
 interface NavProps {
   post?: Post;
   hideAdsense: boolean;
@@ -104,82 +108,56 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
             }}
           />
           <Stack flexGrow={1} h="auto">
-            <Box pb={6} display={{ base: 'block', md: 'none' }}>
+            <Stack pb={8} display={{ base: 'none', lg: 'block' }}>
+              {hideAdsense != true ? (
+                <>
+                  <AdsenseBox width={300} height={250} layout="fixed" slot={'8321176059'} />
+                </>
+              ) : (
+                <Button
+                  colorScheme="purple"
+                  h={20}
+                  fontSize="xl"
+                  w="full"
+                  as={LinkChakra}
+                  href="/entityatsume"
+                >
+                  特別企画: GW
+                  <br />
+                  エンティティガチャ
+                  <br />
+                  開催中！！！！
+                </Button>
+              )}
+            </Stack>
+            <Box pb={6} display={{ base: 'block', [layoutSwitch.logo]: 'none' }}>
               <Logo logoSelection="nomaikura" />
             </Box>
 
-            <Box display={{ base: 'block', lg: 'none' }}>
+            <Box display={{ base: 'block', [layoutSwitch.search]: 'none' }}>
               <SearchBox />
-            </Box>
-
-            <Box pb={8}>
-              <SignIn />
             </Box>
 
             {games && games.length > 0 && <GameList games={games} />}
 
             {post && (
               <>
+                <Box>
+                  <FukidashiShare tweetCount={post.tweetCount ?? 0} tweetText={post.title} />
+                </Box>
+
+                <LikeDislike
+                  slug={post.slug}
+                  likeCount={post.like ?? 0}
+                  dislikeCount={post.dislike ?? 0}
+                  uid={user ? user.uid : undefined}
+                />
+
                 <Stack mb={4}>
-                  <Box mb={4}>
-                    <FukidashiShare tweetCount={post.tweetCount ?? 0} tweetText={post.title} />
-                  </Box>
-                  <Box w="full" mb={2} display={{ base: 'none', lg: 'flex' }}>
-                    <LikeDislike
-                      slug={post.slug}
-                      likeCount={post.like ?? 0}
-                      dislikeCount={post.dislike ?? 0}
-                      uid={user ? user.uid : undefined}
-                    />
-                  </Box>
                   <HeadingList headings={post.headings} />
                 </Stack>
               </>
             )}
-          </Stack>
-
-          {/* ここまでがflexGrowで伸びる */}
-
-          <Stack spacing={3}>
-            {hideAdsense != true ? (
-              <>
-                <AdsenseBox width={300} height={250} layout="fixed" slot={'8321176059'} />
-              </>
-            ) : (
-              <Button
-                colorScheme="purple"
-                mb={6}
-                h={20}
-                fontSize="xl"
-                w="full"
-                as={LinkChakra}
-                href="/entityatsume"
-              >
-                特別企画: GW
-                <br />
-                エンティティガチャ
-                <br />
-                開催中！！！！
-              </Button>
-            )}
-            <Button
-              leftIcon={<FaiconDiv icon={['fas', 'comment-alt']} />}
-              as={LinkChakra}
-              href="/contact/"
-            >
-              お問い合わせ
-            </Button>
-
-            <Button leftIcon={<FaiconDiv icon={['fas', 'book']} />} as={LinkChakra} href="/eula/">
-              利用規約
-            </Button>
-            <Button
-              leftIcon={<FaiconDiv icon={['fas', 'user']} />}
-              as={LinkChakra}
-              href="/privacy-policy/"
-            >
-              プライバシーポリシー
-            </Button>
           </Stack>
         </Flex>
       </Box>
@@ -222,17 +200,16 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
               }
             }}
           />
-          <Box pr={4} display={{ base: 'none', md: 'block' }}>
+          <Box pr={4} display={{ base: 'none', [layoutSwitch.logo]: 'block' }}>
             <Logo logoSelection="nomaikura" />
           </Box>
-
-          <ColorSwitch />
-
-          <Spacer />
-
-          <HStack display={{ base: 'none', sm: 'block' }}>
+          <ColorSwitch /> <Spacer />
+          <Box>
+            <SignIn />
+          </Box>
+          <Box display={{ base: 'none', [layoutSwitch.search]: 'block' }}>
             <SearchBox />
-          </HStack>
+          </Box>
         </HStack>
       </Box>
     </>

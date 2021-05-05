@@ -1,13 +1,11 @@
 import {
-  SITE_DESC,
-  SITE_FULL_URL,
   VERCEL_GITHUB_REPOSITORY_TOP,
   VERCEL_LAST_COMMIT,
   VERCEL_LAST_COMMIT_MESSAGE,
 } from '@/lib/constants';
-import { Button, Box, Container, Flex, Stack, useColorMode, Badge, Center } from '@chakra-ui/react';
+import { Button, Box, Container, Flex, Stack, Badge } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
-import Logo from '@/components/common/Logo';
+import FaiconDiv from '@/components/common/faicon-div';
 
 interface FooterProps {
   revalidate?: number;
@@ -15,10 +13,8 @@ interface FooterProps {
 }
 
 const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
-  const { colorMode } = useColorMode();
-
   return (
-    <Box as="footer" w="full" background="gray.700" py={8} color="white">
+    <Box as="footer" w="full" background="gray.700" py={8}>
       <Container maxW={`${maxW}px`}>
         <Flex
           flexDirection={{ base: 'column', md: 'row' }}
@@ -27,40 +23,28 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
           px={{ base: 3, lg: 0 }}
         >
           <Box textAlign={{ base: 'center', lg: 'left' }} pr={6} mb={{ base: 6, lg: 0 }}>
-            <Flex mb={4} justifyContent={{ base: 'center', lg: 'flex-start' }}>
-              <Logo logoSelection="nomaikura" fill="white" />
-            </Flex>
-
-            <Box mb={4}>{SITE_DESC}</Box>
-
-            <Flex flexWrap="wrap" spacing={4}>
+            <Stack spacing={2}>
               <Button
-                colorScheme="blue"
-                leftIcon={
-                  <div className="w-5 mr-1">
-                    <img src="/svg/next-js.svg" width="10" />
-                  </div>
-                }
-                href="https://nextjs.org/"
+                leftIcon={<FaiconDiv icon={['fas', 'comment-alt']} />}
                 as={LinkChakra}
-                mr={2}
+                href="/contact/"
               >
-                Next.js
+                お問い合わせ
               </Button>
 
-              <Button
-                colorScheme={colorMode == 'light' ? 'gray' : 'black'}
-                href="https://www.contentful.com/"
-                as={LinkChakra}
-              >
-                <img
-                  src={colorMode == 'light' ? '/svg/contentful-black.svg' : '/svg/contentful.svg'}
-                  width="100"
-                />
+              <Button leftIcon={<FaiconDiv icon={['fas', 'book']} />} as={LinkChakra} href="/eula/">
+                利用規約
               </Button>
-            </Flex>
+              <Button
+                leftIcon={<FaiconDiv icon={['fas', 'user']} />}
+                as={LinkChakra}
+                href="/privacy-policy/"
+              >
+                プライバシーポリシー
+              </Button>
+            </Stack>
           </Box>
-          <Box textAlign={{ base: 'center', lg: 'right' }}>
+          <Box color="white" textAlign={{ base: 'center', lg: 'right' }}>
             <Box mb={3}>
               Released under MIT License.{` `}
               <br />

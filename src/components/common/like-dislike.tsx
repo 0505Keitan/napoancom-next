@@ -138,7 +138,13 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
 
   return (
     <Box w="full">
-      <Flex justifyContent="space-between" fontWeight="bold" w="full" position="relative">
+      <Flex
+        alignContent="center"
+        justifyContent="space-between"
+        fontWeight="bold"
+        w="full"
+        position="relative"
+      >
         <Box>
           <Button
             ref={alertRef}
@@ -146,7 +152,6 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
             isActive={!pressed}
             disabled={pressed}
             aria-label="高評価する"
-            as="a"
             onClick={Like}
             color={
               liked
@@ -157,14 +162,14 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
                 ? 'gray.500'
                 : 'gray.100' //ダークで押してない
             }
-            colorScheme={colorMode == 'light' ? 'whiteAlpha' : ''}
+            sx={{ background: 'transparent!important' }}
           >
             <FaiconDiv w={'22px'} icon={['fas', 'thumbs-up']} />
           </Button>
-          高評価 {likeValue}
+          Like {likeValue}
         </Box>
         <Box>
-          低評価 {dislikeValue}
+          Dis {dislikeValue}
           <Button
             ref={alertRef}
             cursor="pointer"
@@ -182,7 +187,7 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
                 ? 'gray.500'
                 : 'gray.100' //ダークで押してない
             }
-            colorScheme={colorMode == 'light' ? 'whiteAlpha' : ''}
+            sx={{ background: 'transparent!important' }}
           >
             <FaiconDiv w={'22px'} icon={['fas', 'thumbs-down']} />
           </Button>
