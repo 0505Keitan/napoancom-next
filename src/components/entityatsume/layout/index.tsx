@@ -82,7 +82,7 @@ export default function LayoutForEntityAtsume({ children, meta, isTop }: LayoutP
         </Center>
 
         <Box pt={`${NAV_HEIGHT}px`}>
-          <Flex mx="auto" w="100vw" px={{ base: 3, md: 0 }} flexDirection="row-reverse">
+          <Flex mx="auto" w="100vw" px={{ base: 3, md: 0 }}>
             <Box
               as="main"
               mx="auto"
