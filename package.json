@@ -1,6 +1,6 @@
 {
   "name": "projectnapoancom-client-next-2021",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "aelyone",
   "scripts": {
     "dev": "next",

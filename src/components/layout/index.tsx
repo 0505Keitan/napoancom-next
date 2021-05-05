@@ -70,6 +70,7 @@ export default function Layout({
               as="main"
               mx="auto"
               pt={8}
+              pb={8}
               overflowX="hidden"
               w={{ base: 'full', lg: `${MAIN_WIDTH}px` }}
               px={{ base: 3, lg: 0 }}

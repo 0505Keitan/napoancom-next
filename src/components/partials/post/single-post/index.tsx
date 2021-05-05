@@ -7,6 +7,7 @@ import FaiconDiv from '@/components/common/faicon-div';
 import PostHeading from './post-heading';
 import AdsenseBox from '@/components/common/adsense-box';
 import PersonList from '../common/person-list';
+import EditMvVersion from '@/components/common/buttons/edit-md-version';
 
 interface Props {
   post: Post;
@@ -39,6 +40,8 @@ export function SinglePostComponent({ post }: Props) {
           </Button>
         </Box>
 
+        <Divider my={3} />
+        <EditMvVersion slug={post.slug} />
         <Divider my={3} />
 
         {/* 記事下 */}

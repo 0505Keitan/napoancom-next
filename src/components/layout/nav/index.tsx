@@ -26,6 +26,7 @@ import { useAuthentication } from '@/hooks/authentication';
 import LinkChakra from '@/components/common/link-chakra';
 import { Game } from '@/models/contentful/Game';
 import GameList from '@/components/partials/post/common/game-list';
+import AboutMdVersion from '@/components/common/buttons/about-md-version';
 const SignIn = dynamic(() => import('./signin'), { ssr: false });
 
 const layoutSwitch = {
@@ -136,6 +137,10 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
 
             <Box display={{ base: 'block', [layoutSwitch.search]: 'none' }}>
               <SearchBox />
+            </Box>
+
+            <Box pb={6}>
+              <AboutMdVersion message="重要なお知らせ: MD版を公開しました" />
             </Box>
 
             {games && games.length > 0 && <GameList games={games} />}

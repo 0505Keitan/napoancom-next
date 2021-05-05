@@ -6,6 +6,7 @@ import {
 import { Button, Box, Container, Flex, Stack, Badge } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import FaiconDiv from '@/components/common/faicon-div';
+import AboutMdVersion from '@/components/common/buttons/about-md-version';
 
 interface FooterProps {
   revalidate?: number;
@@ -24,6 +25,7 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
         >
           <Box textAlign={{ base: 'center', lg: 'left' }} pr={6} mb={{ base: 6, lg: 0 }}>
             <Stack spacing={2}>
+              <AboutMdVersion />
               <Button
                 leftIcon={<FaiconDiv icon={['fas', 'comment-alt']} />}
                 as={LinkChakra}

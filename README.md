@@ -4,7 +4,7 @@ Next.js 版クライアントです。Vercel にデプロイすることを前�
 
 ## ドキュメント
 
-[https://docs.napoan.com/docs/client/next-2021/intro]
+[https://md.napoan.com/docs/client/next-2021/intro]
 
 ## フォルダ構成
 
