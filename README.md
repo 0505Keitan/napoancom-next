@@ -1,6 +1,10 @@
-# このフォルダについて
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/sasigume/projectnapoancom-client-next-2021)
 
 Next.js 版クライアントです。Vercel にデプロイすることを前提にしています
+
+## ドキュメント
+
+[https://docs.napoan.com/docs/client/next-2021/intro]
 
 ## フォルダ構成
 
