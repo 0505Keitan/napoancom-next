@@ -1,0 +1,19 @@
+# Compiled JavaScript files
+lib/**/*.js
+lib/**/*.js.map
+
+# TypeScript v1 declaration files
+typings/
+
+# Node.js dependency directory
+node_modules/
+
+# backups
+exported_for_local_development/*
+
+# env
+.runtimeconfig.json
+
+# logs
+firestore-debug.log
+ui-debug.log
