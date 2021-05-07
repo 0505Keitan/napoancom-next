@@ -82,13 +82,14 @@ const Logo = ({ fill = THEME_COLOR, logoSelection }: Props) => {
     svgProps.viewBox = '0 0 640 340';
   }
   return (
-    <Box area-label="ロゴ" fontWeight="bold" w="200px">
-      <LinkChakra href={'/'}>
+    <Box area-label="ロゴ" fontWeight="bold" fontSize="1.8rem">
+      <LinkChakra href={'/'} display="flex" gridGap="0.3rem">
         <svg {...svgProps}>
           <g fill={colorMode == 'light' ? fill : 'white'}>
             <PathSelecter mode={logoSelection} />
           </g>
         </svg>
+        <span>NEXT</span>
       </LinkChakra>
     </Box>
   );
