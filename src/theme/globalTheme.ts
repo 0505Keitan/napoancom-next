@@ -217,7 +217,7 @@ const globalTheme = {
           padding: '2px 5px',
           margin: '0px 2px',
           background: '#222',
-          color: '#fff',
+          color: '#fff!important',
           borderRadius: '3px',
         },
         '.code': {
