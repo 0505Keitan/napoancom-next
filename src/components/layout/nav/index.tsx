@@ -176,11 +176,11 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
         left={0}
         as="nav"
         w="100vw"
-        pt={2}
+        pt="0.4rem"
+        pb="0.1rem"
         borderBottom="gray.400"
         borderBottomWidth={2}
         position="fixed"
-        overflow="hidden"
       >
         <HStack
           px={3}
