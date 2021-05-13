@@ -5,17 +5,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 module.exports = withBundleAnalyzer({
   // add slash for Twitter card
   trailingSlash: true,
-  /*webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.node = {
-        fs: 'empty',
-      };
-    }
-    return config;
-  },*/
   async redirects() {
     return [
       {
+        // 2021-05-14追加
         source: '/bedrock-friend-multiplayer-guide/',
         destination:
           'https://md.napoan.com/docs/minecraft/howto/bedrock-friend-multiplayer-guide/intro',

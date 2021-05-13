@@ -1,10 +1,6 @@
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/sasigume/projectnapoancom-client-next-2021)
+# NAPOANCOM-NEXT
 
-Next.js 版クライアントです。Vercel にデプロイすることを前提にしています
-
-## ドキュメント
-
-[https://md.napoan.com/docs/client/next-2021/intro]
+Next.js 版ナポアンのマイクラ。
 
 ## フォルダ構成
 
@@ -19,12 +15,6 @@ Next.js 版クライアントです。Vercel にデプロイすることを前�
 - models: 型の定義
 - pages: ページ
 - styles: CSS モジュール
-
-## Contentful について
-
-`lib/contentful/graphql/`に全てまとめています。
-
-QraphQL なので指定したフィールドしか返ってきません。ご注意ください。
 
 ## Thanks
 
