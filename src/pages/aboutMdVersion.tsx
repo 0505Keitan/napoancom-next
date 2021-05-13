@@ -1,13 +1,15 @@
-import { Box, Button, Heading, Stack } from '@chakra-ui/react';
+import { Box, Heading, Stack } from '@chakra-ui/react';
 import Layout from '@/components/layout';
-import LinkChakra from '@/components/common/link-chakra';
 import ToMdVersion from '@/components/common/buttons/to-md-version';
 
 const AboutMdVersion = () => {
   return (
-    <Layout preview={false} meta={{ title: 'MDバージョンについて', desc: 'MDバージョンについて' }}>
+    <Layout
+      preview={false}
+      meta={{ title: 'Markdown Gamingについて', desc: 'Markdown Gamingについて' }}
+    >
       <Heading as="h1" pb={8}>
-        MDバージョンについて
+        Markdown Gamingについて
       </Heading>
       <Stack spacing={6}>
         <Box>

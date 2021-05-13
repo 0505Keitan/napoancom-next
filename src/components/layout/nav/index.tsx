@@ -140,7 +140,7 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
             </Box>
 
             <Box pb={6}>
-              <AboutMdVersion message="重要なお知らせ: MD版を公開しました" />
+              <AboutMdVersion />
             </Box>
 
             {games && games.length > 0 && <GameList games={games} />}

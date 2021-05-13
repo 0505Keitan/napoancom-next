@@ -4,7 +4,7 @@ import LinkChakra from '../link-chakra';
 export default function ToMdVersion({ message }: { message?: string }) {
   return (
     <Button colorScheme="green" as={LinkChakra} isExternal href="https://md.napoan.com">
-      {message ?? ' MDバージョンへ'}
+      {message ?? '新サイトMarkdown Gamingへ'}
     </Button>
   );
 }
