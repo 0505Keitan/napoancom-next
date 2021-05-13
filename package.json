@@ -1,7 +1,7 @@
 {
   "name": "projectnapoancom-client-next-2021",
-  "version": "0.2.6",
-  "author": "aelyone",
+  "version": "0.2.7",
+  "author": "imaicu",
   "scripts": {
     "dev": "next",
     "build": "ANALYZE=true next build",

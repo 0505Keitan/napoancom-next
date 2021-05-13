@@ -13,6 +13,16 @@ module.exports = withBundleAnalyzer({
     }
     return config;
   },*/
+  async redirects() {
+    return [
+      {
+        source: '/bedrock-friend-multiplayer-guide/',
+        destination:
+          'https://md.napoan.com/docs/minecraft/howto/bedrock-friend-multiplayer-guide/intro',
+        permanent: true,
+      },
+    ];
+  },
   env: {
     CONTENTFUL_SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
     CONTENTFUL_PREVIEW_SECRET: process.env.CONTENTFUL_PREVIEW_SECRET,
