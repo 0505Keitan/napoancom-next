@@ -15,7 +15,7 @@ interface ListProps {
   mode?: 'wrap';
 }
 
-const OnePlatform = ({ platform, mode }: Props) => {
+const OnePlatform = ({ platform }: Props) => {
   let iconStyle, iconName;
 
   if (platform.icon) {

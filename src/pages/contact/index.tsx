@@ -1,6 +1,5 @@
 //import dynamic from 'next/dynamic';
 import Layout from '@/components/layout';
-import { useAuthentication } from '../../hooks/authentication';
 import firebase from '@/lib/firebase/index';
 import { Box, Heading, ButtonGroup, Stack } from '@chakra-ui/react';
 import {
@@ -18,7 +17,6 @@ import { useState } from 'react';
 import Warning from '@/components/common/warning';
 
 export default function UsersMe() {
-  const { user } = useAuthentication();
   const [didYouSend, setSended] = useState(false);
 
   const validationSchema = Yup.object({

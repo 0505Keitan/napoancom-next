@@ -3,7 +3,7 @@ import firebase from 'firebase/app';
 import firebaseApi from '@/lib/firebase';
 import Layout from '@/components/layout';
 import { useAuthentication } from '../../hooks/authentication';
-import { Box, Divider, Heading, ButtonGroup, Stack, SkeletonText, Button } from '@chakra-ui/react';
+import { Box, Divider, Heading, ButtonGroup, Stack, Button } from '@chakra-ui/react';
 import { InputControl, ResetButton, SubmitButton, CheckboxSingleControl } from 'formik-chakra-ui';
 import { NGwords } from 'pages/api/ogpgen/NGwords';
 import { Formik } from 'formik';

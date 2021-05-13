@@ -41,7 +41,7 @@ const updateJewel = async (uid: User['uid'], jewel: number) => {
       return false;
     });
 };
-const fetcher = (uid: User['uid'] | null, jewel: number, userJewel: number) => {
+const fetcher = (uid: User['uid'] | null, jewel: number) => {
   // ここでAPIをセルフ参照
   return fetch(`${process.env.HTTPS_URL}/api/entityatsume/random`, {
     method: 'GET',
@@ -72,23 +72,19 @@ const fetcher = (uid: User['uid'] | null, jewel: number, userJewel: number) => {
 };
 
 // これはクライアントで呼ぶ
-const getRandom = (uid: User['uid'] | null, jewel: number, userJewel: number) => {
-  const { data, mutate, error } = useSWR(
-    uid ? 'random' : null,
-    () => fetcher(uid ?? null, jewel, userJewel),
-    {
-      refreshInterval: 0,
-      revalidateOnFocus: false,
-      revalidateOnMount: false,
-      revalidateOnReconnect: false,
-      refreshWhenHidden: false,
-      refreshWhenOffline: false,
-      onError: (err) => {
-        alert(err);
-        console.error(`Gacha SWR error: ${err}`);
-      },
+const getRandom = (uid: User['uid'] | null, jewel: number) => {
+  const { data, mutate, error } = useSWR(uid ? 'random' : null, () => fetcher(uid ?? null, jewel), {
+    refreshInterval: 0,
+    revalidateOnFocus: false,
+    revalidateOnMount: false,
+    revalidateOnReconnect: false,
+    refreshWhenHidden: false,
+    refreshWhenOffline: false,
+    onError: (err) => {
+      alert(err);
+      console.error(`Gacha SWR error: ${err}`);
     },
-  );
+  });
 
   // 初回ロード時に返すデータ
   if (data == undefined) {

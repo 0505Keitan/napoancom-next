@@ -1,4 +1,3 @@
-import { CREATOR_ID } from '@/lib/constants';
 import { Box, Flex, Button, useColorMode } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import FaiconDiv from './faicon-div';

@@ -3,7 +3,7 @@ import { Box, Button } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import Meta from './meta';
 import { Post } from '@/models/contentful/Post';
-import { ASIDE_WITDH, LAYOUT_MAXW, LAYOUT_PADDING, MAIN_WIDTH, NAV_HEIGHT } from '@/theme/index';
+import { ASIDE_WITDH, LAYOUT_PADDING, MAIN_WIDTH, NAV_HEIGHT } from '@/theme/index';
 import Nav from './nav';
 import LayoutFooter from './layout-footer';
 import { Game } from '@/models/contentful/Game';

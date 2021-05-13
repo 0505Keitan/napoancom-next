@@ -38,7 +38,7 @@ interface Props {
 
 export default function PostCommentList({ postComments, post }: Props) {
   const { user } = useAuthentication();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onClose } = useDisclosure();
   const [didYouSend, setSended] = useState(false);
 
   const validationSchema = Yup.object({

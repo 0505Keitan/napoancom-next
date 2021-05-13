@@ -2,7 +2,6 @@ import ErrorPage from 'next/error';
 import Layout from '@/components/layout';
 import { Game } from '@/models/contentful/Game';
 import { Box } from '@chakra-ui/react';
-import GameList from '@/components/partials/post/common/game-list';
 import { PostForList } from '@/models/contentful/Post';
 import PostList from '@/components/partials/post';
 

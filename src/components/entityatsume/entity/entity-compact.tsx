@@ -1,4 +1,4 @@
-import { Badge, Box, Center, Flex, Heading, Stack, useColorMode } from '@chakra-ui/react';
+import { Badge, Box, Flex, Heading, Stack } from '@chakra-ui/react';
 import { Entity } from '@/models/firebase/entities/entity';
 import Image from 'next/image';
 

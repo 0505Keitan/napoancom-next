@@ -1,6 +1,6 @@
 import AdsenseBox from '@/components/common/adsense-box';
 import { PostForList } from '@/models/contentful/Post';
-import { Box, Center, Container, Divider, SimpleGrid, Stack } from '@chakra-ui/react';
+import { Box, Center, Divider, SimpleGrid, Stack } from '@chakra-ui/react';
 import { CompactPost } from './compact-post';
 
 interface MultiPostProps {

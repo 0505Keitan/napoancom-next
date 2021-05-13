@@ -32,11 +32,7 @@ const GachaDialog = () => {
   const defaultJewel = parseInt(process.env.ENTITYATSUME_DEFAULT_JEWEL ?? '5640');
   const oneGachaJewel = parseInt(process.env.ENTITYATSUME_ONE_GACHA_JEWEL ?? '100');
   const [userJewel, setUserJewel] = useState(defaultJewel);
-  let { randomEntity, mutateEntity, error } = getRandom(
-    user ? user.uid : null,
-    oneGachaJewel,
-    userJewel,
-  );
+  let { randomEntity, mutateEntity, error } = getRandom(user ? user.uid : null, oneGachaJewel);
 
   useEffect(() => {
     if (user) {

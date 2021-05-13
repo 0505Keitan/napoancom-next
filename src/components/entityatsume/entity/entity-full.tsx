@@ -1,4 +1,4 @@
-import { Box, Stack, Heading, Badge, Flex, useColorMode } from '@chakra-ui/react';
+import { Box, Stack, Heading, Badge, Flex } from '@chakra-ui/react';
 import { Entity } from '@/models/firebase/entities/entity';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default function EntityFull({ entity }: Props) {
-  const { colorMode } = useColorMode();
   let entityType = 'エンティティ';
   let colorScheme = 'blue';
   if (entity.type == 'friendly') {

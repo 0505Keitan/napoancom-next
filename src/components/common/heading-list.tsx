@@ -1,6 +1,5 @@
 import { PostHeadingData } from '@/models/contentful/Post';
 import { Box, Flex, Heading } from '@chakra-ui/layout';
-import LinkChakra from './link-chakra';
 
 const HeadingList = ({ headings }: { headings: PostHeadingData[] }) => {
   return (

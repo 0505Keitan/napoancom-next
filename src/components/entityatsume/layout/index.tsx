@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Flex, Box, Button, useColorMode, Center, HStack, Heading } from '@chakra-ui/react';
+import { Flex, Box, Button, useColorMode, Center, HStack } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import Meta from '../../layout/meta';
 

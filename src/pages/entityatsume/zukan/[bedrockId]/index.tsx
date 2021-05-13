@@ -11,11 +11,9 @@ import { useRouter } from 'next/router';
 interface EntityPageProps {
   firstEntity: Entity;
   preview: boolean;
-  revalEnv: number;
-  message: string;
 }
 
-export default function EntityPage({ preview, firstEntity, revalEnv, message }: EntityPageProps) {
+export default function EntityPage({ preview, firstEntity }: EntityPageProps) {
   const router = useRouter();
 
   if (router.isFallback) {

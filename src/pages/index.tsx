@@ -1,5 +1,5 @@
 import ErrorPage from 'next/error';
-import { Box, Button, Divider, VStack } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
 import { SITE_DESC, SITE_NAME } from '@/lib/constants';
 import { Post } from '@/models/contentful/Post';
 

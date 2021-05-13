@@ -42,11 +42,6 @@ export default function EntityIndex({ entities, message }: EntityIndexProps) {
   );
 }
 
-interface GSProps {
-  params: any;
-  preview: boolean;
-}
-
 export async function getStaticProps() {
   const allEntitiesRes = await fetch(process.env.API_URL + '/entityatsume-getAll', {
     method: 'GET',
