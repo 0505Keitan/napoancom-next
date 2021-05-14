@@ -14,6 +14,21 @@ module.exports = withBundleAnalyzer({
           'https://md.napoan.com/docs/minecraft/howto/bedrock-friend-multiplayer-guide/intro',
         permanent: true,
       },
+      {
+        source: '/bedrock-command-list/',
+        destination: 'https://md.napoan.com/docs/minecraft/reference/command-bedrock/intro',
+        permanent: true,
+      },
+      {
+        source: '/bedrock-command-list-command-:name/',
+        destination: 'https://md.napoan.com/docs/minecraft/reference/command-bedrock/:name',
+        permanent: true,
+      },
+      {
+        source: '/bedrock-command-list-command-:name',
+        destination: 'https://md.napoan.com/docs/minecraft/reference/command-bedrock/:name',
+        permanent: true,
+      },
     ];
   },
   env: {
