@@ -29,6 +29,17 @@ module.exports = withBundleAnalyzer({
         destination: 'https://md.napoan.com/docs/minecraft/reference/command-bedrock/:name',
         permanent: true,
       },
+      // 2021-05-15追加
+      {
+        source: '/new-way-to-install-mod/',
+        destination: 'https://md.napoan.com/docs/minecraft/howto/install-forge/intro',
+        permanent: true,
+      },
+      {
+        source: '/optifine-setup-guide/',
+        destination: 'https://md.napoan.com/docs/minecraft/howto/install-optifine/intro',
+        permanent: true,
+      },
     ];
   },
   env: {
