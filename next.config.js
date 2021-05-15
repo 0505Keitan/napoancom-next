@@ -40,6 +40,11 @@ module.exports = withBundleAnalyzer({
         destination: 'https://md.napoan.com/docs/minecraft/howto/install-optifine/intro',
         permanent: true,
       },
+      {
+        source: '/mcbe-howtouse-fill-command/',
+        destination: 'https://md.napoan.com/docs/minecraft/reference/command-bedrock/fill',
+        permanent: true,
+      },
     ];
   },
   env: {
