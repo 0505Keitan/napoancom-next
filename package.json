@@ -1,7 +1,7 @@
 {
   "name": "napoancom-next",
   "version": "0.3.2",
-  "author": "imaicu",
+  "author": "AELYONE",
   "scripts": {
     "dev": "next",
     "build": "ANALYZE=true next build",
@@ -68,7 +68,7 @@
     "typescript": "4.0"
   },
   "repository": {
-    "url": "https://github.com/imaicu/napoancom-next"
+    "url": "https://github.com/AELYONE/napoancom-next"
   },
   "license": "MIT",
   "lint-staged": {
