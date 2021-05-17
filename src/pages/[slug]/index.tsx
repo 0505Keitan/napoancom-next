@@ -120,9 +120,16 @@ export async function getStaticProps({ params, preview }: GSProps) {
     },
   );
   let posts: Result = {};
+  if (postsRes.status == 304) {
+    console.info(`Not modified: ${params.slug}`);
+  }
   if (postsRes.ok) {
     posts = await postsRes.json();
   } else {
+    posts = {
+      post: undefined,
+      morePosts: [],
+    };
     console.error('Fetch error: ' + postsRes.status + (await JSON.stringify(postsRes.json())));
   }
 
@@ -130,16 +137,24 @@ export async function getStaticProps({ params, preview }: GSProps) {
 
   let foundNormalVer = false;
   if (!posts.post) {
-    await fetch(`https://napoan.com/${params.slug}/`).then((res) => {
-      // 通常盤が見つかったら
-      if (res.ok) {
-        foundNormalVer = true;
-      } else {
-        return {
-          notFound: true,
-        };
-      }
-    });
+    await fetch(`https://napoan.com/${params.slug}/`)
+      .then((res) => {
+        // 通常盤が見つかったら
+        if (res.ok) {
+          foundNormalVer = true;
+        } else {
+          console.warn(
+            '\x1b[33m%s\x1b[0m',
+            `Response: ${res.status}${` `}${res.statusText} / Normal version not found`,
+          );
+          return {
+            notFound: true,
+          };
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   }
 
   const pageProps = {
@@ -159,12 +174,11 @@ export async function getStaticProps({ params, preview }: GSProps) {
       } / ${pageProps.firstPost.tweetCount} tweets / ${pageProps.firstPost.like} likes`,
     );
 
-    // backend/functions-2021/functions/src/contentful/common/mdToHeadings/v2.ts 参照
+    // /functions/src/contentful/common/mdToHeadings/v2.ts 参照
     if (pageProps.firstPost.noParagraph) {
       console.warn(
         '\x1b[33m%s\x1b[0m',
-        `We cannot fetch paragraph text below headings in ${pageProps.firstPost.title}. You may need to check MarkDown.` +
-          `\nYou can edit the post here -> https://app.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries/${pageProps.firstPost.sys.id}\n\n`,
+        `Heading data is missing Edit -> https://app.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries/${pageProps.firstPost.sys.id}\n\n`,
       );
     }
   }
