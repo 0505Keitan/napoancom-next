@@ -4,12 +4,9 @@ import ToMdVersion from '@/components/common/buttons/to-md-version';
 
 const AboutMdVersion = () => {
   return (
-    <Layout
-      preview={false}
-      meta={{ title: 'Markdown Gamingについて', desc: 'Markdown Gamingについて' }}
-    >
+    <Layout preview={false} meta={{ title: 'ASOBINONについて', desc: 'ASOBINONについて' }}>
       <Heading as="h1" pb={8}>
-        Markdown Gamingについて
+        ASOBINONについて
       </Heading>
       <Stack spacing={6}>
         <Box>
