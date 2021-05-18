@@ -31,17 +31,17 @@ module.exports = withBundleAnalyzer({
       // 2021-05-15追加
       {
         source: '/new-way-to-install-mod/',
-        destination: 'https://asobinon.org/minecraft-je/howto/install-forge/',
+        destination: 'https://asobinon.org/minecraft-je/howto/install-forge/intro',
         permanent: true,
       },
       {
         source: '/optifine-setup-guide/',
-        destination: 'https://asobinon.org//minecraft-je/howto/install-optifine/',
+        destination: 'https://asobinon.org/minecraft-je/howto/install-optifine/intro',
         permanent: true,
       },
       {
         source: '/mcbe-howtouse-fill-command/',
-        destination: 'https://asobinon.org//minecraft/reference/command-bedrock/fill',
+        destination: 'https://asobinon.org/minecraft/reference/command-bedrock/fill',
         permanent: true,
       },
     ];
