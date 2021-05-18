@@ -31,12 +31,12 @@ module.exports = withBundleAnalyzer({
       // 2021-05-15追加
       {
         source: '/new-way-to-install-mod/',
-        destination: 'https://asobinon.org/minecraft-je/howto/install-forge/intro',
+        destination: 'https://asobinon.org/minecraft-je/howto/install-forge/',
         permanent: true,
       },
       {
         source: '/optifine-setup-guide/',
-        destination: 'https://asobinon.org/minecraft-je/howto/install-optifine/intro',
+        destination: 'https://asobinon.org/minecraft-je/howto/install-optifine/',
         permanent: true,
       },
       {
