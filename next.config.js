@@ -10,39 +10,38 @@ module.exports = withBundleAnalyzer({
       {
         // 2021-05-14追加
         source: '/bedrock-friend-multiplayer-guide/',
-        destination:
-          'https://asobinon.org/docs/minecraft/howto/bedrock-friend-multiplayer-guide/intro',
+        destination: 'https://asobinon.org/minecraft/howto/bedrock-friend-multiplayer-guide/',
         permanent: true,
       },
       {
         source: '/bedrock-command-list/',
-        destination: 'https://asobinon.org/docs/minecraft/reference/command-bedrock/intro',
+        destination: 'https://asobinon.org/minecraft/reference/command-bedrock/',
         permanent: true,
       },
       {
         source: '/bedrock-command-list-command-:name/',
-        destination: 'https://asobinon.org/docs/minecraft/reference/command-bedrock/:name',
+        destination: 'https://asobinon.org/minecraft/reference/command-bedrock/:name',
         permanent: true,
       },
       {
         source: '/bedrock-command-list-command-:name',
-        destination: 'https://asobinon.org/docs/minecraft/reference/command-bedrock/:name',
+        destination: 'https://asobinon.org/minecraft/reference/command-bedrock/:name',
         permanent: true,
       },
       // 2021-05-15追加
       {
         source: '/new-way-to-install-mod/',
-        destination: 'https://asobinon.org/docs/minecraft/howto/install-forge/intro',
+        destination: 'https://asobinon.org/minecraft-je/howto/install-forge/',
         permanent: true,
       },
       {
         source: '/optifine-setup-guide/',
-        destination: 'https://asobinon.org/docs/minecraft/howto/install-optifine/intro',
+        destination: 'https://asobinon.org//minecraft-je/howto/install-optifine/',
         permanent: true,
       },
       {
         source: '/mcbe-howtouse-fill-command/',
-        destination: 'https://asobinon.org/docs/minecraft/reference/command-bedrock/fill',
+        destination: 'https://asobinon.org//minecraft/reference/command-bedrock/fill',
         permanent: true,
       },
     ];
