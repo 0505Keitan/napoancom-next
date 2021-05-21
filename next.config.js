@@ -4,12 +4,22 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 module.exports = withBundleAnalyzer({
   // add slash for Twitter card
+  // OGPのためにスラッシュ
   trailingSlash: true,
   async redirects() {
     return [
       {
-        // 2021-05-14追加
         source: '/bedrock-friend-multiplayer-guide/',
+        destination: 'https://asobinon.org/minecraft/howto/bedrock-friend-multiplayer-guide/',
+        permanent: true,
+      },
+      {
+        source: '/bedrock-friend-multiplayer-guide-part2/',
+        destination: 'https://asobinon.org/minecraft/howto/bedrock-friend-multiplayer-guide/',
+        permanent: true,
+      },
+      {
+        source: '/bedrock-friend-multiplayer-guide-part3/',
         destination: 'https://asobinon.org/minecraft/howto/bedrock-friend-multiplayer-guide/',
         permanent: true,
       },
@@ -55,10 +65,7 @@ module.exports = withBundleAnalyzer({
     FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
     FIREBASE_MESSEGING_SENDER_ID: process.env.FIREBASE_MESSEGING_SENDER_ID,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
-    FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
     HTTPS_URL: process.env.HTTPS_URL,
-    TWITTER_SECRET: process.env.TWITTER_SECRET,
-    TWITTER_BEARER: process.env.TWITTER_BEARER,
     API_URL: process.env.API_URL,
     REVALIDATE_HOME: process.env.REVALIDATE_HOME,
     REVALIDATE_SINGLE: process.env.REVALIDATE_SINGLE,
@@ -81,8 +88,6 @@ module.exports = withBundleAnalyzer({
     NAPOANCOM_NEST_LIMIT: process.env.NAPOANCOM_NEST_LIMIT,
     FUNCTION_AUTH: process.env.FUNCTION_AUTH,
     AD_DELAY: process.env.AD_DELAY,
-    ENTITYATSUME_DEFAULT_JEWEL: process.env.ENTITYATSUME_DEFAULT_JEWEL,
-    ENTITYATSUME_ONE_GACHA_JEWEL: process.env.ENTITYATSUME_ONE_GACHA_JEWEL,
   },
   images: {
     domains: ['localhost', 'static.wikia.nocookie.net', 'pbs.twimg.com', 'images.ctfassets.net'],
