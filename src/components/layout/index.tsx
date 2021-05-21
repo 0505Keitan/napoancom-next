@@ -3,7 +3,7 @@ import { Box, Button } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import Meta from './meta';
 import { Post } from '@/models/contentful/Post';
-import { ASIDE_WITDH, LAYOUT_PADDING, MAIN_WIDTH, NAV_HEIGHT } from '@/theme/index';
+import { ASIDE_WITDH, LAYOUT_PADDING, MAIN_WIDTH } from '@/theme/index';
 import Nav from './nav';
 import LayoutFooter from './layout-footer';
 import { Game } from '@/models/contentful/Game';
@@ -61,7 +61,7 @@ export default function Layout({
       >
         <Nav games={games} post={post} hideAdsense={hideAdsense ?? false} />
 
-        <Box pt={`${NAV_HEIGHT}px`}>
+        <Box>
           {/* globalTheme.tsの内容でレスポンシブの表示が変わる */}
           <Box
             ml="auto"
@@ -73,7 +73,7 @@ export default function Layout({
               pt={8}
               pb={8}
               overflowX="hidden"
-              w={{ base: 'full', lg: `${MAIN_WIDTH}px` }}
+              w={{ base: 'full', md: `${MAIN_WIDTH}px` }}
               px={{ base: 3, lg: 0 }}
             >
               {children}

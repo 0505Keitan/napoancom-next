@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Button,
-  CloseButton,
-  Flex,
-  HStack,
-  Spacer,
-  Stack,
-  useColorMode,
-} from '@chakra-ui/react';
-import { ASIDE_WITDH, LAYOUT_PADDING, NAV_HEIGHT } from '@/theme/index';
+import { Box, Button, CloseButton, Flex, Stack, useColorMode } from '@chakra-ui/react';
+import { ASIDE_WITDH, LAYOUT_PADDING } from '@/theme/index';
 import { Post } from '@/models/contentful/Post';
 import ColorSwitch from '../color-switch';
 import Logo from '@/components/common/Logo';
@@ -24,11 +15,6 @@ import { Game } from '@/models/contentful/Game';
 import GameList from '@/components/partials/post/common/game-list';
 import AboutMdVersion from '@/components/common/buttons/about-md-version';
 
-// 2箇所にロゴと検索があるので、切り替えタイミングを共通化する
-const layoutSwitch = {
-  search: 'md',
-  logo: 'lg',
-};
 interface NavProps {
   post?: Post;
   hideAdsense: boolean;
@@ -70,7 +56,7 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
         top={0}
         left={leftValue()}
         position="fixed"
-        as="aside"
+        as="nav"
         sx={{ '.noScrollBar::-webkit-scrollbar': { display: 'none' } }}
         h="100vh"
         px={3}
@@ -103,23 +89,26 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
               }
             }}
           />
-          <Stack flexGrow={1} h="auto">
-            <Stack pb={8} display={{ base: 'none', lg: 'block' }}>
-              {hideAdsense != true && (
-                <>
-                  <AdsenseBox width={300} height={250} layout="fixed" slot={'8321176059'} />
-                </>
-              )}
-            </Stack>
-            <Box pb={6} display={{ base: 'block', [layoutSwitch.logo]: 'none' }}>
+          <Stack flexGrow={1} spacing={8} h="auto">
+            {hideAdsense != true && (
+              <Stack pb={8} display={{ base: 'none', lg: 'block' }}>
+                <AdsenseBox width={300} height={250} layout="fixed" slot={'8321176059'} />
+              </Stack>
+            )}
+
+            <Box>
               <Logo logoSelection="nomaikura" />
             </Box>
 
-            <Box display={{ base: 'block', [layoutSwitch.search]: 'none' }}>
+            <Box>
+              <ColorSwitch />
+            </Box>
+
+            <Box w="full">
               <SearchBox />
             </Box>
 
-            <Box pb={6}>
+            <Box>
               <AboutMdVersion />
             </Box>
 
@@ -147,51 +136,28 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
       </Box>
 
       {/* これが上のメニュー */}
-      <Box
-        zIndex={5}
-        bg={colorMode == 'light' ? 'white' : '#1A202C'}
-        h={`${NAV_HEIGHT}px`}
-        top={0}
-        left={0}
-        as="nav"
-        w="100vw"
-        pt="0.4rem"
-        pb="0.1rem"
-        borderBottom="gray.400"
-        borderBottomWidth={2}
-        position="fixed"
-      >
-        <HStack
-          px={3}
-          ml="auto"
-          w={{ base: '100vw', lg: `calc(100vw - ${ASIDE_WITDH + LAYOUT_PADDING}px)` }}
-        >
-          <Button
-            display={{ base: 'block', lg: 'none' }}
-            zIndex={10}
-            mr={3}
-            pr={2}
-            colorScheme="blue"
-            leftIcon={<FaiconDiv icon={['fas', 'bars']} />}
-            onClick={() => {
-              setIsOpen(true);
-              if (typeof window !== 'undefined') {
-                gtag.event({
-                  action: isOpen ? 'closeDrawer' : 'openDrawer',
-                  category: 'GUI',
-                  label: `ドロワーメニューを${isOpen ? '閉じる' : '開く'}`,
-                });
-              }
-            }}
-          />
-          <Box pr={4} display={{ base: 'none', [layoutSwitch.logo]: 'block' }}>
-            <Logo logoSelection="nomaikura" />
-          </Box>
-          <ColorSwitch /> <Spacer />
-          <Box display={{ base: 'none', [layoutSwitch.search]: 'block' }}>
-            <SearchBox />
-          </Box>
-        </HStack>
+      <Box zIndex={5} top={3} left={3} position="fixed">
+        <Button
+          shadow="xl"
+          display={{ base: 'block', lg: 'none' }}
+          zIndex={10}
+          mr={3}
+          pr={2}
+          pt={1}
+          bg="#2687e8"
+          color="white"
+          leftIcon={<FaiconDiv icon={['fas', 'bars']} />}
+          onClick={() => {
+            setIsOpen(true);
+            if (typeof window !== 'undefined') {
+              gtag.event({
+                action: isOpen ? 'closeDrawer' : 'openDrawer',
+                category: 'GUI',
+                label: `ドロワーメニューを${isOpen ? '閉じる' : '開く'}`,
+              });
+            }
+          }}
+        />
       </Box>
     </>
   );
