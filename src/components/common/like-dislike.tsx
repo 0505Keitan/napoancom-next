@@ -1,3 +1,5 @@
+// かなり無理やりだが、高評価と低評価をこれで済ませている
+
 import { Box, Flex, Button, useColorMode } from '@chakra-ui/react';
 import FaiconDiv from './faicon-div';
 import { useRef, useState } from 'react';
@@ -12,6 +14,7 @@ interface Props {
   uid?: User['uid'];
 }
 
+// エンティティガチャ用のジュエルを贈呈する
 const addJewel = async (uid: User['uid']) => {
   firebase
     .firestore()
@@ -21,6 +24,7 @@ const addJewel = async (uid: User['uid']) => {
       {
         jewel: firebase.firestore.FieldValue.increment(100),
       },
+      // setかつmergeじゃないと新ユーザーに対応できない！
       { merge: true },
     );
 };
@@ -47,6 +51,24 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
 
   const toast = useToast();
 
+  const handleToastAndEvent = (isLike: boolean) => {
+    toast({
+      title: `記事を${isLike ? '高' : '低'}評価しました`,
+      description: 'エンティティガチャ用のジュエルを100個贈呈します。\n(どんな評価でも同様です)',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
+
+    if (typeof window !== 'undefined') {
+      gtag.event({
+        action: isLike ? 'like' : 'dislike',
+        category: 'blogPost',
+        label: `記事を${isLike ? '高' : '低'}評価`,
+      });
+    }
+  };
+
   const Like = async () => {
     if (!liked && !disliked) {
       await firebase
@@ -69,21 +91,7 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
           setLikeValue((prevValue) => prevValue + 1);
           setLiked(true);
 
-          toast({
-            title: '記事を高評価しました',
-            description: 'エンティティガチャ用のジュエルを100個贈呈します。\n(低評価でも同様です)',
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
-          });
-
-          if (typeof window !== 'undefined') {
-            gtag.event({
-              action: 'like',
-              category: 'blogPost',
-              label: '記事を高評価',
-            });
-          }
+          handleToastAndEvent(true);
         })
         .catch((e) => {
           console.error(e);
@@ -114,21 +122,7 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
 
           setDisliked(true);
 
-          toast({
-            title: '記事を低評価しました',
-            description: 'エンティティガチャ用のジュエルを100個贈呈します。\n(高評価でも同様です)',
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
-          });
-
-          if (typeof window !== 'undefined') {
-            gtag.event({
-              action: 'dislike',
-              category: 'blogPost',
-              label: '記事を低評価',
-            });
-          }
+          handleToastAndEvent(false);
         })
         .catch((e) => {
           console.error(e);
