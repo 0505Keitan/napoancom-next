@@ -1,7 +1,7 @@
 import FaiconDiv from '@/components/common/faicon-div';
 import LinkChakra from '@/components/common/link-chakra';
 import { Person } from '@/models/contentful/Person';
-import { Avatar, Box, Button, Flex, Heading, Stack, useColorMode } from '@chakra-ui/react';
+import { Avatar, Box, Button, Flex, Heading, Stack } from '@chakra-ui/react';
 
 interface OneProps {
   person: Person;
@@ -11,14 +11,13 @@ interface ListProps {
 }
 
 const OnePerson = ({ person }: OneProps) => {
-  const { colorMode } = useColorMode();
   return (
     <Flex
       justifyContent="space-between"
       flexDirection={{ base: 'column', sm: 'row' }}
-      p={4}
+      p={6}
       rounded="lg"
-      bg={colorMode == 'light' ? 'gray.200' : 'gray.900'}
+      borderWidth={1}
     >
       <Box mb={{ base: 4, sm: 0 }}>
         <Flex mb={3} alignItems="center">
@@ -51,7 +50,7 @@ const OnePerson = ({ person }: OneProps) => {
           </Stack>
         )}
       </Box>
-      <Box ml={{ base: 0, sm: 4 }} flexGrow={1} p={4} bg="gray.100">
+      <Box ml={{ base: 0, sm: 4 }} flexGrow={1} p={4}>
         {person.description ?? '(自己紹介なし)'}
       </Box>
     </Flex>

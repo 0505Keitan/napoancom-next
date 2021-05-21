@@ -1,8 +1,4 @@
-import {
-  VERCEL_GITHUB_REPOSITORY_TOP,
-  VERCEL_LAST_COMMIT,
-  VERCEL_LAST_COMMIT_MESSAGE,
-} from '@/lib/constants';
+import { VERCEL_LAST_COMMIT, VERCEL_LAST_COMMIT_MESSAGE } from '@/lib/constants';
 import { Button, Box, Container, Flex, Stack, Badge } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import FaiconDiv from '@/components/common/faicon-div';
@@ -46,13 +42,20 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
               </Button>
             </Stack>
           </Box>
-          <Box color="white" textAlign={{ base: 'center', lg: 'right' }}>
-            <Box mb={3}>
-              Released under MIT License.{` `}
+          <Stack color="white" textAlign={{ base: 'center', md: 'right' }}>
+            <Box>
+              Some articles are not up-to-date.
               <br />
-              <LinkChakra href={VERCEL_GITHUB_REPOSITORY_TOP + '/blob/main/LICENSE'}>
-                (License text is on GitHub)
-              </LinkChakra>
+              更新されていない記事があります。
+              <br />
+              Not affiliated with Mojang/Microsoft.
+              <br />
+              Mojang/Microsoftとは無関係です。
+            </Box>
+            <Box>
+              Copyright &copy; 2021 AELYONE.
+              <br />
+              Contents created by Ryo Ando.
             </Box>
             <Stack direction="column">
               {revalidate && (
@@ -69,7 +72,7 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
                 </Badge>
               </Box>
             </Stack>
-          </Box>
+          </Stack>
         </Flex>
       </Container>
     </Box>

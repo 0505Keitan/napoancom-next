@@ -16,11 +16,11 @@ export default function SearchBox() {
         initialValues={{ word: '' }}
       >
         {({ handleSubmit, values }) => (
-          <Flex as="form" onSubmit={handleSubmit as any}>
-            <Box mr={1}>
+          <Flex w="full" as="form" onSubmit={handleSubmit as any}>
+            <Box flexGrow={1} mr={1}>
               <InputControl placeholder="aa" name="word" />
             </Box>
-            <SubmitButton colorScheme="purple" aria-label={`${values.word}でGoogleを検索`}>
+            <SubmitButton colorScheme="gray" aria-label={`${values.word}でGoogleを検索`}>
               <FaiconDiv icon={['fas', 'search']} />
             </SubmitButton>
           </Flex>

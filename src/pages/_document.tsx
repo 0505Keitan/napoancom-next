@@ -32,6 +32,7 @@ export default class MyDocument extends Document<DocumentProps> {
 
           {/* this is for analytics */}
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+          {/* プレビューならトラッキング無効化 */}
           <script
             dangerouslySetInnerHTML={{
               __html: `

@@ -10,7 +10,7 @@ export default function Custom500() {
 
       <p>
         <a href={`https://twitter.com/${CREATOR_ID}`}>https://twitter.com/{CREATOR_ID}</a>
-        にご報告いただければ助かります。
+        にスクショと共にご報告いただければ助かります。
       </p>
       <p>
         もしかして: プレビュー用Cookieが消去されていないのかもしれません。

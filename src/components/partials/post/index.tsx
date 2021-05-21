@@ -1,6 +1,6 @@
 import AdsenseBox from '@/components/common/adsense-box';
 import { PostForList } from '@/models/contentful/Post';
-import { Box, Center, Divider, SimpleGrid, Stack } from '@chakra-ui/react';
+import { Box, Center, Stack } from '@chakra-ui/react';
 import { CompactPost } from './compact-post';
 
 interface MultiPostProps {
@@ -9,21 +9,14 @@ interface MultiPostProps {
 }
 const MultiPosts = ({ posts, mode }: MultiPostProps) => {
   if (mode == 'archive') {
-    const morePosts = posts.slice(1);
     return (
-      <section>
-        <Center flexDirection="column">
-          <Box w="full">
-            <CompactPost mode="top" post={posts[0]} />
-          </Box>
-          <Divider my={8} borderColor="gray.400" />
-          <SimpleGrid maxW="100vw" spacing={4} columns={{ base: 1, md: 2 }}>
-            {morePosts.map((post: PostForList) => (
-              <CompactPost mode={mode} key={post.slug} post={post} />
-            ))}
-          </SimpleGrid>
-        </Center>
-      </section>
+      <Center flexDirection="column">
+        <Stack maxW="100vw" spacing={6}>
+          {posts.map((post: PostForList) => (
+            <CompactPost key={post.slug} post={post} />
+          ))}
+        </Stack>
+      </Center>
     );
   }
   if (mode == 'drawer') {
@@ -33,7 +26,7 @@ const MultiPosts = ({ posts, mode }: MultiPostProps) => {
           <h2>おすすめ記事</h2>
         </Box>
         {posts.map((post) => (
-          <CompactPost mode={mode} key={post.slug} post={post} />
+          <CompactPost key={post.slug} post={post} />
         ))}
       </Stack>
     );
@@ -46,11 +39,11 @@ const MultiPosts = ({ posts, mode }: MultiPostProps) => {
           </Box>
         )}
         <Center>
-          <SimpleGrid spacing={6} columns={{ base: 1, lg: 2 }}>
+          <Stack spacing={6}>
             {posts.map((post) => (
-              <CompactPost mode={mode} key={post.slug} post={post} />
+              <CompactPost key={post.slug} post={post} />
             ))}
-          </SimpleGrid>
+          </Stack>
         </Center>
       </Box>
     );

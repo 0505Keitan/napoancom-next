@@ -2,7 +2,7 @@ import { SinglePostComponent } from '@/components/partials/post/single-post';
 import { Post, PostForList, PostOnlySlug } from '@/models/contentful/Post';
 import Layout from '@/components/layout';
 import ErrorPage from 'next/error';
-import { Box, Center, Divider } from '@chakra-ui/react';
+import { Box, Center } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -62,7 +62,6 @@ export default function PostPage({
 
               {firstPost && <SinglePostComponent post={firstPost} />}
 
-              <Divider my={8} borderColor="gray.400" />
               {morePosts && morePosts.length > 0 && (
                 <Box my={10}>
                   <PostList
@@ -178,7 +177,7 @@ export async function getStaticProps({ params, preview }: GSProps) {
     if (pageProps.firstPost.noParagraph) {
       console.warn(
         '\x1b[33m%s\x1b[0m',
-        `Heading data is missing Edit -> https://app.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries/${pageProps.firstPost.sys.id}\n\n`,
+        `Heading data is missing Edit -> https://app.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries/${pageProps.firstPost.sys.id}`,
       );
     }
   }
