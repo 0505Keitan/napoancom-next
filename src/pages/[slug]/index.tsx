@@ -178,7 +178,7 @@ export async function getStaticProps({ params, preview }: GSProps) {
     if (pageProps.firstPost.noParagraph) {
       console.warn(
         '\x1b[33m%s\x1b[0m',
-        `Heading data is missing Edit -> https://app.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries/${pageProps.firstPost.sys.id}\n\n`,
+        `Heading data is missing Edit -> https://app.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries/${pageProps.firstPost.sys.id}`,
       );
     }
   }

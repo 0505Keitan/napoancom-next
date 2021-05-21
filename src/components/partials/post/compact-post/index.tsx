@@ -8,9 +8,8 @@ import Image from 'next/image';
 
 interface Props {
   post: PostForList;
-  mode?: 'top' | 'archive' | 'more' | 'drawer' | undefined;
 }
-export function CompactPost({ post, mode }: Props) {
+export function CompactPost({ post }: Props) {
   const { colorMode } = useColorMode();
   return (
     <LinkChakra href={`/${post.slug}`}>
@@ -23,19 +22,15 @@ export function CompactPost({ post, mode }: Props) {
         border="gray.600"
         area-label={post.title}
       >
-        {/* トップなら画像とタイトルを並べる */}
-        <Flex
-          w="full"
-          alignItems={mode == 'top' ? 'center' : ''}
-          flexGrow={1}
-          flexDirection={{ base: 'column', md: mode == 'top' ? 'row' : 'column' }}
-        >
+        <Flex w="full" flexGrow={1} flexDirection={{ base: 'column', md: 'column' }}>
           <Center
-            mb={mode == 'top' ? 0 : 2}
+            mb={2}
             overflow="hidden"
-            w={{ base: 'full', md: mode == 'top' ? '50%' : 'auto' }}
-            mr={{ base: 0, md: mode == 'top' ? 8 : 0 }}
+            w={{ base: 'full', md: 'auto' }}
             position="relative"
+            rounded="lg"
+            borderWidth={2}
+            borderColor="gray.400"
           >
             {post.heroImage ? (
               <Image
@@ -45,16 +40,14 @@ export function CompactPost({ post, mode }: Props) {
                 height={`${OGP_H / 5}px`}
               />
             ) : (
-              <img
-                src={`${process.env.HTTPS_URL}/api/ogpgen?text=${post.title}`}
-                width={`${OGP_W / 5}px`}
-                height={`${OGP_H / 5}px`}
-              />
+              <Center width={`${OGP_W / 5}px`} height={`${OGP_H / 5}px`}>
+                NO IMAGE
+              </Center>
             )}
           </Center>
           <Box position="relative" w="full">
             <Box
-              fontSize={mode == 'top' ? 'xl' : 'lg'}
+              fontSize="lg"
               fontWeight="bold"
               mb={2}
               h={'90px'}

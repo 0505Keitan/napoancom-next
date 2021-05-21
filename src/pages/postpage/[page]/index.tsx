@@ -41,9 +41,7 @@ const PostPage = ({ posts, totalCount, currentPage, environment, revalEnv }: Ind
                 <Heading as="h1" textStyle="h1">
                   記事一覧 {currentPage}ページ目
                 </Heading>
-                <Box rounded="lg" my={4} p={3} bg="gray.200">
-                  注意: このページは{revalEnv / 60}分ごとにしか更新されません。
-                </Box>
+                <Box my={4}>注意: このページは{revalEnv / 60}分ごとにしか更新されません。</Box>
                 <Divider />
               </VStack>
               {posts && posts.length > 0 && <PostList mode="archive" posts={posts} />}
