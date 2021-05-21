@@ -21,10 +21,8 @@ export function SinglePostComponent({ post }: Props) {
         <Box>
           <PostBody source={post.body} />
         </Box>
-        <Divider my={3} />
+        <Divider my={6} />
         <Box>{post.person && <PersonList persons={[post.person]} />}</Box>
-
-        <Divider my={3} />
 
         {/* 記事下 */}
         {post.hideAdsense !== true && <AdsenseBox layout="responsive" slot={'1529491287'} />}

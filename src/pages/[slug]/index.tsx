@@ -62,7 +62,6 @@ export default function PostPage({
 
               {firstPost && <SinglePostComponent post={firstPost} />}
 
-              <Divider my={8} borderColor="gray.400" />
               {morePosts && morePosts.length > 0 && (
                 <Box my={10}>
                   <PostList

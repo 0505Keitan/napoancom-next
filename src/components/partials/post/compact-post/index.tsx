@@ -20,6 +20,7 @@ export function CompactPost({ post }: Props) {
         p={3}
         pb={8}
         area-label={post.title}
+        flexDirection={{ base: 'column', sm: 'row' }}
       >
         <Stack width={`${OGP_W / 5}px`}>
           <Box>
@@ -60,12 +61,9 @@ export function CompactPost({ post }: Props) {
           >
             {post.title}
           </Box>
-          <Badge
-            whiteSpace="normal"
-            fontSize={{ base: 'sm', md: 'lg' }}
-            fontStyle="italic"
-            bg="gray.100"
-          >
+
+          {/* カッコつけ */}
+          <Badge whiteSpace="normal" fontSize={{ base: 'sm', md: 'lg' }} fontStyle="italic">
             <Box mt={-2}>{post.slug}</Box>
           </Badge>
         </Box>
