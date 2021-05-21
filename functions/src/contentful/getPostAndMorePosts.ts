@@ -7,6 +7,7 @@ import { fetchGraphQL } from './common/fetch-graphql';
 import { POST_GRAPHQL_FIELDS, POSTFORLIST_GRAPHQL_FIELDS } from '../models/contentful/Post';
 import postBodyConverter from './common/postBodyConverter';
 
+// 最重要。スラッグから記事を取得
 const getPostAndMorePosts = functions.https.onRequest(async (request, response: any) => {
   const secret = request.headers.authorization as string | undefined;
 
@@ -45,8 +46,8 @@ const getPostAndMorePosts = functions.https.onRequest(async (request, response: 
         preview,
       );
 
-      // CRAZY RANDOMIZE(slash 5 means only show newer content and minimize build time)
-      const randomSkipMax = parseInt(adminConfig.contentful.limit ?? '600') / 5;
+      // 300を上限にスキップしてランダムな記事をおすすめに
+      const randomSkipMax = 300;
       const randomSkip = Math.round(Math.random() * randomSkipMax);
 
       const entries = await fetchGraphQL(
