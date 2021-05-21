@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
-
+// 広告掲載用
 export const getServerSideProps = async ({ res }: GetServerSidePropsContext) => {
   const text = `google.com, ${process.env.GOOGLE_AD_CLIENT}, DIRECT, ${process.env.ADSENSE_AUTH_ID}`;
 

@@ -2,7 +2,7 @@ import { SinglePostComponent } from '@/components/partials/post/single-post';
 import { Post, PostForList, PostOnlySlug } from '@/models/contentful/Post';
 import Layout from '@/components/layout';
 import ErrorPage from 'next/error';
-import { Box, Center, Divider } from '@chakra-ui/react';
+import { Box, Center } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 

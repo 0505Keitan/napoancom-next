@@ -15,6 +15,7 @@ export const globalLayout = {
 
 globalLayout.maxW = globalLayout.asideWitdh + globalLayout.mainWidth + globalLayout.layoutPadding;
 
+// ブレークポイントを柔軟に切り替える
 export const customBreakPoints = createBreakpoints({
   sm: '30em',
   //md: "48em",

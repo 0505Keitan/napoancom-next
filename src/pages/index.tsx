@@ -32,6 +32,7 @@ const Index = ({ posts, environment }: IndexProps) => {
               </Stack>
               {posts && posts.length > 0 && <PostList mode="archive" posts={posts} />}
 
+              {/* ここは横並び */}
               <Flex gridGap={4} flexDirection={{ base: 'column', sm: 'row' }}>
                 <Button flexGrow={2} fontSize="xl" as={LinkChakra} href="/postpage/1/">
                   記事一覧へ
