@@ -1,5 +1,4 @@
 import { AppProps } from 'next/app';
-import { RecoilRoot } from 'recoil';
 import { useEffect } from 'react';
 import NextNprogress from 'nextjs-progressbar';
 import TagManager from 'react-gtm-module';
@@ -10,7 +9,6 @@ import 'dayjs/locale/ja';
 dayjs.locale('ja');
 
 import '@/lib/firebase';
-import 'hooks/authentication';
 import addIcon from '@/lib/fontawesome';
 import { Chakra } from '@/components/providers/chakra';
 import { useRouter } from 'next/router';
@@ -49,12 +47,10 @@ function App({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   return (
-    <RecoilRoot>
-      <Chakra cookies={pageProps.cookies}>
-        <NextNprogress color={THEME_COLOR} startPosition={0.3} stopDelayMs={200} height={6} />
-        <Component {...pageProps} />
-      </Chakra>
-    </RecoilRoot>
+    <Chakra cookies={pageProps.cookies}>
+      <NextNprogress color={THEME_COLOR} startPosition={0.3} stopDelayMs={200} height={6} />
+      <Component {...pageProps} />
+    </Chakra>
   );
 }
 

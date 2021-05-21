@@ -18,11 +18,9 @@ faviconなど。
 
 - components
   - common: ページ関係なく使い回すもの
-  - entityatsume: エンティティガチャ用
   - layout: 全ページ用レイアウト
   - partials: 記事・コメントためのパーツ
   - providers: Chakra UI のカラーテーマ切り替え用
-- hooks: 認証用
 - lib: 後ろの処理(API サーバーに分離できなかったもの)
 - models: 型の定義
 - pages: ページ

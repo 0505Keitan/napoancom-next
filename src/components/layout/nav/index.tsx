@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
 import {
   Box,
   Button,
@@ -21,13 +20,9 @@ import AdsenseBox from '@/components/common/adsense-box';
 import HeadingList from '@/components/common/heading-list';
 import FukidashiShare from '@/components/common/fukidashi-share';
 import LikeDislike from '@/components/common/like-dislike';
-
-import { useAuthentication } from '@/hooks/authentication';
-import LinkChakra from '@/components/common/link-chakra';
 import { Game } from '@/models/contentful/Game';
 import GameList from '@/components/partials/post/common/game-list';
 import AboutMdVersion from '@/components/common/buttons/about-md-version';
-const SignIn = dynamic(() => import('./signin'), { ssr: false });
 
 // 2箇所にロゴと検索があるので、切り替えタイミングを共通化する
 const layoutSwitch = {
@@ -43,7 +38,6 @@ interface NavProps {
 // https://dev.to/guimg/hide-menu-when-scrolling-in-reactjs-47bj
 
 export default function Nav({ post, hideAdsense, games }: NavProps) {
-  const { user } = useAuthentication();
   const { colorMode } = useColorMode();
   const [isOpen, setIsOpen] = useState(false);
   const leftValue = () => {
@@ -111,25 +105,10 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
           />
           <Stack flexGrow={1} h="auto">
             <Stack pb={8} display={{ base: 'none', lg: 'block' }}>
-              {hideAdsense != true ? (
+              {hideAdsense != true && (
                 <>
                   <AdsenseBox width={300} height={250} layout="fixed" slot={'8321176059'} />
                 </>
-              ) : (
-                <Button
-                  colorScheme="purple"
-                  h={20}
-                  fontSize="xl"
-                  w="full"
-                  as={LinkChakra}
-                  href="/entityatsume"
-                >
-                  特別企画: GW
-                  <br />
-                  エンティティガチャ
-                  <br />
-                  開催中！！！！
-                </Button>
               )}
             </Stack>
             <Box pb={6} display={{ base: 'block', [layoutSwitch.logo]: 'none' }}>
@@ -156,7 +135,6 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
                   slug={post.slug}
                   likeCount={post.like ?? 0}
                   dislikeCount={post.dislike ?? 0}
-                  uid={user ? user.uid : undefined}
                 />
 
                 <Stack mb={4}>
@@ -210,9 +188,6 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
             <Logo logoSelection="nomaikura" />
           </Box>
           <ColorSwitch /> <Spacer />
-          <Box>
-            <SignIn />
-          </Box>
           <Box display={{ base: 'none', [layoutSwitch.search]: 'block' }}>
             <SearchBox />
           </Box>

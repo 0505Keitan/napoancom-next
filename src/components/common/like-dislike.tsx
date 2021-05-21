@@ -4,32 +4,15 @@ import { Box, Flex, Button, useColorMode } from '@chakra-ui/react';
 import FaiconDiv from './faicon-div';
 import { useRef, useState } from 'react';
 import firebase from '@/lib/firebase/index';
-import { User } from '@/models/auth/user';
 import { useToast } from '@chakra-ui/react';
 import * as gtag from '@/lib/gtag';
 interface Props {
   likeCount?: number;
   dislikeCount?: number;
   slug: string;
-  uid?: User['uid'];
 }
 
-// エンティティガチャ用のジュエルを贈呈する
-const addJewel = async (uid: User['uid']) => {
-  firebase
-    .firestore()
-    .collection('users')
-    .doc(uid)
-    .set(
-      {
-        jewel: firebase.firestore.FieldValue.increment(100),
-      },
-      // setかつmergeじゃないと新ユーザーに対応できない！
-      { merge: true },
-    );
-};
-
-const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
+const LikeDislike = ({ likeCount, dislikeCount, slug }: Props) => {
   const alertRef = useRef(null);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
@@ -54,7 +37,7 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
   const handleToastAndEvent = (isLike: boolean) => {
     toast({
       title: `記事を${isLike ? '高' : '低'}評価しました`,
-      description: 'エンティティガチャ用のジュエルを100個贈呈します。\n(どんな評価でも同様です)',
+      description: 'サーバーの関係ですぐに反映されませんが、ご了承ください。',
       status: 'success',
       duration: 3000,
       isClosable: true,
@@ -82,12 +65,6 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
           { merge: true },
         )
         .then(() => {
-          if (uid) {
-            addJewel(uid).catch((e) => {
-              console.error(e);
-            });
-          }
-
           setLikeValue((prevValue) => prevValue + 1);
           setLiked(true);
 
@@ -112,12 +89,6 @@ const LikeDislike = ({ likeCount, dislikeCount, slug, uid }: Props) => {
           { merge: true },
         )
         .then(() => {
-          if (uid) {
-            addJewel(uid).catch((e) => {
-              console.error(e);
-            });
-          }
-
           setDislikeValue((prevValue) => prevValue + 1);
 
           setDisliked(true);

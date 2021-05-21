@@ -7,7 +7,7 @@ import LinkChakra from '@/components/common/link-chakra';
 import Image from 'next/image';
 import FukidashiShare from '@/components/common/fukidashi-share';
 import LikeDislike from '@/components/common/like-dislike';
-import { useAuthentication } from '@/hooks/authentication';
+
 import { useState } from 'react';
 import GameList from '../common/game-list';
 import { OGP_W, OGP_H } from '@/theme/index';
@@ -16,7 +16,6 @@ interface Props {
   post: Post;
 }
 const PostHeading = ({ post }: Props) => {
-  const { user } = useAuthentication();
   const [loadedThumb, setLoadedThumb] = useState(false);
   return (
     <Box>
@@ -84,7 +83,6 @@ const PostHeading = ({ post }: Props) => {
             slug={post.slug}
             likeCount={post.like ?? 0}
             dislikeCount={post.dislike ?? 0}
-            uid={user ? user.uid : undefined}
           />
         </Box>
       </VStack>
