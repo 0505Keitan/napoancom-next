@@ -1,3 +1,5 @@
+// TwitterAPIが返すデータ
+
 interface tweet {
   id: string;
   text: string;

@@ -6,6 +6,7 @@ import { fetchGraphQL } from './common/fetch-graphql';
 
 import { PERSON_GRAPHQL_FIELDS } from '../models/contentful/Person';
 
+// 全執筆者の取得
 const getAllPersonsWithSlug = functions.https.onRequest(async (request, response: any) => {
   const secret = request.headers.authorization as string | undefined;
 
@@ -32,9 +33,7 @@ const getAllPersonsWithSlug = functions.https.onRequest(async (request, response
 
     const entries = await fetchGraphQL(
       `query {
-          personCollection(limit: ${
-            limit ?? 5
-          }, where: { slug_exists: true }, order: sys_firstPublishedAt_DESC) {
+          personCollection(limit: ${limit ?? 5}, where: { slug_exists: true }, order: sys_firstPublishedAt_DESC) {
             items {
               ${PERSON_GRAPHQL_FIELDS}
             }

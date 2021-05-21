@@ -1,3 +1,5 @@
+// 検索ボックス
+
 import { SITE_URL } from '@/lib/constants';
 import { Box, Flex } from '@chakra-ui/layout';
 import { Formik } from 'formik';
@@ -7,7 +9,6 @@ import FaiconDiv from './faicon-div';
 export default function SearchBox() {
   return (
     <>
-      {/* バリデーションエラーでレイアウト崩れるのでhidden */}
       <Formik
         onSubmit={(values) => {
           location.href = `https://google.com/search?q=site%3A${SITE_URL}+${values.word}`;

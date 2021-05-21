@@ -1,3 +1,5 @@
+// SVGを選べるロゴ
+
 import { THEME_COLOR } from '@/theme/index';
 import { Box, useColorMode } from '@chakra-ui/react';
 import LinkChakra from './link-chakra';

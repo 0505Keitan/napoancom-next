@@ -1,3 +1,5 @@
+# このインポートコマンドはFirestoreエミュレータ用です
+# エミュを使わないなら必要ありません
 # https://medium.com/firebase-developers/how-to-import-production-data-from-cloud-firestore-to-the-local-emulator-e82ae1c6ed8
 # Stop following command execution if command before failed
 set -e

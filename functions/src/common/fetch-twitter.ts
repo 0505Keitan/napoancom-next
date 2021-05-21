@@ -1,3 +1,6 @@
+// ツイッターAPIを叩きます
+// keyはfirebaseのconfigで設定しています
+
 import * as functions from 'firebase-functions';
 import { AdminConfig } from '../models/AdminConfig';
 import { TwitterAPI } from '../models/TwitterAPI';
@@ -13,10 +16,7 @@ export const fetchTwitter = async (word: string) => {
     },
   };
 
-  const tweets: TwitterAPI = await fetch(
-    `https://api.twitter.com/2/tweets/search/recent?query=${word}`,
-    requestOptions,
-  )
+  const tweets: TwitterAPI = await fetch(`https://api.twitter.com/2/tweets/search/recent?query=${word}`, requestOptions)
     .then((response: any) => {
       if (response.status != 200) {
         functions.logger.error('TWITTER API RESPONSE IS NOT 200', response);

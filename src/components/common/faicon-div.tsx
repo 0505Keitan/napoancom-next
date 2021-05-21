@@ -1,3 +1,5 @@
+// FontAwesomeはwidthがないと表示されないので、このコンポーネントで確実に幅を与える
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Box } from '@chakra-ui/react';

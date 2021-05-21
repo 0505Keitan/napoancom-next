@@ -29,6 +29,7 @@ import GameList from '@/components/partials/post/common/game-list';
 import AboutMdVersion from '@/components/common/buttons/about-md-version';
 const SignIn = dynamic(() => import('./signin'), { ssr: false });
 
+// 2箇所にロゴと検索があるので、切り替えタイミングを共通化する
 const layoutSwitch = {
   search: 'md',
   logo: 'lg',

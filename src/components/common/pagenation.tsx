@@ -1,3 +1,5 @@
+// ページネーション
+
 import { Box, Stack } from '@chakra-ui/layout';
 import LinkChakra from './link-chakra';
 import { Button } from '@chakra-ui/button';

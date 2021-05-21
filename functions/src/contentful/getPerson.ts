@@ -6,6 +6,7 @@ import { fetchGraphQL } from './common/fetch-graphql';
 
 import { PERSON_GRAPHQL_FIELDS } from '../models/contentful/Person';
 
+// スラッグから執筆者情報を取得
 const getPerson = functions.https.onRequest(async (request, response: any) => {
   const secret = request.headers.authorization as string | undefined;
 

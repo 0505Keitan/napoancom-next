@@ -1,9 +1,11 @@
+// 利用規約警告
+
 import { Badge, Box } from '@chakra-ui/react';
 
 const Warning = () => (
   <Box background="gray.700" color="white" p={6} rounded="xl">
     <div>
-      {/* あえて通常のリンク(Adsenseの都合上) */}
+      {/* あえて通常のaリンク(Adsenseのページ単位広告が残ってしまうかもしれないので) */}
       <Badge>
         <a href="/eula/">利用規約(タップで読む)</a>
       </Badge>

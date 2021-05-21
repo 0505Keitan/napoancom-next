@@ -1,3 +1,6 @@
+// 今は使ってません
+// 一番複雑なバージョン
+
 import fromMarkdown from 'mdast-util-from-markdown';
 import * as functions from 'firebase-functions';
 import { Heading, Paragraph } from 'mdast';

@@ -11,6 +11,7 @@ const runOpts = {
   timeoutSeconds: 90,
 };
 
+// 執筆者から全記事を取得
 const getAllPostsForPerson = functions.runWith(runOpts).https.onRequest(async (request, response: any) => {
   const secret = request.headers.authorization as string | undefined;
 

@@ -1,3 +1,4 @@
+// ローディング用使い回しスケルトン
 import { Center, Skeleton, Stack } from '@chakra-ui/react';
 
 const Loading = () => (

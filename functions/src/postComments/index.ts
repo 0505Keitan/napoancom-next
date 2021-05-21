@@ -4,6 +4,7 @@ import { AdminConfig } from '../models/AdminConfig';
 import { COLLECTION_POSTCOMMENTS } from '../common/collections';
 const adminConfig = functions.config() as AdminConfig;
 
+// スラッグからコメントを取得
 exports.getCommentsBySlug = functions.https.onRequest((request, response: any) => {
   const secret = request.headers.authorization as string;
 

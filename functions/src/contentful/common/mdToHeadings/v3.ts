@@ -1,3 +1,5 @@
+// v2の処理時間が長いのでちょっと簡略化したバージョンです
+
 import fromMarkdown from 'mdast-util-from-markdown';
 import * as functions from 'firebase-functions';
 import { Heading, Paragraph } from 'mdast';

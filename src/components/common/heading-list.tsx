@@ -1,3 +1,5 @@
+// 記事の目次データから目次を生成
+
 import { PostHeadingData } from '@/models/contentful/Post';
 import { Box, Flex, Heading } from '@chakra-ui/layout';
 

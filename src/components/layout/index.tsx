@@ -62,6 +62,7 @@ export default function Layout({
         <Nav games={games} post={post} hideAdsense={hideAdsense ?? false} />
 
         <Box pt={`${NAV_HEIGHT}px`}>
+          {/* globalTheme.tsの内容でレスポンシブの表示が変わる */}
           <Box
             ml="auto"
             w={{ base: '100vw', lg: `calc(100vw - ${ASIDE_WITDH + LAYOUT_PADDING}px)` }}

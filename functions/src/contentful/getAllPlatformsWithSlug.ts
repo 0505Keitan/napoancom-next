@@ -6,6 +6,7 @@ import { fetchGraphQL } from './common/fetch-graphql';
 
 import { PLATFORM_GRAPHQL_FIELDS } from '../models/contentful/Platform';
 
+// 全プラットフォームの取得
 const getAllPlatformsWithSlug = functions.https.onRequest(async (request, response: any) => {
   const secret = request.headers.authorization as string | undefined;
 
@@ -32,9 +33,7 @@ const getAllPlatformsWithSlug = functions.https.onRequest(async (request, respon
 
     const entries = await fetchGraphQL(
       `query {
-          platformCollection(limit: ${
-            limit ?? 5
-          }, where: { slug_exists: true }, order: sys_firstPublishedAt_DESC) {
+          platformCollection(limit: ${limit ?? 5}, where: { slug_exists: true }, order: sys_firstPublishedAt_DESC) {
             items {
               ${PLATFORM_GRAPHQL_FIELDS}
             }

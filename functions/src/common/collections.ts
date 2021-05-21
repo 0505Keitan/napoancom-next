@@ -1,3 +1,5 @@
+// コレクションを定義します
+
 import * as admin from 'firebase-admin';
 const store = admin.firestore();
 export const COLLECTION_USERS = store.collection('users');

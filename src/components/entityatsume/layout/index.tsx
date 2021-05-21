@@ -1,3 +1,5 @@
+// ガチャに必要なものだけを別レイアウトとして分離
+
 import { ReactNode } from 'react';
 import { Flex, Box, Button, useColorMode, Center, HStack } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';

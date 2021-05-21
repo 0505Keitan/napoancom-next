@@ -1,3 +1,5 @@
+// ツイートボタンと、ツイート数を表示する吹き出し
+
 import { Box, Flex, Button, useColorMode } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import FaiconDiv from './faicon-div';

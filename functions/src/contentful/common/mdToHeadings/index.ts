@@ -1,3 +1,5 @@
+// このファイルは今は使っていません
+
 import fromMarkdown from 'mdast-util-from-markdown';
 
 import { Content, Heading } from 'mdast';

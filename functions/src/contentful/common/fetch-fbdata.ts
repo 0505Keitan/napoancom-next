@@ -18,6 +18,7 @@ const fetchFbdata = async (slug: string) => {
           dislike: data.dislike ?? 0,
         };
       } else {
+        // 昔の記事はほとんどこっちになります
         functions.logger.warn(`Like/dislike data not found`);
         return {
           like: 0,

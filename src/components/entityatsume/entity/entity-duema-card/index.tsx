@@ -1,3 +1,5 @@
+// デュエマ風にエンティティ単体を表示する
+
 import { Box, Center, Flex, useColorMode } from '@chakra-ui/react';
 import { Entity } from '@/models/firebase/entities/entity';
 import Image from 'next/image';
@@ -7,7 +9,7 @@ interface Props {
   entity: Entity;
 }
 
-export function SingleEntityComponent({ entity }: Props) {
+export function EntityDuemaCard({ entity }: Props) {
   const duemaBorder = {
     borderWidth: '2px',
     borderColor: 'black',

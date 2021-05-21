@@ -1,3 +1,5 @@
+// エンティティの詳細画面
+
 import { Box, Stack, Heading, Badge, Flex } from '@chakra-ui/react';
 import { Entity } from '@/models/firebase/entities/entity';
 import Image from 'next/image';

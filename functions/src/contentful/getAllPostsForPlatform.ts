@@ -11,6 +11,7 @@ const runOpts = {
   timeoutSeconds: 90,
 };
 
+// プラットフォームから全記事を取得
 const getAllPostsForPlatform = functions.runWith(runOpts).https.onRequest(async (request, response: any) => {
   const secret = request.headers.authorization as string | undefined;
 

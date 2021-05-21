@@ -1,4 +1,5 @@
-//https://zenn.dev/66ed3gs/articles/9f5a33c775842c
+// Chakra-UIのリンクをNext.jsのリンクでラップ
+// https://zenn.dev/66ed3gs/articles/9f5a33c775842c
 
 import React from 'react';
 import NextLink from 'next/link';

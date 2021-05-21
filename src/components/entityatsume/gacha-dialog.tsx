@@ -1,3 +1,5 @@
+// ガチャを引く画面全体
+
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import firebaseApi from '@/lib/firebase';

@@ -1,3 +1,5 @@
+// 広告コンポーネント
+
 import { MAIN_WIDTH } from '@/theme/index';
 import { Badge, Box } from '@chakra-ui/layout';
 import { useRouter } from 'next/router';
@@ -24,6 +26,8 @@ export default function AdsenseBox({ slot, width, height, layout }: AdsenseProps
 
   useEffect(
     () => {
+      // めちゃくちゃ苦労したが、結局useEffectで発火するのが最適解だった
+      // これは画面上の広告コンポーネントの数だけ呼ばれる
       if (typeof window !== 'undefined') {
         setTimeout(() => {
           try {

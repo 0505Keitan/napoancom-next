@@ -9,6 +9,8 @@ const userState = atom<User>({
   default: null!,
 });
 
+// 参考: https://zenn.dev/dala/books/nextjs-firebase-service
+
 export function useAuthentication() {
   const [user, setUser] = useRecoilState(userState);
 
@@ -17,6 +19,7 @@ export function useAuthentication() {
       return;
     }
 
+    // 昔はTwitterでログインしていました
     firebase
       .auth()
       .signInAnonymously()

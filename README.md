@@ -1,14 +1,26 @@
-# NAPOANCOM-NEXT
+# ナポアンノマイクラNEXT
 
-Next.js 版ナポアンのマイクラ。
+https://next.napoan.com
+
+Next.jsでできたゲームウェブサイトです。Vercelでホストしていて、バックエンドはFirebase Functionsで動いています。
 
 ## フォルダ構成
 
-`src`以下にまとめています
+### `functions` : バックエンド
+
+スクリプトは`functions/src`に置いています。
+
+### `public`
+
+faviconなど。
+
+### `src` : クライアント(Next.js)
 
 - components
   - common: ページ関係なく使い回すもの
-  - partials: レイアウトのためのパーツ
+  - entityatsume: エンティティガチャ用
+  - layout: 全ページ用レイアウト
+  - partials: 記事・コメントためのパーツ
   - providers: Chakra UI のカラーテーマ切り替え用
 - hooks: 認証用
 - lib: 後ろの処理(API サーバーに分離できなかったもの)
@@ -31,6 +43,8 @@ https://sunday-morning.app/posts/2020-12-09-nextjs-google-analytics
 https://github.com/vercel/next.js/tree/canary/examples/cms-contentful
 
 ### Firebase auth
+
+https://zenn.dev/dala/books/nextjs-firebase-service
 
 https://qiita.com/y-shida1997/items/f5e52c7288813a8184ff
 

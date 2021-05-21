@@ -1,4 +1,5 @@
 import { Box, Center, Container } from '@chakra-ui/react';
+// 使ってない。かっこよくサムネを置きたかった
 
 interface Props {
   src: string;

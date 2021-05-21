@@ -5,6 +5,8 @@ interface Props {
   cookies: any;
   children: ReactNode;
 }
+
+// チャクラプロバイダーにカラーモードのクッキーを与えるために、さらにこのコンポーネントで包みます
 export function Chakra({ cookies, children }: Props) {
   const colorModeManager =
     typeof cookies === 'string' ? cookieStorageManager(cookies) : localStorageManager;

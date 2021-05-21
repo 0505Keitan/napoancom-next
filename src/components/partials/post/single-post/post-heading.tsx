@@ -50,6 +50,7 @@ const PostHeading = ({ post }: Props) => {
       )}
 
       <Flex mb={2}>
+        {/* publishDateは記事によってつけていなかったりする */}
         <Badge area-label="公開日時" colorScheme="blue" fontSize="1.1rem">
           公開: {dayjs(post.publishDate ?? post.sys.firstPublishedAt).format('YYYY/MM/DD')}
         </Badge>
