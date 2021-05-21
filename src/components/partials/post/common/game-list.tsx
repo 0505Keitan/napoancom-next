@@ -1,6 +1,7 @@
 import LinkChakra from '@/components/common/link-chakra';
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { Game } from '@/models/contentful/Game';
+import FaiconDiv from '@/components/common/faicon-div';
 
 interface Props {
   game: Game;
@@ -15,6 +16,7 @@ interface ListProps {
 const OneGame = ({ game }: Props) => {
   return (
     <Button
+      leftIcon={<FaiconDiv icon={['fas', 'cube']} />}
       mr={2}
       fontSize={{ base: '0.8rem', sm: '1rem' }}
       mb={2}
