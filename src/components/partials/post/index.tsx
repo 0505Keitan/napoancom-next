@@ -10,15 +10,13 @@ interface MultiPostProps {
 const MultiPosts = ({ posts, mode }: MultiPostProps) => {
   if (mode == 'archive') {
     return (
-      <section>
-        <Center flexDirection="column">
-          <Stack maxW="100vw" spacing={6}>
-            {posts.map((post: PostForList) => (
-              <CompactPost key={post.slug} post={post} />
-            ))}
-          </Stack>
-        </Center>
-      </section>
+      <Center flexDirection="column">
+        <Stack maxW="100vw" spacing={6}>
+          {posts.map((post: PostForList) => (
+            <CompactPost key={post.slug} post={post} />
+          ))}
+        </Stack>
+      </Center>
     );
   }
   if (mode == 'drawer') {

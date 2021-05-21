@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { Badge, Box, Center, Flex, Stack } from '@chakra-ui/react';
+import { Badge, Box, Flex, Stack } from '@chakra-ui/react';
 import { PostForList } from '@/models/contentful/Post';
 
 import LinkChakra from '@/components/common/link-chakra';
@@ -13,16 +13,16 @@ export function CompactPost({ post }: Props) {
   return (
     <LinkChakra href={`/${post.slug}`}>
       {/*<LinkChakra href={`/${post.slug}`}>*/}
-      <Flex gridGap={6} p={3} area-label={post.title} borderBottomWidth={2}>
-        <Stack w="full" flexGrow={1}>
-          <Center
-            width={`${OGP_W / 5}px`}
-            height={`${OGP_H / 5}px`}
-            mb={2}
-            overflow="hidden"
-            w={{ base: 'full', md: 'auto' }}
-            position="relative"
-          >
+      <Flex
+        borderBlockEndWidth={1}
+        borderColor="gray.400"
+        gridGap={6}
+        p={3}
+        pb={8}
+        area-label={post.title}
+      >
+        <Stack width={`${OGP_W / 5}px`}>
+          <Box>
             {post.heroImage ? (
               <Image
                 src={post.heroImage.url}
@@ -33,7 +33,7 @@ export function CompactPost({ post }: Props) {
             ) : (
               <span>NO IMAGE</span>
             )}
-          </Center>
+          </Box>
           <Box area-label="更新日時">
             <Badge colorScheme="blue">
               公開: {dayjs(post.publishDate ?? post.sys.firstPublishedAt).format('YYYY/MM/DD')}
@@ -48,9 +48,9 @@ export function CompactPost({ post }: Props) {
             )}
           </Box>
         </Stack>
-        <Box position="relative" w="full">
+        <Box w="full" flexGrow={1}>
           <Box
-            fontSize="lg"
+            fontSize={{ base: 'xl', md: '2xl' }}
             fontWeight="bold"
             mb={2}
             overflow="hidden"
@@ -60,6 +60,14 @@ export function CompactPost({ post }: Props) {
           >
             {post.title}
           </Box>
+          <Badge
+            whiteSpace="normal"
+            fontSize={{ base: 'sm', md: 'lg' }}
+            fontStyle="italic"
+            bg="gray.100"
+          >
+            <Box mt={-2}>{post.slug}</Box>
+          </Badge>
         </Box>
       </Flex>
       {/*</LinkChakra>*/}

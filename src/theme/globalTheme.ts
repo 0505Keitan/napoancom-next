@@ -4,7 +4,7 @@ import { mode } from '@chakra-ui/theme-tools';
 export const globalLayout = {
   navHeight: 56,
   asideWitdh: 300,
-  mainWidth: 600,
+  mainWidth: 710,
   layoutPadding: 30,
   maxW: 0,
   ogp: {
