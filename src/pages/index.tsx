@@ -1,5 +1,5 @@
 import ErrorPage from 'next/error';
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Stack } from '@chakra-ui/react';
 import { SITE_DESC, SITE_NAME } from '@/lib/constants';
 import { PostForList } from '@/models/contentful/Post';
 
@@ -23,12 +23,27 @@ const Index = ({ posts, environment }: IndexProps) => {
       ) : (
         <Layout preview={environment} meta={{ title: SITE_NAME, desc: SITE_DESC }}>
           {posts && (
-            <Box mb={10}>
+            <Stack mb={10} spacing={6}>
+              <Stack spacing={3}>
+                <Heading as="h1" textStyle="h1">
+                  {SITE_NAME}
+                </Heading>
+                <Box>{SITE_DESC}</Box>
+              </Stack>
               {posts && posts.length > 0 && <PostList mode="archive" posts={posts} />}
-              <Button mt={12} h={20} fontSize="xl" w="full" as={LinkChakra} href="/postpage/1/">
-                記事一覧へ
-              </Button>
-            </Box>
+
+              <Flex gridGap={4} flexDirection={{ base: 'column', sm: 'row' }}>
+                <Button flexGrow={2} fontSize="xl" as={LinkChakra} href="/postpage/1/">
+                  記事一覧へ
+                </Button>
+                <Button colorScheme="orange" flexGrow={1} fontSize="xl" as="a" href="/feed">
+                  RSS
+                </Button>
+                <Button colorScheme="teal" flexGrow={1} fontSize="xl" as="a" href="/sitemap.xml">
+                  Sitemap
+                </Button>
+              </Flex>
+            </Stack>
           )}
         </Layout>
       )}
