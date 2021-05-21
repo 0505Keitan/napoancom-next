@@ -1,6 +1,6 @@
 import AdsenseBox from '@/components/common/adsense-box';
 import { PostForList } from '@/models/contentful/Post';
-import { Box, Center, Divider, SimpleGrid, Stack } from '@chakra-ui/react';
+import { Box, Center, Stack } from '@chakra-ui/react';
 import { CompactPost } from './compact-post';
 
 interface MultiPostProps {
@@ -12,11 +12,11 @@ const MultiPosts = ({ posts, mode }: MultiPostProps) => {
     return (
       <section>
         <Center flexDirection="column">
-          <SimpleGrid maxW="100vw" spacing={4} columns={{ base: 1, md: 2 }}>
+          <Stack maxW="100vw" spacing={6}>
             {posts.map((post: PostForList) => (
               <CompactPost key={post.slug} post={post} />
             ))}
-          </SimpleGrid>
+          </Stack>
         </Center>
       </section>
     );
@@ -41,11 +41,11 @@ const MultiPosts = ({ posts, mode }: MultiPostProps) => {
           </Box>
         )}
         <Center>
-          <SimpleGrid spacing={6} columns={{ base: 1, lg: 2 }}>
+          <Stack spacing={6}>
             {posts.map((post) => (
               <CompactPost key={post.slug} post={post} />
             ))}
-          </SimpleGrid>
+          </Stack>
         </Center>
       </Box>
     );

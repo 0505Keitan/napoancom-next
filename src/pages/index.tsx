@@ -1,7 +1,7 @@
 import ErrorPage from 'next/error';
 import { Box, Button } from '@chakra-ui/react';
 import { SITE_DESC, SITE_NAME } from '@/lib/constants';
-import { Post } from '@/models/contentful/Post';
+import { PostForList } from '@/models/contentful/Post';
 
 import Layout from '@/components/layout';
 
@@ -9,7 +9,7 @@ import PostList from '@/components/partials/post';
 import LinkChakra from '@/components/common/link-chakra';
 
 interface IndexProps {
-  posts: Post[];
+  posts: PostForList[];
   environment: boolean;
 }
 
