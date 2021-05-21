@@ -2,12 +2,13 @@ import * as functions from 'firebase-functions';
 import { AdminConfig } from '../models/AdminConfig';
 const contentfulExport = require('contentful-export');
 const adminConfig = functions.config() as AdminConfig;
+
+// ストレージのファイル名に使う
 const serverDate =
   new Date().toLocaleDateString('en-US', { timeZone: 'Asia/Tokyo' }).replace(/\//g, '-') +
-  new Date()
-    .toLocaleTimeString('en-US', { timeZone: 'Asia/Tokyo' })
-    .replace(/\s/g, '-')
-    .replace(/:/g, '-');
+  new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Tokyo' }).replace(/\s/g, '-').replace(/:/g, '-');
+
+// バックアップ対象のストレージ
 const { Storage } = require('@google-cloud/storage');
 const local_backup_path = '/tmp/';
 const storage = new Storage();
@@ -38,10 +39,11 @@ async function uploadFile(path: string) {
   return;
 }
 
+// 月曜0時にエクスポート
 exports.exportOnSchedule = functions
   .runWith(runtimeOpts)
   .region('asia-northeast1')
-  .pubsub.schedule('0 0 * * *')
+  .pubsub.schedule('0 0 * * 0')
   .timeZone('Asia/Tokyo')
   .onRun(async (context: any) => {
     functions.logger.info('AUTOMATICALLY STARTED CONTENTFUL EXPORT SCRIPT');
