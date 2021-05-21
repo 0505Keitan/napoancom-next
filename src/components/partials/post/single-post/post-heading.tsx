@@ -11,6 +11,7 @@ import { useAuthentication } from '@/hooks/authentication';
 import { useState } from 'react';
 import GameList from '../common/game-list';
 import { OGP_W, OGP_H } from '@/theme/index';
+import CopyBody from './copy-body';
 interface Props {
   post: Post;
 }
@@ -19,6 +20,9 @@ const PostHeading = ({ post }: Props) => {
   const [loadedThumb, setLoadedThumb] = useState(false);
   return (
     <Box>
+      <Box mb={4} display={{ base: 'none', lg: 'flex' }}>
+        <CopyBody title={post.title} md={post.body} />
+      </Box>
       {post.heroImage != undefined && (
         <Center w="full" mb={6}>
           <Box
@@ -68,9 +72,9 @@ const PostHeading = ({ post }: Props) => {
       {!post.publishDate && (
         <Badge colorScheme="red">編集担当へ: 並び替え用の公開日を設定し忘れています!</Badge>
       )}
+
       <VStack>
         <Spacer />
-
         <Box w="full" display={{ base: 'block', lg: 'none' }}>
           <Box mb={4}>
             <FukidashiShare tweetCount={post.tweetCount ?? 0} tweetText={post.title} />
