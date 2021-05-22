@@ -6,56 +6,6 @@ module.exports = withBundleAnalyzer({
   // add slash for Twitter card
   // OGPのためにスラッシュ
   trailingSlash: true,
-  async redirects() {
-    return [
-      {
-        source: '/bedrock-friend-multiplayer-guide/',
-        destination: 'https://asobinon.org/minecraft/howto/bedrock-friend-multiplayer-guide/',
-        permanent: true,
-      },
-      {
-        source: '/bedrock-friend-multiplayer-guide-part2/',
-        destination: 'https://asobinon.org/minecraft/howto/bedrock-friend-multiplayer-guide/',
-        permanent: true,
-      },
-      {
-        source: '/bedrock-friend-multiplayer-guide-part3/',
-        destination: 'https://asobinon.org/minecraft/howto/bedrock-friend-multiplayer-guide/',
-        permanent: true,
-      },
-      {
-        source: '/bedrock-command-list/',
-        destination: 'https://asobinon.org/minecraft/reference/command-bedrock/',
-        permanent: true,
-      },
-      {
-        source: '/bedrock-command-list-command-:name/',
-        destination: 'https://asobinon.org/minecraft/reference/command-bedrock/:name',
-        permanent: true,
-      },
-      {
-        source: '/bedrock-command-list-command-:name',
-        destination: 'https://asobinon.org/minecraft/reference/command-bedrock/:name',
-        permanent: true,
-      },
-      // 2021-05-15追加
-      {
-        source: '/new-way-to-install-mod/',
-        destination: 'https://asobinon.org/minecraft-je/howto/install-forge/',
-        permanent: true,
-      },
-      {
-        source: '/optifine-setup-guide/',
-        destination: 'https://asobinon.org/minecraft-je/howto/install-optifine/',
-        permanent: true,
-      },
-      {
-        source: '/mcbe-howtouse-fill-command/',
-        destination: 'https://asobinon.org/minecraft/reference/command-bedrock/fill',
-        permanent: true,
-      },
-    ];
-  },
   env: {
     CONTENTFUL_SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
     CONTENTFUL_PREVIEW_SECRET: process.env.CONTENTFUL_PREVIEW_SECRET,
