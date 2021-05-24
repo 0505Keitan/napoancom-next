@@ -1,8 +1,38 @@
 {
   "redirects": [
     {
+      "source": "/46158505-2/",
+      "destination": "https://asobinon.org/minecraft-je/mod/realistic-torches/",
+      "permanent": true
+    },
+    {
+      "source": "/howto-install-liteloader-into-forge/",
+      "destination": "https://asobinon.org/minecraft-je/howto/install-liteloader/",
+      "permanent": true
+    },
+    {
+      "source": "/41693721-2/",
+      "destination": "https://asobinon.org/minecraft-je/mod/voxel-map/",
+      "permanent": true
+    },
+    {
+      "source": "/minimap-battle/",
+      "destination": "https://asobinon.org/minecraft-je/howto/minimap-battle/",
+      "permanent": true
+    },
+    {
+      "source": "/pe-summon-command-guide/",
+      "destination": "https://asobinon.org/minecraft/howto/howtouse-summon-command/",
+      "permanent": true
+    },
+    {
+      "source": "/bedrock-command-words-pickup/",
+      "destination": "https://asobinon.org/minecraft/howto/bedrock-command-words-pickup/",
+      "permanent": true
+    },
+    {
       "source": "/je-mods-matome-for-112/",
-      "destination": "https://asobinon.org/minecraft-je/mod/osusume-mod/",
+      "destination": "https://asobinon.org/minecraft-je/howto/osusume-mod/",
       "permanent": true
     },
     {
