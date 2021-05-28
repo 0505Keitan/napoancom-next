@@ -1,6 +1,8 @@
 //import dynamic from 'next/dynamic';
 import Layout from '@/components/layout';
-import firebase from '@/lib/firebase/index';
+import { getApp } from 'firebase/app';
+import { collection, addDoc, Timestamp, getFirestore } from 'firebase/firestore';
+
 import { Box, Heading, ButtonGroup, Stack } from '@chakra-ui/react';
 import {
   InputControl,
@@ -17,6 +19,10 @@ import { useState } from 'react';
 import Warning from '@/components/common/warning';
 
 export default function UsersMe() {
+  const app = getApp();
+  const db = getFirestore(app);
+  const cref = collection(db, 'contacts');
+
   const [didYouSend, setSended] = useState(false);
 
   const validationSchema = Yup.object({
@@ -53,18 +59,14 @@ export default function UsersMe() {
                 label: 'お問い合わせの送信',
               });
             }
-            setTimeout(() => {
-              firebase
-                .firestore()
-                .collection('contacts')
-                .add({
-                  replayEmail: values.replayMail != '' ? values.replayMail : 'メール指定なし',
-                  body: values.content,
-                  createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
-                })
-                .then(() => {
-                  setSended(true);
-                });
+            setTimeout(async () => {
+              await addDoc(cref, {
+                replayEmail: values.replayMail != '' ? values.replayMail : 'メール指定なし',
+                body: values.content,
+                createdAt: Timestamp.fromDate(new Date()),
+              }).then(() => {
+                setSended(true);
+              });
             }, 1000);
           }}
         >

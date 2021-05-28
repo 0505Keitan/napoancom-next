@@ -1,6 +1,6 @@
 // SVGを選べるロゴ
 
-import { THEME_COLOR } from '@/theme/index';
+import { themeColor } from '@/theme/index';
 import { Box, useColorMode } from '@chakra-ui/react';
 import LinkChakra from './link-chakra';
 
@@ -68,7 +68,7 @@ const PathSelecter = ({ mode }: { mode: LogoMode }) => {
   return Path;
 };
 
-const Logo = ({ fill = THEME_COLOR, logoSelection }: Props) => {
+const Logo = ({ fill = themeColor, logoSelection }: Props) => {
   const { colorMode } = useColorMode();
   let svgProps = {
     width: 200,

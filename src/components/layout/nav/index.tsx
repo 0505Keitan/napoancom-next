@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Button, CloseButton, Flex, Stack, useColorMode } from '@chakra-ui/react';
-import { ASIDE_WITDH, LAYOUT_PADDING } from '@/theme/index';
+import { globalLayout, themeColor } from '@/theme/index';
 import { Post } from '@/models/contentful/Post';
 import ColorSwitch from '../color-switch';
-import Logo from '@/components/common/Logo';
 import * as gtag from '@/lib/gtag';
 import SearchBox from '@/components/common/search-box';
 import FaiconDiv from '@/components/common/faicon-div';
@@ -11,19 +10,15 @@ import AdsenseBox from '@/components/common/adsense-box';
 import HeadingList from '@/components/common/heading-list';
 import FukidashiShare from '@/components/common/fukidashi-share';
 import LikeDislike from '@/components/common/like-dislike';
-import { Game } from '@/models/contentful/Game';
-import GameList from '@/components/partials/post/common/game-list';
-import AboutMdVersion from '@/components/common/buttons/about-md-version';
 
 interface NavProps {
   post?: Post;
   hideAdsense: boolean;
-  games?: Game[];
 }
 
 // https://dev.to/guimg/hide-menu-when-scrolling-in-reactjs-47bj
 
-export default function Nav({ post, hideAdsense, games }: NavProps) {
+export default function Nav({ post, hideAdsense }: NavProps) {
   const { colorMode } = useColorMode();
   const [isOpen, setIsOpen] = useState(false);
   const leftValue = () => {
@@ -31,8 +26,14 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
       return 0;
     } else {
       // 左にずらして隠す
-      return { base: `-${ASIDE_WITDH + LAYOUT_PADDING}px`, lg: 0 };
+      return { base: `-200vw`, lg: 0 };
     }
+  };
+
+  // カラースイッチが二箇所あるので一斉に切り替える
+  const switchPoint = {
+    nav: 'lg',
+    colorSwitch: 'md',
   };
   return (
     <>
@@ -55,29 +56,21 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
       <Box
         top={0}
         left={leftValue()}
-        position="fixed"
+        position={{ base: 'fixed', [switchPoint.nav]: 'sticky' }}
         as="nav"
         sx={{ '.noScrollBar::-webkit-scrollbar': { display: 'none' } }}
+        w={`${globalLayout.asideWidth}px`}
         h="100vh"
         px={3}
         bg={colorMode == 'light' ? 'white' : '#1A202C'}
-        shadow={{ base: 'xl', lg: 'none' }}
+        shadow={{ base: 'xl', [switchPoint.nav]: 'none' }}
         transitionProperty="left"
         transitionDuration=".3s"
-        borderRight="gray.400"
-        borderRightWidth={2}
         zIndex={6}
       >
-        <Flex
-          w={`${ASIDE_WITDH}px`}
-          flexDir="column"
-          h="full"
-          overflowY="scroll"
-          className="noScrollBar"
-          py={3}
-        >
+        <Flex w="full" flexDir="column" h="full" overflowY="scroll" className="noScrollBar" py={3}>
           <CloseButton
-            display={{ base: 'block', lg: 'none' }}
+            display={{ base: 'block', [switchPoint.nav]: 'none' }}
             onClick={() => {
               setIsOpen(false);
               if (typeof window !== 'undefined') {
@@ -91,28 +84,17 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
           />
           <Stack flexGrow={1} spacing={8} h="auto">
             {hideAdsense != true && (
-              <Stack pb={8} display={{ base: 'none', lg: 'block' }}>
+              <Stack pb={8} display={{ base: 'none', [switchPoint.nav]: 'block' }}>
                 <AdsenseBox width={300} height={250} layout="fixed" slot={'8321176059'} />
               </Stack>
             )}
 
-            <Box>
-              <Logo logoSelection="nomaikura" />
-            </Box>
-
-            <Box>
-              <ColorSwitch />
-            </Box>
-
             <Box w="full">
               <SearchBox />
             </Box>
-
-            <Box>
-              <AboutMdVersion />
+            <Box display={{ base: 'block', [switchPoint.colorSwitch]: 'none' }}>
+              <ColorSwitch />
             </Box>
-
-            {games && games.length > 0 && <GameList games={games} />}
 
             {post && (
               <>
@@ -139,12 +121,12 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
       <Box zIndex={5} top={3} left={3} position="fixed">
         <Button
           shadow="xl"
-          display={{ base: 'block', lg: 'none' }}
+          display={{ base: 'block', [switchPoint.nav]: 'none' }}
           zIndex={10}
           mr={3}
           pr={2}
           pt={1}
-          bg="#2687e8"
+          bg={themeColor}
           color="white"
           leftIcon={<FaiconDiv icon={['fas', 'bars']} />}
           onClick={() => {
@@ -158,6 +140,18 @@ export default function Nav({ post, hideAdsense, games }: NavProps) {
             }
           }}
         />
+      </Box>
+
+      <Box
+        display={{ base: 'none', [switchPoint.colorSwitch]: 'block' }}
+        px={3}
+        bg="whiteAlpha.300"
+        roundedBottomLeft="xl"
+        position="fixed"
+        right={0}
+        top={0}
+      >
+        <ColorSwitch />
       </Box>
     </>
   );

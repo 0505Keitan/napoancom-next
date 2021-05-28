@@ -1,5 +1,5 @@
 import ErrorPage from 'next/error';
-import { Box, Button, Flex, Heading, Stack } from '@chakra-ui/react';
+import { Button, Flex, Stack } from '@chakra-ui/react';
 import { SITE_DESC, SITE_NAME } from '@/lib/constants';
 import { PostForList } from '@/models/contentful/Post';
 
@@ -21,15 +21,9 @@ const Index = ({ posts, environment }: IndexProps) => {
           <ErrorPage title="ページのデータを取得できませんでした" statusCode={404} />
         </Layout>
       ) : (
-        <Layout preview={environment} meta={{ title: SITE_NAME, desc: SITE_DESC }}>
+        <Layout isTop preview={environment} meta={{ title: SITE_NAME, desc: SITE_DESC }}>
           {posts && (
             <Stack mb={10} spacing={6}>
-              <Stack spacing={3}>
-                <Heading as="h1" textStyle="h1">
-                  {SITE_NAME}
-                </Heading>
-                <Box>{SITE_DESC}</Box>
-              </Stack>
               {posts && posts.length > 0 && <PostList mode="archive" posts={posts} />}
 
               {/* ここは横並び */}

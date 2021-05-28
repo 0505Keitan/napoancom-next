@@ -1,7 +1,5 @@
-import { CREATOR_ID, VERCEL_LAST_COMMIT, VERCEL_LAST_COMMIT_MESSAGE } from '@/lib/constants';
-
-const pkg = require('../../package.json');
-const repoV = pkg.version;
+import RepoInfo from '@/components/common/repo-info';
+import { CREATOR_ID } from '@/lib/constants';
 
 export default function Custom500() {
   return (
@@ -16,10 +14,7 @@ export default function Custom500() {
         もしかして: プレビュー用Cookieが消去されていないのかもしれません。
         <a href="/api/preview?exit=yes">こちら</a>をクリックしてみてください。
       </p>
-      <p>
-        {' '}
-        v{repoV} / Last commit: <a href={VERCEL_LAST_COMMIT}>{VERCEL_LAST_COMMIT_MESSAGE}</a>
-      </p>
+      <RepoInfo />
     </div>
   );
 }

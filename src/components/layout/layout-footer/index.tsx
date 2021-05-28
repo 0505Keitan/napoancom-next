@@ -1,8 +1,8 @@
-import { VERCEL_LAST_COMMIT, VERCEL_LAST_COMMIT_MESSAGE } from '@/lib/constants';
 import { Button, Box, Container, Flex, Stack, Badge } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import FaiconDiv from '@/components/common/faicon-div';
-import AboutMdVersion from '@/components/common/buttons/about-md-version';
+
+import RepoInfo from '@/components/common/repo-info';
 
 interface FooterProps {
   revalidate?: number;
@@ -21,7 +21,6 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
         >
           <Box textAlign={{ base: 'center', lg: 'left' }} pr={6} mb={{ base: 6, lg: 0 }}>
             <Stack spacing={2}>
-              <AboutMdVersion />
               <Button
                 leftIcon={<FaiconDiv icon={['fas', 'comment-alt']} />}
                 as={LinkChakra}
@@ -44,18 +43,7 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
           </Box>
           <Stack color="white" textAlign={{ base: 'center', md: 'right' }}>
             <Box>
-              Some articles are not up-to-date.
-              <br />
-              更新されていない記事があります。
-              <br />
-              Not affiliated with Mojang/Microsoft.
-              <br />
-              Mojang/Microsoftとは無関係です。
-            </Box>
-            <Box>
-              Copyright &copy; 2021 AELYONE.
-              <br />
-              Contents created by Ryo Ando.
+              Copyright &copy; 2021 <a href="https://aely.one">AELYONE</a>
             </Box>
             <Stack direction="column">
               {revalidate && (
@@ -66,10 +54,7 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
                 </Box>
               )}
               <Box>
-                <Badge maxW="20rem" whiteSpace="nowrap" textTransform="none" isTruncated>
-                  Last commit:{' '}
-                  <LinkChakra href={VERCEL_LAST_COMMIT}>{VERCEL_LAST_COMMIT_MESSAGE}</LinkChakra>
-                </Badge>
+                <RepoInfo />
               </Box>
             </Stack>
           </Stack>

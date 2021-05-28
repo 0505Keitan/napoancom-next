@@ -1,6 +1,6 @@
 // 広告コンポーネント
 
-import { MAIN_WIDTH } from '@/theme/index';
+import { globalLayout } from '@/theme/index';
 import { Badge, Box } from '@chakra-ui/layout';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -51,7 +51,7 @@ export default function AdsenseBox({ slot, width, height, layout }: AdsenseProps
       className="adWrapper"
       key={asPath}
       minWidth={`${width ?? 320}px`}
-      maxWidth={`${MAIN_WIDTH}px`}
+      maxWidth={`${globalLayout.mainWidth}px`}
       mx="auto"
       py={8}
     >

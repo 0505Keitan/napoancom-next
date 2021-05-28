@@ -1,12 +1,13 @@
 import { ReactNode } from 'react';
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, Flex, Stack } from '@chakra-ui/react';
 import LinkChakra from '@/components/common/link-chakra';
 import Meta from './meta';
 import { Post } from '@/models/contentful/Post';
-import { ASIDE_WITDH, LAYOUT_PADDING, MAIN_WIDTH } from '@/theme/index';
 import Nav from './nav';
 import LayoutFooter from './layout-footer';
-import { Game } from '@/models/contentful/Game';
+import { globalLayout } from '@/theme/index';
+import Logo from '../common/Logo';
+import { SITE_DESC } from '@/lib/constants';
 
 interface LayoutProps {
   preview: boolean;
@@ -19,7 +20,7 @@ interface LayoutProps {
   revalEnv?: number;
   hideAdsense?: boolean;
   post?: Post;
-  games?: Game[];
+  isTop?: boolean;
 }
 
 export default function Layout({
@@ -29,7 +30,7 @@ export default function Layout({
   revalEnv,
   hideAdsense,
   post,
-  games,
+  isTop,
 }: LayoutProps) {
   return (
     <>
@@ -59,28 +60,38 @@ export default function Layout({
         }
         w="100vw"
       >
-        <Nav games={games} post={post} hideAdsense={hideAdsense ?? false} />
-
-        <Box>
+        <>
           {/* globalTheme.tsの内容でレスポンシブの表示が変わる */}
-          <Box
-            ml="auto"
-            w={{ base: '100vw', lg: `calc(100vw - ${ASIDE_WITDH + LAYOUT_PADDING}px)` }}
+          <Flex
+            mx="auto"
+            flexDirection={{ base: 'column', lg: 'row-reverse' }}
+            w={{
+              base: '100vw',
+              lg: `${globalLayout.maxW}px`,
+            }}
+            gridGap={`${globalLayout.layoutPadding}px`}
           >
-            <Box
-              as="main"
-              mx="auto"
-              pt={8}
-              pb={8}
-              overflowX="hidden"
-              w={{ base: 'full', md: `${MAIN_WIDTH}px` }}
-              px={{ base: 3, lg: 0 }}
-            >
-              {children}
+            <Stack flexGrow={1} spacing={6} alignItems="center" mt={8} mb={4}>
+              <Logo logoSelection="nomaikura" />
+              {isTop && <Box>{SITE_DESC}</Box>}
+
+              <Box
+                as="main"
+                mx="auto"
+                py={8}
+                overflowX="hidden"
+                w={{ base: 'full', md: `${globalLayout.mainWidth}px` }}
+                px={{ base: 3, lg: 0 }}
+              >
+                {children}
+              </Box>
+            </Stack>
+            <Box minW={`${globalLayout.asideWidth}px`} flexGrow={0}>
+              <Nav post={post} hideAdsense={hideAdsense ?? false} />
             </Box>
-            <LayoutFooter maxW={MAIN_WIDTH} revalidate={revalEnv} />
-          </Box>
-        </Box>
+          </Flex>
+          <LayoutFooter maxW={globalLayout.maxW} revalidate={revalEnv} />
+        </>
 
         {preview && (
           <Box zIndex={15} position="fixed" bottom={0} left={0}>

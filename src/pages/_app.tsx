@@ -5,19 +5,19 @@ import TagManager from 'react-gtm-module';
 import * as gtag from '@/lib/gtag';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ja';
-
 dayjs.locale('ja');
 
-import '@/lib/firebase';
 import addIcon from '@/lib/fontawesome';
 import { Chakra } from '@/components/providers/chakra';
 import { useRouter } from 'next/router';
-import { THEME_COLOR } from '../theme';
+import { themeColor } from '../theme/index';
+import initApp from '@/lib/firebase';
 interface Props {
   shallow: boolean;
 }
 
 function App({ Component, pageProps }: AppProps) {
+  initApp();
   addIcon();
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <Chakra cookies={pageProps.cookies}>
-      <NextNprogress color={THEME_COLOR} startPosition={0.3} stopDelayMs={200} height={6} />
+      <NextNprogress color={themeColor} startPosition={0.3} stopDelayMs={200} height={6} />
       <Component {...pageProps} />
     </Chakra>
   );

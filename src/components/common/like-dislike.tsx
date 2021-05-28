@@ -2,10 +2,13 @@
 
 import { Box, Flex, Button, useColorMode } from '@chakra-ui/react';
 import FaiconDiv from './faicon-div';
-import { useRef, useState } from 'react';
-import firebase from '@/lib/firebase/index';
+import { useEffect, useRef, useState } from 'react';
+import { collection, doc, setDoc, increment, getFirestore } from 'firebase/firestore';
 import { useToast } from '@chakra-ui/react';
 import * as gtag from '@/lib/gtag';
+import { getApp } from '@firebase/app';
+// Initialize
+
 interface Props {
   likeCount?: number;
   dislikeCount?: number;
@@ -13,6 +16,12 @@ interface Props {
 }
 
 const LikeDislike = ({ likeCount, dislikeCount, slug }: Props) => {
+  const currentApp = getApp();
+  const db = getFirestore(currentApp);
+
+  const cref = collection(db, 'blogPosts');
+  const docRef = doc(cref, slug);
+
   const alertRef = useRef(null);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
@@ -25,6 +34,14 @@ const LikeDislike = ({ likeCount, dislikeCount, slug }: Props) => {
 
   let [likeValue, setLikeValue] = useState(likeCount ?? 0);
   let [dislikeValue, setDislikeValue] = useState(dislikeCount ?? 0);
+
+  // slugが変わっても更新しないっぽいのでこれで更新させる
+  useEffect(() => {
+    setLiked(false);
+    setDisliked(false);
+    setLikeValue(likeCount ?? 0);
+    setDislikeValue(dislikeCount ?? 0);
+  }, [slug]);
 
   const ratio = (likeValue / (likeValue + dislikeValue)) * 100;
   let noRatio = false;
@@ -54,16 +71,13 @@ const LikeDislike = ({ likeCount, dislikeCount, slug }: Props) => {
 
   const Like = async () => {
     if (!liked && !disliked) {
-      await firebase
-        .firestore()
-        .collection('blogPosts')
-        .doc(slug)
-        .set(
-          {
-            like: firebase.firestore.FieldValue.increment(1),
-          },
-          { merge: true },
-        )
+      await setDoc(
+        docRef,
+        {
+          like: increment(1),
+        },
+        { merge: true },
+      )
         .then(() => {
           setLikeValue((prevValue) => prevValue + 1);
           setLiked(true);
@@ -78,16 +92,13 @@ const LikeDislike = ({ likeCount, dislikeCount, slug }: Props) => {
 
   const Dislike = async () => {
     if (!liked && !disliked) {
-      await firebase
-        .firestore()
-        .collection('blogPosts')
-        .doc(slug)
-        .set(
-          {
-            dislike: firebase.firestore.FieldValue.increment(1),
-          },
-          { merge: true },
-        )
+      await setDoc(
+        docRef,
+        {
+          dislike: increment(1),
+        },
+        { merge: true },
+      )
         .then(() => {
           setDislikeValue((prevValue) => prevValue + 1);
 

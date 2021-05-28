@@ -10,33 +10,31 @@ import LikeDislike from '@/components/common/like-dislike';
 
 import { useState } from 'react';
 import GameList from '../common/game-list';
-import { OGP_W, OGP_H } from '@/theme/index';
-import CopyBody from './copy-body';
+import { globalLayout } from '@/theme/index';
 interface Props {
   post: Post;
 }
 const PostHeading = ({ post }: Props) => {
   const [loadedThumb, setLoadedThumb] = useState(false);
   return (
-    <Box>
-      <Box mb={4} display={{ base: 'none', lg: 'flex' }}>
-        <CopyBody title={post.title} md={post.body} />
-      </Box>
+    <Box maxW="100vw" overflow="hidden">
       {post.heroImage != undefined && (
-        <Center w="full" mb={6}>
+        <Center mb={6}>
           <Box
-            position="relative"
+            objectFit="cover"
+            w="full"
             mx="auto"
             transitionDuration=".5s"
             opacity={loadedThumb ? '100%' : '0%'}
           >
             {/* この画像は0.5秒のtransitionで表示される */}
+            {/* これmainWidthと揃えてもいいけど、ピクセルが不安なんだよな〜 */}
             <Image
-              height={`${OGP_H / 2}px`}
-              width={`${OGP_W / 2}px`}
+              width={`${globalLayout.ogp.w / 2}px`}
+              height={'auto'}
               onLoad={() => setLoadedThumb(true)}
-              objectFit="contain"
               src={post.heroImage.url}
+              layout="responsive"
             />
           </Box>
         </Center>
@@ -49,9 +47,8 @@ const PostHeading = ({ post }: Props) => {
       )}
 
       <Flex mb={2}>
-        {/* publishDateは記事によってつけていなかったりする */}
         <Badge area-label="公開日時" colorScheme="blue">
-          公開: {dayjs(post.publishDate ?? post.sys.firstPublishedAt).format('YYYY/MM/DD')}
+          公開: {dayjs(post.sys.firstPublishedAt).format('YYYY/MM/DD')}
         </Badge>
         <Badge area-label="更新日時" colorScheme="green">
           最終更新: {dayjs(post.sys.publishedAt).format('YYYY/MM/DD')}
@@ -67,10 +64,6 @@ const PostHeading = ({ post }: Props) => {
         <Box mb={4}>
           <PlatformList mode="wrap" platforms={post.platformsCollection.items} />
         </Box>
-      )}
-
-      {!post.publishDate && (
-        <Badge colorScheme="red">編集担当へ: 並び替え用の公開日を設定し忘れています!</Badge>
       )}
 
       <VStack>

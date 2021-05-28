@@ -1,6 +1,6 @@
 import { Box, Code, StyleProps } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
-import React from 'react';
+import React, { useMemo } from 'react';
 import LinkChakra from '../../../../common/link-chakra';
 import { SITE_URL } from '@/lib/constants';
 import LazyLoad from 'react-lazyload';
@@ -43,38 +43,40 @@ const PostBody = (props: RenderProps) => {
   const headingId = (props: any) => props.node.children[0].value.replace(` `, `-`);
   //const headingId = (props: any) => <Box>{JSON.stringify(props)}</Box>;
 
-  const newProps = {
-    source: props.source,
-    plugins: [gfm],
-    renderers: {
-      ...props.renderers,
+  const newProps = useMemo(() => {
+    return {
+      source: props.source,
+      plugins: [gfm],
+      renderers: {
+        ...props.renderers,
 
-      link: (props: any) => <LinkConverter {...props} />,
-      heading: (props: any) => (
-        <Box textStyle={`h${props.level}`}>
-          {props.level == 1 && <h1 id={headingId(props)}>{props.children}</h1>}
-          {props.level == 2 && <h2 id={headingId(props)}>{props.children}</h2>}
-          {props.level == 3 && <h3 id={headingId(props)}>{props.children}</h3>}
-          {props.level == 4 && <h4 id={headingId(props)}>{props.children}</h4>}
-          {props.level == 5 && <h5 id={headingId(props)}>{props.children}</h5>}
-          {props.level == 6 && <h6 id={headingId(props)}>{props.children}</h6>}
-        </Box>
-      ),
-      code: ({ value }: CodeProps) => {
-        return <Code>{value}</Code>;
+        link: (props: any) => <LinkConverter {...props} />,
+        heading: (props: any) => (
+          <Box textStyle={`h${props.level}`}>
+            {props.level == 1 && <h1 id={headingId(props)}>{props.children}</h1>}
+            {props.level == 2 && <h2 id={headingId(props)}>{props.children}</h2>}
+            {props.level == 3 && <h3 id={headingId(props)}>{props.children}</h3>}
+            {props.level == 4 && <h4 id={headingId(props)}>{props.children}</h4>}
+            {props.level == 5 && <h5 id={headingId(props)}>{props.children}</h5>}
+            {props.level == 6 && <h6 id={headingId(props)}>{props.children}</h6>}
+          </Box>
+        ),
+        code: ({ value }: CodeProps) => {
+          return <Code>{value}</Code>;
+        },
+        html: (props: any) => (
+          <>
+            <div className="containHtml" dangerouslySetInnerHTML={{ __html: props.value }} />
+          </>
+        ),
+        image: (props: any) => (
+          <LazyLoad h={200}>
+            <img src={props.src} alt={props.alt} />
+          </LazyLoad>
+        ),
       },
-      html: (props: any) => (
-        <>
-          <div className="containHtml" dangerouslySetInnerHTML={{ __html: props.value }} />
-        </>
-      ),
-      image: (props: any) => (
-        <LazyLoad h={200}>
-          <img src={props.src} alt={props.alt} />
-        </LazyLoad>
-      ),
-    },
-  };
+    };
+  }, [props.source]);
 
   const MdRenderer = () => {
     return <ReactMarkdown allowDangerousHtml {...newProps} />;
