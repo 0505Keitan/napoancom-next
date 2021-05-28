@@ -7,7 +7,7 @@ import { fetchGraphQL } from './common/fetch-graphql';
 import { POST_GRAPHQL_FIELDS } from '../models/contentful/Post';
 
 // いかなる状況でも下書き記事を返す
-const getPreviewPost = functions.https.onRequest(async (request, response: any) => {
+const getPreviewPost = functions.region('asia-northeast1').https.onRequest(async (request, response: any) => {
   const secret = request.headers.authorization as string | undefined;
 
   if (secret !== adminConfig.napoancom.auth) {

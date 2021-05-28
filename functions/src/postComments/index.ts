@@ -5,7 +5,7 @@ import { COLLECTION_POSTCOMMENTS } from '../common/collections';
 const adminConfig = functions.config() as AdminConfig;
 
 // スラッグからコメントを取得
-exports.getCommentsBySlug = functions.https.onRequest((request, response: any) => {
+exports.getCommentsBySlug = functions.region('asia-northeast1').https.onRequest((request, response: any) => {
   const secret = request.headers.authorization as string;
 
   if (secret !== adminConfig.napoancom.auth) {

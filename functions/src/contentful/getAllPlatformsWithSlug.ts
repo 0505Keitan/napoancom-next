@@ -7,7 +7,7 @@ import { fetchGraphQL } from './common/fetch-graphql';
 import { PLATFORM_GRAPHQL_FIELDS } from '../models/contentful/Platform';
 
 // 全プラットフォームの取得
-const getAllPlatformsWithSlug = functions.https.onRequest(async (request, response: any) => {
+const getAllPlatformsWithSlug = functions.region('asia-northeast1').https.onRequest(async (request, response: any) => {
   const secret = request.headers.authorization as string | undefined;
 
   if (secret !== adminConfig.napoancom.auth) {

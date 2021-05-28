@@ -7,7 +7,7 @@ import { fetchGraphQL } from './common/fetch-graphql';
 import { GAME_GRAPHQL_FIELDS } from '../models/contentful/Game';
 
 // スラッグからゲーム情報を取得
-const getGame = functions.https.onRequest(async (request, response: any) => {
+const getGame = functions.region('asia-northeast1').https.onRequest(async (request, response: any) => {
   const secret = request.headers.authorization as string | undefined;
 
   if (secret !== adminConfig.napoancom.auth) {

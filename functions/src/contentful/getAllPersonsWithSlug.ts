@@ -7,7 +7,7 @@ import { fetchGraphQL } from './common/fetch-graphql';
 import { PERSON_GRAPHQL_FIELDS } from '../models/contentful/Person';
 
 // 全執筆者の取得
-const getAllPersonsWithSlug = functions.https.onRequest(async (request, response: any) => {
+const getAllPersonsWithSlug = functions.region('asia-northeast1').https.onRequest(async (request, response: any) => {
   const secret = request.headers.authorization as string | undefined;
 
   if (secret !== adminConfig.napoancom.auth) {

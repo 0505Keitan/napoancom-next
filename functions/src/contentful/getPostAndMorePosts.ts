@@ -8,7 +8,7 @@ import { POST_GRAPHQL_FIELDS, POSTFORLIST_GRAPHQL_FIELDS } from '../models/conte
 import postBodyConverter from './common/postBodyConverter';
 
 // 最重要。スラッグから記事を取得
-const getPostAndMorePosts = functions.https.onRequest(async (request, response: any) => {
+const getPostAndMorePosts = functions.region('asia-northeast1').https.onRequest(async (request, response: any) => {
   const secret = request.headers.authorization as string | undefined;
 
   if (secret !== adminConfig.napoancom.auth) {
