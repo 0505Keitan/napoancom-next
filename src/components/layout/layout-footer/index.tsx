@@ -43,7 +43,7 @@ const LayoutFooter = ({ revalidate, maxW }: FooterProps) => {
           </Box>
           <Stack color="white" textAlign={{ base: 'center', md: 'right' }}>
             <Box>
-              Copyright &copy; 2021 <a href="https://aely.one">AELYONE</a>
+              Copyright &copy; 2021 <a href="https://sasigu.me">sasigume</a>
             </Box>
             <Stack direction="column">
               {revalidate && (
