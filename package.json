@@ -1,6 +1,6 @@
 {
   "name": "napoancom-next",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": "AELYONE",
   "scripts": {
     "dev": "next",
@@ -11,7 +11,7 @@
     "lint": "eslint src/** --ext .ts,.tsx",
     "lint:fix": "eslint src/** --ext .ts,.tsx --fix",
     "firestore": "firebase deploy --only firestore",
-    "now-build": "cp src/lib/canvas_lib64/*so.1 node_modules/canvas/build/Release/ && npm run build",
+    "now-build": "cp src/lib/canvas_lib64/*so.1 node_modules/canvas/build/Release/ && yarn run build",
     "prepare": "husky install"
   },
   "dependencies": {
