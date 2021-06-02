@@ -1,6 +1,26 @@
 {
   "redirects": [
     {
+      "source": "/mcbe-scoreboard-guide/",
+      "destination": "https://asobinon.org/minecraft/howto/howtouse-scoreboard-command/",
+      "permanent": true
+    },
+    {
+      "source": "/45110202-2/",
+      "destination": "https://asobinon.org/minecraft/howto/bedrock-chat-sign-decoration/",
+      "permanent": true
+    },
+    {
+      "source": "/howtouse-extra-addon-switch/",
+      "destination": "https://asobinon.org/minecraft/howto/howtouse-extra-addon-switch/",
+      "permanent": true
+    },
+    {
+      "source": "/mobile-switch-world-transfer/",
+      "destination": "https://asobinon.org/minecraft/howto/mobile-switch-world-transfer/",
+      "permanent": true
+    },
+    {
       "source": "/46158505-2/",
       "destination": "https://asobinon.org/minecraft-je/mod/realistic-torches/",
       "permanent": true
