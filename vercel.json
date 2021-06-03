@@ -1,6 +1,16 @@
 {
   "redirects": [
     {
+      "source": "/howtomake-skins-pe/",
+      "destination": "https://asobinon.org/minecraft/howto/skinseed-tutorial/",
+      "permanent": true
+    },
+    {
+      "source": "/pe-igloo-seeds/",
+      "destination": "https://asobinon.org/minecraft/reference/seed/igloo",
+      "permanent": true
+    },
+    {
       "source": "/mcbe-scoreboard-guide/",
       "destination": "https://asobinon.org/minecraft/howto/howtouse-scoreboard-command/",
       "permanent": true
