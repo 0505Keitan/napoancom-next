@@ -1,6 +1,21 @@
 {
   "redirects": [
     {
+      "source": "/difference-of-switch-bedrock/",
+      "destination": "https://asobinon.org/minecraft/howto/difference-of-switch-bedrock/",
+      "permanent": true
+    },
+    {
+      "source": "/title-command-tool-usage/",
+      "destination": "https://asobinon.org/minecraft-je/howto/title-command-tool-usage/",
+      "permanent": true
+    },
+    {
+      "source": "/bedrock-multiplayer-permission/",
+      "destination": "https://asobinon.org/minecraft/howto/bedrock-multiplayer-permission/",
+      "permanent": true
+    },
+    {
       "source": "/howtomake-skins-pe/",
       "destination": "https://asobinon.org/minecraft/howto/skinseed-tutorial/",
       "permanent": true
