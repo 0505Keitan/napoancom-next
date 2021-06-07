@@ -1,6 +1,16 @@
 {
   "redirects": [
     {
+      "source": "/sign-command-generator/",
+      "destination": "https://asobinon.org/minecraft-je/howto/sign-command-generator/",
+      "permanent": true
+    },
+    {
+      "source": "/tellraw-command-generator/",
+      "destination": "https://asobinon.org/minecraft-je/howto/tellraw-command-generator/",
+      "permanent": true
+    },
+    {
       "source": "/structure-load-on-coord-or-entity/",
       "destination": "https://asobinon.org/minecraft-je/howto/structure-block-usage-guide/surprise",
       "permanent": true
