@@ -1,6 +1,31 @@
 {
   "redirects": [
     {
+      "source": "/structure-load-on-coord-or-entity/",
+      "destination": "https://asobinon.org/minecraft-je/howto/structure-block-usage-guide/surprise",
+      "permanent": true
+    },
+    {
+      "source": "/structure-block-usage-guide/",
+      "destination": "https://asobinon.org/minecraft-je/howto/structure-block-usage-guide/",
+      "permanent": true
+    },
+    {
+      "source": "/howto-claim-win10-edition/",
+      "destination": "https://asobinon.org/minecraft/howto/howto-claim-win10-edition/",
+      "permanent": true
+    },
+    {
+      "source": "/pe-howtomake-redstone-circuits/",
+      "destination": "https://asobinon.org/minecraft/howto/howtomake-redstone-circuits/",
+      "permanent": true
+    },
+    {
+      "source": "/best-shaders-for-onboard/",
+      "destination": "https://asobinon.org/minecraft-je/howto/best-shaders-for-onboard/",
+      "permanent": true
+    },
+    {
       "source": "/difference-of-switch-bedrock/",
       "destination": "https://asobinon.org/minecraft/howto/difference-of-switch-bedrock/",
       "permanent": true
